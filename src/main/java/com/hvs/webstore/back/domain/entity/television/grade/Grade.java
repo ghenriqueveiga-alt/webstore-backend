@@ -1,0 +1,169 @@
+package com.hvs.webstore.back.domain.entity.television.grade;
+
+import com.hvs.webstore.back.domain.Entity;
+import com.hvs.webstore.back.domain.entity.television.bloco.Bloco;
+import com.hvs.webstore.back.domain.validation.ValidationHandler;
+
+import java.util.List;
+import java.util.Objects;
+
+public class Grade extends Entity<GradeId> {
+
+    private final GradeUuid uuid;
+    private final GradeStatus statusCode;
+    private final String nome;
+    private final String descricao;
+    private final List<Bloco> blocos;
+
+    private Grade(final GradeId id,
+                 final GradeUuid uuid,
+                 final GradeStatus statusCode,
+                 final String nome,
+                 final String descricao,
+                 final List<Bloco> blocos) {
+
+        super(id);
+        this.uuid = uuid;
+        this.statusCode = statusCode;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.blocos = blocos;
+    }
+
+    public static Grade create(final String aNome,
+                               final String aDescricao,
+                               final List<Long> aBlocoIds) {
+
+        return new Grade(
+                GradeId.from(-1L),
+                GradeUuid.unique(),
+                GradeStatus.ACTIVE,
+                aNome,
+                aDescricao,
+                aBlocoIds != null && !aBlocoIds.isEmpty() ?
+                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+    }
+
+    public static Grade update(final Long aId,
+                                final String aUuid,
+                                final String aStatusCode,
+                                final String aNome,
+                                final String aDescricao,
+                                final List<Long> aBlocoIds) {
+
+        return new Grade(
+                aId != null ? GradeId.from(aId) : null,
+                aUuid != null ? GradeUuid.from(aUuid) : null,
+                aStatusCode != null ? GradeStatus.findByCode(aStatusCode) : null,
+                aNome,
+                aDescricao,
+                aBlocoIds != null && !aBlocoIds.isEmpty() ?
+                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+    }
+
+    public static Grade patch(final String aStatusCode,
+                               final String aNome,
+                               final String aDescricao,
+                               final List<Long> aBlocoIds,
+                               final Grade aExisting) {
+
+        return new Grade(
+                aExisting.getId(),
+                aExisting.getUuid(),
+                aStatusCode != null ? GradeStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
+                aNome != null ? aNome : aExisting.getNome(),
+                aDescricao != null ? aDescricao : aExisting.getDescricao(),
+                aBlocoIds != null && !aBlocoIds.isEmpty() ?
+                        aBlocoIds.stream().map(Bloco::from).toList() : aExisting.getBlocos());
+    }
+
+    public static Grade from(final Long aId,
+                              final String aUuid,
+                              final String aStatusDesc,
+                              final String aNome,
+                              final String aDescricao,
+                              final List<Bloco> aBlocos) {
+
+        return new Grade(
+                aId != null ? GradeId.from(aId) : null,
+                aUuid != null ? GradeUuid.from(aUuid) : null,
+                aStatusDesc != null ? GradeStatus.findByDesc(aStatusDesc) : null,
+                aNome,
+                aDescricao,
+                aBlocos);
+    }
+
+    public static Grade from(final Long aId) {
+
+        return new Grade(
+                aId != null ? GradeId.from(aId) : null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static Grade from(final String aUuid) {
+
+        return new Grade(
+                null,
+                aUuid != null ? GradeUuid.from(aUuid) : null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void validate(ValidationHandler aHandler) {
+
+        new GradeValidator(aHandler, this).validate();
+    }
+
+    public GradeUuid getUuid() {
+        return uuid;
+    }
+    public GradeStatus getStatusCode() {
+        return statusCode;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public String getDescricao() {
+        return descricao;
+    }
+    public List<Bloco> getBlocos() {
+        return blocos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        if (!super.equals(o))
+            return false;
+
+        Grade grade = (Grade) o;
+
+        return Objects.equals(uuid, grade.uuid) &&
+                statusCode == grade.statusCode &&
+                Objects.equals(nome, grade.nome) &&
+                Objects.equals(descricao, grade.descricao) &&
+                Objects.equals(blocos, grade.blocos);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(
+                super.hashCode(),
+                uuid,
+                statusCode,
+                nome,
+                descricao,
+                blocos);
+    }
+}

@@ -1,0 +1,9 @@
+.gradle
+build
+.git
+.gitignore
+.idea
+.DS_Store
+*.log
+.vscode
+*.zip

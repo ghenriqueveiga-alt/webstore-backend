@@ -1,0 +1,4 @@
+dependencies {
+    runtimeOnly 'com.mysql:mysql-connector-j' //MYSQL
+    implementation 'org.liquibase:liquibase-core' //Liquibase
+}
