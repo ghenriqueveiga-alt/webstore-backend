@@ -20,8 +20,8 @@ public record ReadAllEnderecoOutput(int aCurrentPage,
 
         return new ReadAllEnderecoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

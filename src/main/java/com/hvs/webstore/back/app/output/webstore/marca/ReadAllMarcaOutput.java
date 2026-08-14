@@ -20,8 +20,8 @@ public record ReadAllMarcaOutput(int aCurrentPage,
 
         return new ReadAllMarcaOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

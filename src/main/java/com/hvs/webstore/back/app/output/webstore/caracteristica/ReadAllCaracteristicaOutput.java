@@ -20,8 +20,8 @@ public record ReadAllCaracteristicaOutput(int aCurrentPage,
 
         return new ReadAllCaracteristicaOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

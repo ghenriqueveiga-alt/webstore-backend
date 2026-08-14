@@ -19,8 +19,8 @@ public record ReadAllTokenVerificacaoOutput(int aCurrentPage,
 
         return new ReadAllTokenVerificacaoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

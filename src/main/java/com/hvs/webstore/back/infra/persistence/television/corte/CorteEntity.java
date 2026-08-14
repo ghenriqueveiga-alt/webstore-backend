@@ -16,7 +16,7 @@ public class CorteEntity extends BasicEntity {
     private String uuid;
     private String statusDesc;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
     private ArquivoEntity arquivo;
     private String tipoCode;
@@ -53,10 +53,10 @@ public class CorteEntity extends BasicEntity {
                 aCorte.getId().getValue() < 0 ? null : aCorte.getId().getValue(),
                 aCorte.getUuid().getValue(),
                 aCorte.getStatusCode().getDesc(),
-                aCorte.getArquivo() != null ? ArquivoEntity.from(aCorte.getArquivo()) : null,
+                aCorte.getArquivo() != null ? ArquivoEntity.from(aCorte.getArquivo().getId().getValue()) : null,
                 aCorte.getTipo().getCode(),
                 aCorte.getDuracao(),
-                aCorte.getEpisodio() != null ? EpisodioEntity.from(aCorte.getEpisodio()) : null);
+                aCorte.getEpisodio() != null ? EpisodioEntity.from(aCorte.getEpisodio().getId().getValue()) : null);
     }
 
     public static CorteEntity from(final Long aCorteId) {
@@ -85,7 +85,7 @@ public class CorteEntity extends BasicEntity {
                 getId(),
                 uuid,
                 statusDesc,
-                arquivo != null ? arquivo.toDomain(): null,
+                arquivo != null ? arquivo.toDomainSimple(): null,
                 tipoCode,
                 duracao,
                 episodio != null ? episodio.toDomainSimple(): null);

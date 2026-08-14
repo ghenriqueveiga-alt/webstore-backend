@@ -19,8 +19,8 @@ public record ReadAllPreferenciaNotificacaoOutput(int aCurrentPage,
 
         return new ReadAllPreferenciaNotificacaoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

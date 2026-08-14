@@ -10,32 +10,32 @@ public class Arquivo extends Entity<ArquivoId> {
     private final ArquivoUuid uuid;
     private final ArquivoStatus statusCode;
     private final String nome;
-    private final String tipo;
+    private final String tipoArquivo;
     private final Long tamanho;
     private final String caminho;
     private final String duracao;
 
     private Arquivo(final ArquivoId id,
-                   final ArquivoUuid uuid,
-                   final ArquivoStatus statusCode,
-                   final String nome,
-                   final String tipo,
-                   final Long tamanho,
-                   final String caminho,
-                   final String duracao) {
+                    final ArquivoUuid uuid,
+                    final ArquivoStatus statusCode,
+                    final String nome,
+                    final String tipoArquivo,
+                    final Long tamanho,
+                    final String caminho,
+                    final String duracao) {
 
         super(id);
         this.uuid = uuid;
         this.statusCode = statusCode;
         this.nome = nome;
-        this.tipo = tipo;
+        this.tipoArquivo = tipoArquivo;
         this.tamanho = tamanho;
         this.caminho = caminho;
         this.duracao = duracao;
     }
 
     public static Arquivo create(final String aNome,
-                                 final String aTipo,
+                                 final String aTipoArquivo,
                                  final Long aTamanho,
                                  final String aCaminho,
                                  final String aDuracao) {
@@ -45,20 +45,20 @@ public class Arquivo extends Entity<ArquivoId> {
                 ArquivoUuid.unique(),
                 ArquivoStatus.ACTIVE,
                 aNome,
-                aTipo,
+                aTipoArquivo,
                 aTamanho,
                 aCaminho,
                 aDuracao);
     }
 
     public static Arquivo update(final Long aId,
-                                  final String aUuid,
-                                  final String aStatusCode,
-                                  final String aNome,
-                                  final String aTipo,
-                                  final Long aTamanho,
-                                  final String aCaminho,
-                                  final String aDuracao) {
+                                 final String aUuid,
+                                 final String aStatusCode,
+                                 final String aNome,
+                                 final String aTipo,
+                                 final Long aTamanho,
+                                 final String aCaminho,
+                                 final String aDuracao) {
 
         return new Arquivo(
                 aId != null ? ArquivoId.from(aId) : null,
@@ -72,32 +72,32 @@ public class Arquivo extends Entity<ArquivoId> {
     }
 
     public static Arquivo patch(final String aStatusCode,
-                                 final String aNome,
-                                 final String aTipo,
-                                 final Long aTamanho,
-                                 final String aCaminho,
-                                 final String aDuracao,
-                                 final Arquivo aExisting) {
+                                final String aNome,
+                                final String aTipoArquivo,
+                                final Long aTamanho,
+                                final String aCaminho,
+                                final String aDuracao,
+                                final Arquivo aExisting) {
 
         return new Arquivo(
                 aExisting.getId(),
                 aExisting.getUuid(),
                 aStatusCode != null ? ArquivoStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
                 aNome != null ? aNome : aExisting.getNome(),
-                aTipo != null ? aTipo : aExisting.getTipo(),
+                aTipoArquivo != null ? aTipoArquivo : aExisting.getTipo(),
                 aTamanho != null ? aTamanho : aExisting.getTamanho(),
                 aCaminho != null ? aCaminho : aExisting.getCaminho(),
                 aDuracao != null ? aDuracao : aExisting.getDuracao());
     }
 
     public static Arquivo from(final Long aId,
-                                final String aUuid,
-                                final String aStatusDesc,
-                                final String aNome,
-                                final String aTipo,
-                                final Long aTamanho,
-                                final String aCaminho,
-                                final String aDuracao) {
+                               final String aUuid,
+                               final String aStatusDesc,
+                               final String aNome,
+                               final String aTipo,
+                               final Long aTamanho,
+                               final String aCaminho,
+                               final String aDuracao) {
 
         return new Arquivo(
                 aId != null ? ArquivoId.from(aId) : null,
@@ -152,7 +152,7 @@ public class Arquivo extends Entity<ArquivoId> {
         return nome;
     }
     public String getTipo() {
-        return tipo;
+        return tipoArquivo;
     }
     public Long getTamanho() {
         return tamanho;
@@ -178,7 +178,7 @@ public class Arquivo extends Entity<ArquivoId> {
         return Objects.equals(uuid, arquivo.uuid) &&
                 statusCode == arquivo.statusCode &&
                 Objects.equals(nome, arquivo.nome) &&
-                Objects.equals(tipo, arquivo.tipo) &&
+                Objects.equals(tipoArquivo, arquivo.tipoArquivo) &&
                 Objects.equals(tamanho, arquivo.tamanho) &&
                 Objects.equals(caminho, arquivo.caminho) &&
                 Objects.equals(duracao, arquivo.duracao);
@@ -192,7 +192,7 @@ public class Arquivo extends Entity<ArquivoId> {
                 uuid,
                 statusCode,
                 nome,
-                tipo,
+                tipoArquivo,
                 tamanho,
                 caminho,
                 duracao);

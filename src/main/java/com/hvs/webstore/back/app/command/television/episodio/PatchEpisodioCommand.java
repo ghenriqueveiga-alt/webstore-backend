@@ -9,6 +9,7 @@ public record PatchEpisodioCommand(Long aId,
                                    String aTitulo,
                                    Long aNumero,
                                    Long aTemporada,
+                                   String aCapaUrl,
                                    Long aProgramaId,
                                    List<Long> aCorteIds) {
 
@@ -23,6 +24,7 @@ public record PatchEpisodioCommand(Long aId,
                 aInput.aTitulo,
                 aInput.aNumero,
                 aInput.aTemporada,
+                aInput.aCapaUrl,
                 aInput.aProgramaId,
                 aInput.aCorteIds);
     }
@@ -38,6 +40,7 @@ public record PatchEpisodioCommand(Long aId,
                 aInput.aTitulo,
                 aInput.aNumero,
                 aInput.aTemporada,
+                aInput.aCapaUrl,
                 aInput.aProgramaId,
                 aInput.aCorteIds);
     }

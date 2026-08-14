@@ -34,7 +34,7 @@ public class Corte extends Entity<CorteId> {
     }
 
     public static Corte create(final Long aArquivoId,
-                               final String aTipoDesc,
+                               final String aTipoCode,
                                final String aDuracao,
                                final Long aEpisodioId) {
 
@@ -43,7 +43,7 @@ public class Corte extends Entity<CorteId> {
                 CorteUuid.unique(),
                 CorteStatus.ACTIVE,
                 aArquivoId != null ? Arquivo.from(aArquivoId) : null,
-                aTipoDesc != null ? CorteTipo.findByDesc(aTipoDesc) : null,
+                aTipoCode != null ? CorteTipo.findByCode(aTipoCode) : null,
                 aDuracao,
                 aEpisodioId != null ? Episodio.from(aEpisodioId) : null);
     }
@@ -52,7 +52,7 @@ public class Corte extends Entity<CorteId> {
                                 final String aUuid,
                                 final String aStatusCode,
                                 final Long aArquivoId,
-                                final String aTipoDesc,
+                                final String aTipoCode,
                                 final String aDuracao,
                                 final Long aEpisodioId) {
 
@@ -61,26 +61,26 @@ public class Corte extends Entity<CorteId> {
                 aUuid != null ? CorteUuid.from(aUuid) : null,
                 aStatusCode != null ? CorteStatus.findByCode(aStatusCode) : null,
                 aArquivoId != null ? Arquivo.from(aArquivoId) : null,
-                aTipoDesc != null ? CorteTipo.findByCode(aTipoDesc) : null,
+                aTipoCode != null ? CorteTipo.findByCode(aTipoCode) : null,
                 aDuracao,
                 aEpisodioId != null ? Episodio.from(aEpisodioId) : null);
     }
 
     public static Corte patch(final String aStatusCode,
-                               final Long aArquivoId,
-                               final String aTipoDesc,
-                               final String aDuracao,
-                               final Long aEpisodioId,
-                               final Corte aExisting) {
+                              final Long aArquivoId,
+                              final String aTipoCode,
+                              final String aDuracao,
+                              final Long aEpisodioId,
+                              final Corte aCorteDB) {
 
         return new Corte(
-                aExisting.getId(),
-                aExisting.getUuid(),
-                aStatusCode != null ? CorteStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
-                aArquivoId != null ? Arquivo.from(aArquivoId) : aExisting.getArquivo(),
-                aTipoDesc != null ? CorteTipo.findByCode(aTipoDesc) : aExisting.getTipo(),
-                aDuracao != null ? aDuracao : aExisting.getDuracao(),
-                aEpisodioId != null ? Episodio.from(aEpisodioId) : aExisting.getEpisodio());
+                aCorteDB.getId(),
+                aCorteDB.getUuid(),
+                aStatusCode != null ? CorteStatus.findByCode(aStatusCode) : aCorteDB.getStatusCode(),
+                aArquivoId != null ? Arquivo.from(aArquivoId) : aCorteDB.getArquivo(),
+                aTipoCode != null ? CorteTipo.findByCode(aTipoCode) : aCorteDB.getTipo(),
+                aDuracao != null ? aDuracao : aCorteDB.getDuracao(),
+                aEpisodioId != null ? Episodio.from(aEpisodioId) : aCorteDB.getEpisodio());
     }
 
     public static Corte from(final Long aId,

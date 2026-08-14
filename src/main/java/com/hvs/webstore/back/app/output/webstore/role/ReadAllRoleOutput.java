@@ -18,8 +18,8 @@ public record ReadAllRoleOutput(int aCurrentPage,
 
         return new ReadAllRoleOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

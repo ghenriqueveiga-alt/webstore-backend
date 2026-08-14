@@ -3,6 +3,7 @@ package com.hvs.webstore.back.domain.entity.television.episodio;
 import com.hvs.webstore.back.app.command.television.episodio.EpisodioSearchQuery;
 import com.hvs.webstore.back.domain.pagination.Pagination;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EpisodioDomainGateway {
@@ -14,6 +15,8 @@ public interface EpisodioDomainGateway {
     Optional<Episodio> readByUuid(EpisodioUuid aUuid);
 
     Pagination<Episodio> readAll(EpisodioSearchQuery aQuery);
+
+    List<Episodio> readByPrograma(Long aProgramaId);
 
     Episodio update(Episodio aEpisodio);
 

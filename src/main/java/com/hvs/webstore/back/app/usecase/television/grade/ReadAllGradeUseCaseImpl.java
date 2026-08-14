@@ -8,7 +8,6 @@ import com.hvs.webstore.back.domain.pagination.Pagination;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
 import io.vavr.control.Either;
 import java.util.List;
-import static io.vavr.API.Try;
 
 public class ReadAllGradeUseCaseImpl extends ReadAllGradeUseCase {
 
@@ -28,9 +27,11 @@ public class ReadAllGradeUseCaseImpl extends ReadAllGradeUseCase {
 
         if (!lista.isEmpty()) {
 
-            return Try(() -> this.gateway.readAll(aIn.aGradeSearchQuery()))
-                    .toEither()
-                    .bimap(Notification::create, ReadAllGradeOutput::from);
+            return Either.right(ReadAllGradeOutput.from(Pagination.from(
+                    gradePagination.aPageNumber(),
+                    gradePagination.aTotalElements(),
+                    gradePagination.aTotalPages(),
+                    lista)));
         } else {
 
             return Either.left(Notification

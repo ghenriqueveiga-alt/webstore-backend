@@ -19,8 +19,8 @@ public record ReadAllNotificacaoTemplateOutput(int aCurrentPage,
 
         return new ReadAllNotificacaoTemplateOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

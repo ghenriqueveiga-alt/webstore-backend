@@ -5,7 +5,10 @@ public record UpdateBlocoCommand(Long aId,
                                  String aStatusDesc,
                                  Long aProgramaId,
                                  String aHorario,
-                                 Long aGradeId) {
+                                 Long aGradeId,
+                                 String aDiaSemanaCode,
+                                 String aFaixaHorarioCode,
+                                 String aTipoBlocoCode) {
 
     public static UpdateBlocoCommand from(final Long aId,
                                           final UpdateBlocoCommand aInput) {
@@ -16,7 +19,10 @@ public record UpdateBlocoCommand(Long aId,
                 aInput.aStatusDesc,
                 aInput.aProgramaId,
                 aInput.aHorario,
-                aInput.aGradeId);
+                aInput.aGradeId,
+                aInput.aDiaSemanaCode,
+                aInput.aFaixaHorarioCode,
+                aInput.aTipoBlocoCode);
     }
 
     public static UpdateBlocoCommand from(final String aUuid,
@@ -28,6 +34,9 @@ public record UpdateBlocoCommand(Long aId,
                 aInput.aStatusDesc,
                 aInput.aProgramaId,
                 aInput.aHorario,
-                aInput.aGradeId);
+                aInput.aGradeId,
+                aInput.aDiaSemanaCode,
+                aInput.aFaixaHorarioCode,
+                aInput.aTipoBlocoCode);
     }
 }

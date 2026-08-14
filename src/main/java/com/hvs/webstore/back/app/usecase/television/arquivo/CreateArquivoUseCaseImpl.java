@@ -24,7 +24,7 @@ public class CreateArquivoUseCaseImpl extends CreateArquivoUseCase {
 
         final var notification = Notification.create();
         final var arquivo = Arquivo.create(aIn.aNome(),
-                                           aIn.aTipo(),
+                                           aIn.aTipoCode(),
                                            aIn.aTamanho(),
                                            aIn.aCaminho(),
                                            aIn.aDuracao());

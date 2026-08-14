@@ -19,8 +19,8 @@ public record ReadAllNotaFiscalOutput(int aCurrentPage,
 
         return new ReadAllNotaFiscalOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

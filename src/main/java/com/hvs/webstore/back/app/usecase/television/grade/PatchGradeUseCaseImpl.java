@@ -42,6 +42,9 @@ public class PatchGradeUseCaseImpl extends PatchGradeUseCase {
                                           aIn.aNome(),
                                           aIn.aDescricao(),
                                           aIn.aBlocoIds(),
+                                          aIn.aPeriodoInicio(),
+                                          aIn.aPeriodoFim(),
+                                          aIn.aGradeAtiva(),
                                           gradeDb.get());
             grade.validate(notification);
 

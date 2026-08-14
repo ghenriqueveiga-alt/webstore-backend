@@ -19,8 +19,8 @@ public record ReadAllMetaLojaOutput(int aCurrentPage,
 
         return new ReadAllMetaLojaOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

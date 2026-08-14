@@ -8,7 +8,6 @@ import com.hvs.webstore.back.domain.pagination.Pagination;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
 import io.vavr.control.Either;
 import java.util.List;
-import static io.vavr.API.Try;
 
 public class ReadAllArquivoUseCaseImpl extends ReadAllArquivoUseCase {
 
@@ -28,9 +27,11 @@ public class ReadAllArquivoUseCaseImpl extends ReadAllArquivoUseCase {
 
         if (!lista.isEmpty()) {
 
-            return Try(() -> this.gateway.readAll(aIn.aArquivoSearchQuery()))
-                    .toEither()
-                    .bimap(Notification::create, ReadAllArquivoOutput::from);
+            return Either.right(ReadAllArquivoOutput.from(Pagination.from(
+                    arquivoPagination.aPageNumber(),
+                    arquivoPagination.aTotalElements(),
+                    arquivoPagination.aTotalPages(),
+                    lista)));
         } else {
 
             return Either.left(Notification

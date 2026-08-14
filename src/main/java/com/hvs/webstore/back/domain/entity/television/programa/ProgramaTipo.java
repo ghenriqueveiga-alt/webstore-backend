@@ -14,37 +14,25 @@ public enum ProgramaTipo {
     }
 
     public static ProgramaTipo findByCode(String aCode) {
-
         if (aCode != null) {
             for (ProgramaTipo tipo : values()) {
-                if (tipo.code(tipo.code)) {
+                if (aCode.equals(tipo.getCode())) {
                     return tipo;
                 }
             }
         }
-
         return null;
     }
 
     public static ProgramaTipo findByDesc(String aDesc) {
-
         if (aDesc != null) {
             for (ProgramaTipo tipo : values()) {
-                if (tipo.desc(tipo.desc)) {
+                if (aDesc.equals(tipo.getDesc())) {
                     return tipo;
                 }
             }
         }
-
         return null;
-    }
-
-    private boolean code(String code) {
-        return true;
-    }
-
-    private boolean desc(String desc) {
-        return true;
     }
 
     public String getCode() {

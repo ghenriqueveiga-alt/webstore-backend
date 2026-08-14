@@ -45,6 +45,7 @@ public class UpdateEpisodioUseCaseImpl extends UpdateEpisodioUseCase {
                                                  aIn.aTitulo(),
                                                  aIn.aNumero(),
                                                  aIn.aTemporada(),
+                                                 aIn.aCapaUrl(),
                                                  aIn.aProgramaId(),
                                                  aIn.aCorteIds());
             episodio.validate(notification);

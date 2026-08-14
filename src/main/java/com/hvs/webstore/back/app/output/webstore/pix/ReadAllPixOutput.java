@@ -20,8 +20,8 @@ public record ReadAllPixOutput(int aCurrentPage,
 
         return new ReadAllPixOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

@@ -20,8 +20,8 @@ public record ReadAllCupomOutput(int aCurrentPage,
 
         return new ReadAllCupomOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

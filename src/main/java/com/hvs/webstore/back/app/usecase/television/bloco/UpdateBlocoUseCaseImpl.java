@@ -43,7 +43,10 @@ public class UpdateBlocoUseCaseImpl extends UpdateBlocoUseCase {
                                            aIn.aStatusDesc(),
                                            aIn.aProgramaId(),
                                            aIn.aHorario(),
-                                           aIn.aGradeId());
+                                           aIn.aGradeId(),
+                                           aIn.aDiaSemanaCode(),
+                                           aIn.aFaixaHorarioCode(),
+                                           aIn.aTipoBlocoCode());
             bloco.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(bloco);

@@ -55,7 +55,7 @@ public class BlocoDomainGatewayImpl implements BlocoDomainGateway {
             Specification<BlocoEntity> specification =
                     (root, query, criteriaBuilder) -> {
                         String likePattern = "%" + aQuery.aSearch().toLowerCase() + "%";
-                        return criteriaBuilder.like(criteriaBuilder.lower(root.get("programa")), likePattern);
+                        return criteriaBuilder.like(criteriaBuilder.lower(root.get("horario")), likePattern);
                     };
 
             pages = this.repository.findAll(specification, pageable);

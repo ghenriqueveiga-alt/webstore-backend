@@ -43,6 +43,7 @@ public class PatchEpisodioUseCaseImpl extends PatchEpisodioUseCase {
                                                 aIn.aTitulo(),
                                                 aIn.aNumero(),
                                                 aIn.aTemporada(),
+                                                aIn.aCapaUrl(),
                                                 aIn.aProgramaId(),
                                                 aIn.aCorteIds(),
                                                 episodioDb.get());

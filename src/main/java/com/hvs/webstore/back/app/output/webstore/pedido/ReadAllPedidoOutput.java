@@ -20,8 +20,8 @@ public record ReadAllPedidoOutput(int aCurrentPage,
 
         return new ReadAllPedidoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

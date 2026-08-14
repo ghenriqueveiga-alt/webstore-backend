@@ -36,15 +36,28 @@ public class UpdateProgramaUseCaseImpl extends UpdateProgramaUseCase {
             final var notification = Notification.create();
             final var programa = Programa.update(programaDb.get().getId().getValue(),
                                                  programaDb.get().getUuid().getValue(),
-                                                 aProgramaCommand.aStatusDesc(),
+                                                 aProgramaCommand.aStatusCode(),
                                                  aProgramaCommand.aNome(),
                                                  aProgramaCommand.aEmProducao(),
-                                                 aProgramaCommand.aTipoDesc(),
+                                                 aProgramaCommand.aTipoCode(),
                                                  aProgramaCommand.aTemporadas(),
                                                  aProgramaCommand.aEpisodioIds(),
                                                  aProgramaCommand.aLancamento(),
                                                  aProgramaCommand.aEncerramento(),
-                                                 aProgramaCommand.aBlocoIds());
+                                                 aProgramaCommand.aBlocoIds(),
+                                                 aProgramaCommand.aSinopse(),
+                                                 aProgramaCommand.aClassificacaoEtariaCode(),
+                                                 aProgramaCommand.aEstudio(),
+                                                 aProgramaCommand.aDiretor(),
+                                                 aProgramaCommand.aCapaUrl(),
+                                                 aProgramaCommand.aTemporadaOriginal(),
+                                                 aProgramaCommand.aRedeOriginal(),
+                                                 aProgramaCommand.aTipoExibicaoCode(),
+                                                 aProgramaCommand.aTituloAlternativo(),
+                                                 aProgramaCommand.aAudioIdiomas(),
+                                                 aProgramaCommand.aLegendasDisponiveis(),
+                                                 aProgramaCommand.aSiteOficial(),
+                                                 aProgramaCommand.aGeneroIds());
             programa.validate(notification);
             return notification.hasError() ? Left(notification) : update(programa);
         } else {

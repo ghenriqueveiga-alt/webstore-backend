@@ -42,6 +42,9 @@ public class PatchBlocoUseCaseImpl extends PatchBlocoUseCase {
                                           aIn.aProgramaId(),
                                           aIn.aHorario(),
                                           aIn.aGradeId(),
+                                          aIn.aDiaSemanaCode(),
+                                          aIn.aFaixaHorarioCode(),
+                                          aIn.aTipoBlocoCode(),
                                           blocoDb.get());
             bloco.validate(notification);
 

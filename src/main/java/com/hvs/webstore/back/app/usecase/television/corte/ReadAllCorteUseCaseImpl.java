@@ -8,7 +8,6 @@ import com.hvs.webstore.back.domain.pagination.Pagination;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
 import io.vavr.control.Either;
 import java.util.List;
-import static io.vavr.API.Try;
 
 public class ReadAllCorteUseCaseImpl extends ReadAllCorteUseCase {
 
@@ -28,9 +27,11 @@ public class ReadAllCorteUseCaseImpl extends ReadAllCorteUseCase {
 
         if (!lista.isEmpty()) {
 
-            return Try(() -> this.gateway.readAll(aIn.aCorteSearchQuery()))
-                    .toEither()
-                    .bimap(Notification::create, ReadAllCorteOutput::from);
+            return Either.right(ReadAllCorteOutput.from(Pagination.from(
+                    cortePagination.aPageNumber(),
+                    cortePagination.aTotalElements(),
+                    cortePagination.aTotalPages(),
+                    lista)));
         } else {
 
             return Either.left(Notification

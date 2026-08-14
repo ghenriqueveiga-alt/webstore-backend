@@ -23,10 +23,12 @@ public class CreateGradeUseCaseImpl extends CreateGradeUseCase {
     public Either<Notification, CreateGradeOutput> execute(CreateGradeCommand aIn) {
 
         final var notification = Notification.create();
-        final var grade = Grade.create(
-                aIn.aNome(),
-                aIn.aDescricao(),
-                aIn.aBlocoIds());
+        final var grade = Grade.create(aIn.aNome(),
+                                       aIn.aDescricao(),
+                                       aIn.aBlocoIds(),
+                                       aIn.aPeriodoInicio(),
+                                       aIn.aPeriodoFim(),
+                                       aIn.aGradeAtiva());
         grade.validate(notification);
 
         return notification.hasError() ? API.Left(notification) : create(grade);

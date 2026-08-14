@@ -9,7 +9,6 @@ import com.hvs.webstore.back.domain.pagination.Pagination;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
 import io.vavr.control.Either;
 import java.util.List;
-import static io.vavr.API.Try;
 
 public class ReadAllEpisodioUseCaseImpl extends ReadAllEpisodioUseCase {
 
@@ -29,9 +28,11 @@ public class ReadAllEpisodioUseCaseImpl extends ReadAllEpisodioUseCase {
 
         if (!lista.isEmpty()) {
 
-            return Try(() -> this.gateway.readAll(aIn.aEpisodioSearchQuery()))
-                    .toEither()
-                    .bimap(Notification::create, ReadAllEpisodioOutput::from);
+            return Either.right(ReadAllEpisodioOutput.from(Pagination.from(
+                    episodioPagination.aPageNumber(),
+                    episodioPagination.aTotalElements(),
+                    episodioPagination.aTotalPages(),
+                    lista)));
         } else {
 
             return Either.left(Notification

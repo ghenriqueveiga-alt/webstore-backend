@@ -3,6 +3,7 @@ package com.hvs.webstore.back.domain.entity.television.programa;
 import com.hvs.webstore.back.domain.Entity;
 import com.hvs.webstore.back.domain.entity.television.bloco.Bloco;
 import com.hvs.webstore.back.domain.entity.television.episodio.Episodio;
+import com.hvs.webstore.back.domain.entity.television.genero.Genero;
 import com.hvs.webstore.back.domain.validation.ValidationHandler;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class Programa extends Entity<ProgramaId> {
 
     private final ProgramaUuid uuid;
-    private final ProgramaStatus statusCode;
+    private final ProgramaStatus status;
     private final String nome;
     private final Boolean emProducao;
     private final ProgramaTipo tipo;
@@ -21,10 +22,23 @@ public class Programa extends Entity<ProgramaId> {
     private final LocalDateTime lancamento;
     private final LocalDateTime encerramento;
     private final List<Bloco> blocos;
+    private final String sinopse;
+    private final ClassificacaoEtaria classificacaoEtaria;
+    private final String estudio;
+    private final String diretor;
+    private final String capaUrl;
+    private final String temporadaOriginal;
+    private final String redeOriginal;
+    private final TipoExibicao tipoExibicao;
+    private final String tituloAlternativo;
+    private final String audioIdiomas;
+    private final String legendasDisponiveis;
+    private final String siteOficial;
+    private final List<Genero> generos;
 
     private Programa(final ProgramaId id,
                      final ProgramaUuid uuid,
-                     final ProgramaStatus statusCode,
+                     final ProgramaStatus status,
                      final String nome,
                      final Boolean emProducao,
                      final ProgramaTipo tipo,
@@ -32,11 +46,24 @@ public class Programa extends Entity<ProgramaId> {
                      final List<Episodio> episodios,
                      final LocalDateTime lancamento,
                      final LocalDateTime encerramento,
-                     final List<Bloco> blocos) {
+                     final List<Bloco> blocos,
+                     final String sinopse,
+                     final ClassificacaoEtaria classificacaoEtaria,
+                     final String estudio,
+                     final String diretor,
+                     final String capaUrl,
+                     final String temporadaOriginal,
+                     final String redeOriginal,
+                     final TipoExibicao tipoExibicao,
+                     final String tituloAlternativo,
+                     final String audioIdiomas,
+                     final String legendasDisponiveis,
+                     final String siteOficial,
+                     final List<Genero> generos) {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.nome = nome;
         this.emProducao = emProducao;
         this.tipo = tipo;
@@ -45,16 +72,42 @@ public class Programa extends Entity<ProgramaId> {
         this.lancamento = lancamento;
         this.encerramento = encerramento;
         this.blocos = blocos;
+        this.sinopse = sinopse;
+        this.classificacaoEtaria = classificacaoEtaria;
+        this.estudio = estudio;
+        this.diretor = diretor;
+        this.capaUrl = capaUrl;
+        this.temporadaOriginal = temporadaOriginal;
+        this.redeOriginal = redeOriginal;
+        this.tipoExibicao = tipoExibicao;
+        this.tituloAlternativo = tituloAlternativo;
+        this.audioIdiomas = audioIdiomas;
+        this.legendasDisponiveis = legendasDisponiveis;
+        this.siteOficial = siteOficial;
+        this.generos = generos;
     }
 
     public static Programa create(final String aNome,
                                   final Boolean aEmProducao,
-                                  final String aTipoDesc,
+                                  final String aTipoCode,
                                   final Long aTemporadas,
                                   final List<Long> aEpisodioIds,
                                   final String aLancamento,
                                   final String aEncerramento,
-                                  final List<Long> aBlocoIds) {
+                                  final List<Long> aBlocoIds,
+                                  final String aSinopse,
+                                  final String aClassificacaoEtariaCode,
+                                  final String aEstudio,
+                                  final String aDiretor,
+                                  final String aCapaUrl,
+                                  final String aTemporadaOriginal,
+                                  final String aRedeOriginal,
+                                  final String aTipoExibicaoCode,
+                                  final String aTituloAlternativo,
+                                  final String aAudioIdiomas,
+                                  final String aLegendasDisponiveis,
+                                  final String aSiteOficial,
+                                  final List<Long> aGeneroIds) {
 
         return new Programa(
                 ProgramaId.from(-1L),
@@ -62,14 +115,28 @@ public class Programa extends Entity<ProgramaId> {
                 ProgramaStatus.ACTIVE,
                 aNome,
                 aEmProducao,
-                aTipoDesc != null ? ProgramaTipo.findByDesc(aTipoDesc) : null,
+                aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : null,
                 aTemporadas,
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
                         aEpisodioIds.stream().map(Episodio::from).toList() : null,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
                 aEncerramento != null ? LocalDateTime.parse(aEncerramento) : null,
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+                        aBlocoIds.stream().map(Bloco::from).toList() : null,
+                aSinopse,
+                aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : null,
+                aEstudio,
+                aDiretor,
+                aCapaUrl,
+                aTemporadaOriginal,
+                aRedeOriginal,
+                aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : null,
+                aTituloAlternativo,
+                aAudioIdiomas,
+                aLegendasDisponiveis,
+                aSiteOficial,
+                aGeneroIds != null && !aGeneroIds.isEmpty() ?
+                        aGeneroIds.stream().map(Genero::from).toList() : null);
     }
 
     public static Programa update(final Long aId,
@@ -77,12 +144,25 @@ public class Programa extends Entity<ProgramaId> {
                                   final String aStatusCode,
                                   final String aNome,
                                   final Boolean aEmProducao,
-                                  final String aTipoDesc,
+                                  final String aTipoCode,
                                   final Long aTemporadas,
                                   final List<Long> aEpisodioIds,
                                   final String aLancamento,
                                   final String aEncerramento,
-                                  final List<Long> aBlocoIds) {
+                                  final List<Long> aBlocoIds,
+                                  final String aSinopse,
+                                  final String aClassificacaoEtariaCode,
+                                  final String aEstudio,
+                                  final String aDiretor,
+                                  final String aCapaUrl,
+                                  final String aTemporadaOriginal,
+                                  final String aRedeOriginal,
+                                  final String aTipoExibicaoCode,
+                                  final String aTituloAlternativo,
+                                  final String aAudioIdiomas,
+                                  final String aLegendasDisponiveis,
+                                  final String aSiteOficial,
+                                  final List<Long> aGeneroIds) {
 
         return new Programa(
                 aId != null ? ProgramaId.from(aId) : null,
@@ -90,41 +170,82 @@ public class Programa extends Entity<ProgramaId> {
                 aStatusCode != null ? ProgramaStatus.findByCode(aStatusCode) : null,
                 aNome,
                 aEmProducao,
-                aTipoDesc != null ? ProgramaTipo.findByCode(aTipoDesc) : null,
+                aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : null,
                 aTemporadas,
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
                         aEpisodioIds.stream().map(Episodio::from).toList() : null,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
                 aEncerramento != null ? LocalDateTime.parse(aEncerramento) : null,
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+                        aBlocoIds.stream().map(Bloco::from).toList() : null,
+                aSinopse,
+                aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : null,
+                aEstudio,
+                aDiretor,
+                aCapaUrl,
+                aTemporadaOriginal,
+                aRedeOriginal,
+                aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : null,
+                aTituloAlternativo,
+                aAudioIdiomas,
+                aLegendasDisponiveis,
+                aSiteOficial,
+                aGeneroIds != null && !aGeneroIds.isEmpty() ?
+                        aGeneroIds.stream().map(Genero::from).toList() : null);
     }
 
     public static Programa patch(final String aStatusCode,
                                  final String aNome,
                                  final Boolean aEmProducao,
-                                 final String aTipoDesc,
+                                 final String aTipoCode,
                                  final Long aTemporadas,
                                  final List<Long> aEpisodioIds,
                                  final String aLancamento,
                                  final String aEncerramento,
                                  final List<Long> aBlocoIds,
-                                 final Programa aExisting) {
+                                 final String aSinopse,
+                                 final String aClassificacaoEtariaCode,
+                                 final String aEstudio,
+                                 final String aDiretor,
+                                 final String aCapaUrl,
+                                 final String aTemporadaOriginal,
+                                 final String aRedeOriginal,
+                                 final String aTipoExibicaoCode,
+                                 final String aTituloAlternativo,
+                                 final String aAudioIdiomas,
+                                 final String aLegendasDisponiveis,
+                                 final String aSiteOficial,
+                                 final List<Long> aGeneroIds,
+                                 final Programa aProgramaDB) {
 
         return new Programa(
-                aExisting.getId(),
-                aExisting.getUuid(),
-                aStatusCode != null ? ProgramaStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
-                aNome != null ? aNome : aExisting.getNome(),
-                aEmProducao != null ? aEmProducao : aExisting.getEmProducao(),
-                aTipoDesc != null ? ProgramaTipo.findByCode(aTipoDesc) : aExisting.getTipo(),
-                aTemporadas != null ? aTemporadas : aExisting.getTemporadas(),
+                aProgramaDB.getId(),
+                aProgramaDB.getUuid(),
+                aStatusCode != null ? ProgramaStatus.findByCode(aStatusCode) : aProgramaDB.getStatus(),
+                aNome != null ? aNome : aProgramaDB.getNome(),
+                aEmProducao != null ? aEmProducao : aProgramaDB.getEmProducao(),
+                aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : aProgramaDB.getTipo(),
+                aTemporadas != null ? aTemporadas : aProgramaDB.getTemporadas(),
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
-                        aEpisodioIds.stream().map(Episodio::from).toList() : aExisting.getEpisodios(),
-                aLancamento != null ? LocalDateTime.parse(aLancamento) : aExisting.getLancamento(),
-                aEncerramento != null ? LocalDateTime.parse(aEncerramento) : aExisting.getEncerramento(),
+                        aEpisodioIds.stream().map(Episodio::from).toList() : aProgramaDB.getEpisodios(),
+                aLancamento != null ? LocalDateTime.parse(aLancamento) : aProgramaDB.getLancamento(),
+                aEncerramento != null ? LocalDateTime.parse(aEncerramento) : aProgramaDB.getEncerramento(),
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : aExisting.getBlocos());
+                        aBlocoIds.stream().map(Bloco::from).toList() : aProgramaDB.getBlocos(),
+                aSinopse != null ? aSinopse : aProgramaDB.getSinopse(),
+                aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : aProgramaDB.getClassificacaoEtaria(),
+                aEstudio != null ? aEstudio : aProgramaDB.getEstudio(),
+                aDiretor != null ? aDiretor : aProgramaDB.getDiretor(),
+                aCapaUrl != null ? aCapaUrl : aProgramaDB.getCapaUrl(),
+                aTemporadaOriginal != null ? aTemporadaOriginal : aProgramaDB.getTemporadaOriginal(),
+                aRedeOriginal != null ? aRedeOriginal : aProgramaDB.getRedeOriginal(),
+                aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : aProgramaDB.getTipoExibicao(),
+                aTituloAlternativo != null ? aTituloAlternativo : aProgramaDB.getTituloAlternativo(),
+                aAudioIdiomas != null ? aAudioIdiomas : aProgramaDB.getAudioIdiomas(),
+                aLegendasDisponiveis != null ? aLegendasDisponiveis : aProgramaDB.getLegendasDisponiveis(),
+                aSiteOficial != null ? aSiteOficial : aProgramaDB.getSiteOficial(),
+                aGeneroIds != null && !aGeneroIds.isEmpty() ?
+                        aGeneroIds.stream().map(Genero::from).toList() : aProgramaDB.getGeneros());
     }
 
     public static Programa from(final Long aId,
@@ -137,7 +258,20 @@ public class Programa extends Entity<ProgramaId> {
                                 final List<Episodio> aEpisodios,
                                 final String aLancamento,
                                 final String aEncerramento,
-                                final List<Bloco> aBlocos) {
+                                final List<Bloco> aBlocos,
+                                final String aSinopse,
+                                final String aClassificacaoEtariaDesc,
+                                final String aEstudio,
+                                final String aDiretor,
+                                final String aCapaUrl,
+                                final String aTemporadaOriginal,
+                                final String aRedeOriginal,
+                                final String aTipoExibicaoDesc,
+                                final String aTituloAlternativo,
+                                final String aAudioIdiomas,
+                                final String aLegendasDisponiveis,
+                                final String aSiteOficial,
+                                final List<Genero> aGeneros) {
 
         return new Programa(
                 aId != null ? ProgramaId.from(aId) : null,
@@ -150,13 +284,39 @@ public class Programa extends Entity<ProgramaId> {
                 aEpisodios,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
                 aEncerramento != null ? LocalDateTime.parse(aEncerramento) : null,
-                aBlocos);
+                aBlocos,
+                aSinopse,
+                aClassificacaoEtariaDesc != null ? ClassificacaoEtaria.findByDesc(aClassificacaoEtariaDesc) : null,
+                aEstudio,
+                aDiretor,
+                aCapaUrl,
+                aTemporadaOriginal,
+                aRedeOriginal,
+                aTipoExibicaoDesc != null ? TipoExibicao.findByDesc(aTipoExibicaoDesc) : null,
+                aTituloAlternativo,
+                aAudioIdiomas,
+                aLegendasDisponiveis,
+                aSiteOficial,
+                aGeneros);
     }
 
     public static Programa from(final Long aId) {
 
         return new Programa(
                 aId != null ? ProgramaId.from(aId) : null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -182,6 +342,19 @@ public class Programa extends Entity<ProgramaId> {
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null);
     }
 
@@ -194,8 +367,8 @@ public class Programa extends Entity<ProgramaId> {
     public ProgramaUuid getUuid() {
         return uuid;
     }
-    public ProgramaStatus getStatusCode() {
-        return statusCode;
+    public ProgramaStatus getStatus() {
+        return status;
     }
     public String getNome() {
         return nome;
@@ -221,6 +394,45 @@ public class Programa extends Entity<ProgramaId> {
     public List<Bloco> getBlocos() {
         return blocos;
     }
+    public String getSinopse() {
+        return sinopse;
+    }
+    public ClassificacaoEtaria getClassificacaoEtaria() {
+        return classificacaoEtaria;
+    }
+    public String getEstudio() {
+        return estudio;
+    }
+    public String getDiretor() {
+        return diretor;
+    }
+    public String getCapaUrl() {
+        return capaUrl;
+    }
+    public String getTemporadaOriginal() {
+        return temporadaOriginal;
+    }
+    public String getRedeOriginal() {
+        return redeOriginal;
+    }
+    public TipoExibicao getTipoExibicao() {
+        return tipoExibicao;
+    }
+    public String getTituloAlternativo() {
+        return tituloAlternativo;
+    }
+    public String getAudioIdiomas() {
+        return audioIdiomas;
+    }
+    public String getLegendasDisponiveis() {
+        return legendasDisponiveis;
+    }
+    public String getSiteOficial() {
+        return siteOficial;
+    }
+    public List<Genero> getGeneros() {
+        return generos;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -234,7 +446,7 @@ public class Programa extends Entity<ProgramaId> {
         Programa programa = (Programa) o;
 
         return Objects.equals(uuid, programa.uuid) &&
-                statusCode == programa.statusCode &&
+                status == programa.status &&
                 Objects.equals(nome, programa.nome) &&
                 Objects.equals(emProducao, programa.emProducao) &&
                 tipo == programa.tipo &&
@@ -242,7 +454,20 @@ public class Programa extends Entity<ProgramaId> {
                 Objects.equals(episodios, programa.episodios) &&
                 Objects.equals(lancamento, programa.lancamento) &&
                 Objects.equals(encerramento, programa.encerramento) &&
-                Objects.equals(blocos, programa.blocos);
+                Objects.equals(blocos, programa.blocos) &&
+                Objects.equals(sinopse, programa.sinopse) &&
+                classificacaoEtaria == programa.classificacaoEtaria &&
+                Objects.equals(estudio, programa.estudio) &&
+                Objects.equals(diretor, programa.diretor) &&
+                Objects.equals(capaUrl, programa.capaUrl) &&
+                Objects.equals(temporadaOriginal, programa.temporadaOriginal) &&
+                Objects.equals(redeOriginal, programa.redeOriginal) &&
+                tipoExibicao == programa.tipoExibicao &&
+                Objects.equals(tituloAlternativo, programa.tituloAlternativo) &&
+                Objects.equals(audioIdiomas, programa.audioIdiomas) &&
+                Objects.equals(legendasDisponiveis, programa.legendasDisponiveis) &&
+                Objects.equals(siteOficial, programa.siteOficial) &&
+                Objects.equals(generos, programa.generos);
     }
 
     @Override
@@ -251,7 +476,7 @@ public class Programa extends Entity<ProgramaId> {
         return Objects.hash(
                 super.hashCode(),
                 uuid,
-                statusCode,
+                status,
                 nome,
                 emProducao,
                 tipo,
@@ -259,6 +484,19 @@ public class Programa extends Entity<ProgramaId> {
                 episodios,
                 lancamento,
                 encerramento,
-                blocos);
+                blocos,
+                sinopse,
+                classificacaoEtaria,
+                estudio,
+                diretor,
+                capaUrl,
+                temporadaOriginal,
+                redeOriginal,
+                tipoExibicao,
+                tituloAlternativo,
+                audioIdiomas,
+                legendasDisponiveis,
+                siteOficial,
+                generos);
     }
 }

@@ -21,8 +21,8 @@ public record ReadAllCorteOutput(int aCurrentPage,
 
         return new ReadAllCorteOutput(
                 aCortePagination.aPageNumber(),
+                aCortePagination.aContent().size(),
                 aCortePagination.aTotalElements(),
-                aCortePagination.aTotalPages(),
                 list);
     }
 }

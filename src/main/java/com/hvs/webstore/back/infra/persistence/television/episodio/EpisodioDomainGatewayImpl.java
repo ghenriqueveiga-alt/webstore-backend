@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
 import java.util.Optional;
 
 public class EpisodioDomainGatewayImpl implements EpisodioDomainGateway {
@@ -68,6 +69,17 @@ public class EpisodioDomainGatewayImpl implements EpisodioDomainGateway {
                 pages.getTotalElements(),
                 pages.getTotalPages(),
                 pages.getContent().stream().map(EpisodioEntity::toDomain).toList());
+    }
+
+    @Override
+    public List<Episodio> readByPrograma(Long aProgramaId) {
+
+        if (aProgramaId == null) {
+            return List.of();
+        }
+
+        return this.repository.findByProgramaId(aProgramaId)
+                .stream().map(EpisodioEntity::toDomainChildren).toList();
     }
 
     @Override

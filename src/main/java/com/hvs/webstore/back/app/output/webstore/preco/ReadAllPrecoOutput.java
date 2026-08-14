@@ -20,8 +20,8 @@ public record ReadAllPrecoOutput(int aCurrentPage,
 
         return new ReadAllPrecoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

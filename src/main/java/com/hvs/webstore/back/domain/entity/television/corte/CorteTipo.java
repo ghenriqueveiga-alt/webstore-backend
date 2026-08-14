@@ -10,7 +10,10 @@ public enum CorteTipo {
     VINHETA_VOLTA_INTERVALO("VV", "Vinheta de volta do intervalo do Episódio"),
     PARTE2("P2", "Segunda parte do Episódio"),
     ENCERRAMENTO("EN", "Encerramento do Episódio"),
-    PREVIA_PROXIMO_EPISODIO("PP", "Prévia do próximo Episódio");
+    PREVIA_PROXIMO_EPISODIO("PP", "Prévia do próximo Episódio"),
+    COMERCIAL("CO", "Comercial/Propaganda"),
+    VINHETA_CANAL("VC", "Vinheta de identificação do canal"),
+    MARATONA_INTERLUDIO("MI", "Interlúdio de maratona");
 
     private final String code;
     private final String desc;
@@ -24,7 +27,7 @@ public enum CorteTipo {
 
         if (aCode != null) {
             for (CorteTipo tipo : values()) {
-                if (tipo.code(tipo.code)) {
+                if (tipo.code.equalsIgnoreCase(aCode)) {
                     return tipo;
                 }
             }
@@ -37,21 +40,13 @@ public enum CorteTipo {
 
         if (aDesc != null) {
             for (CorteTipo tipo : values()) {
-                if (tipo.desc(tipo.desc)) {
+                if (tipo.desc.equals(aDesc)) {
                     return tipo;
                 }
             }
         }
 
         return null;
-    }
-
-    private boolean code(String code) {
-        return true;
-    }
-
-    private boolean desc(String desc) {
-        return true;
     }
 
     public String getCode() {

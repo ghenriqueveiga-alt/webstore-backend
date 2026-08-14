@@ -25,6 +25,7 @@ public class EpisodioEntity extends BasicEntity {
     private String titulo;
     private Long numero;
     private Long temporada;
+    private String capaUrl;
 
     @ManyToOne
     @JoinColumn(name = "programa_id")
@@ -32,6 +33,8 @@ public class EpisodioEntity extends BasicEntity {
 
     @OneToMany(mappedBy = "episodio")
     private List<CorteEntity> cortes;
+
+    private Boolean processado;
 
     public EpisodioEntity() {
 
@@ -44,8 +47,10 @@ public class EpisodioEntity extends BasicEntity {
                           final String titulo,
                           final Long numero,
                           final Long temporada,
+                          final String capaUrl,
                           final ProgramaEntity programa,
-                          final List<CorteEntity> cortes) {
+                          final List<CorteEntity> cortes,
+                          final Boolean processado) {
 
         this.id = id;
         this.uuid = uuid;
@@ -54,8 +59,10 @@ public class EpisodioEntity extends BasicEntity {
         this.titulo = titulo;
         this.numero = numero;
         this.temporada = temporada;
+        this.capaUrl = capaUrl;
         this.programa = programa;
         this.cortes = cortes;
+        this.processado = processado;
     }
 
     public static EpisodioEntity from(final Episodio aEpisodio) {
@@ -68,10 +75,12 @@ public class EpisodioEntity extends BasicEntity {
                 aEpisodio.getTitulo(),
                 aEpisodio.getNumero(),
                 aEpisodio.getTemporada(),
+                aEpisodio.getCapaUrl(),
                 aEpisodio.getPrograma() != null ? ProgramaEntity.from(aEpisodio.getPrograma()) : null,
                 aEpisodio.getCortes() != null && !aEpisodio.getCortes().isEmpty() ?
                     aEpisodio.getCortes().stream().map(corte ->
-                            CorteEntity.from(corte.getId().getValue())).toList() : null);
+                            CorteEntity.from(corte.getId().getValue())).toList() : null,
+                aEpisodio.getProcessado());
     }
 
     public static EpisodioEntity from(final Long aEpisodioId) {
@@ -92,9 +101,11 @@ public class EpisodioEntity extends BasicEntity {
                 titulo,
                 numero,
                 temporada,
+                capaUrl,
                 programa != null ? programa.toDomainChildren() : null,
                 cortes != null && !cortes.isEmpty() ?
-                        cortes.stream().map(CorteEntity::toDomainChildren).toList() : null);
+                        cortes.stream().map(CorteEntity::toDomainChildren).toList() : null,
+                processado);
     }
 
     public Episodio toDomainChildren() {
@@ -103,13 +114,15 @@ public class EpisodioEntity extends BasicEntity {
                 getId(),
                 uuid,
                 statusDesc,
-                arquivo != null ? arquivo.toDomain(): null,
+                arquivo != null ? arquivo.toDomainSimple(): null,
                 titulo,
                 numero,
                 temporada,
+                capaUrl,
                 programa != null ? programa.toDomainSimple() : null,
                 cortes != null && !cortes.isEmpty() ?
-                        cortes.stream().map(CorteEntity::toDomainSimple).toList() : null);
+                        cortes.stream().map(CorteEntity::toDomainSimple).toList() : null,
+                processado);
     }
 
     public Episodio toDomainSimple() {
@@ -117,6 +130,8 @@ public class EpisodioEntity extends BasicEntity {
         return Episodio.from(
                 getId(),
                 uuid,
+                null,
+                null,
                 null,
                 null,
                 null,

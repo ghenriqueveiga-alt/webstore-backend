@@ -7,7 +7,10 @@ public record PatchGradeCommand(Long aId,
                                 String aStatusDesc,
                                 String aNome,
                                 String aDescricao,
-                                List<Long> aBlocoIds) {
+                                List<Long> aBlocoIds,
+                                String aPeriodoInicio,
+                                String aPeriodoFim,
+                                Boolean aGradeAtiva) {
 
     public static PatchGradeCommand from(final Long aId,
                                          final PatchGradeCommand aInput) {
@@ -18,7 +21,10 @@ public record PatchGradeCommand(Long aId,
                 aInput.aStatusDesc,
                 aInput.aNome,
                 aInput.aDescricao,
-                aInput.aBlocoIds);
+                aInput.aBlocoIds,
+                aInput.aPeriodoInicio,
+                aInput.aPeriodoFim,
+                aInput.aGradeAtiva);
     }
 
     public static PatchGradeCommand from(final String aUuid,
@@ -30,6 +36,9 @@ public record PatchGradeCommand(Long aId,
                 aInput.aStatusDesc,
                 aInput.aNome,
                 aInput.aDescricao,
-                aInput.aBlocoIds);
+                aInput.aBlocoIds,
+                aInput.aPeriodoInicio,
+                aInput.aPeriodoFim,
+                aInput.aGradeAtiva);
     }
 }

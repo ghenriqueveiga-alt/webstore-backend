@@ -6,6 +6,7 @@ public record CreateEpisodioCommand(Long aArquivoId,
                                     String aTitulo,
                                     Long aNumero,
                                     Long aTemporada,
+                                    String aCapaUrl,
                                     Long aProgramaId,
                                     List<Long> aCorteIds) {
 
@@ -13,6 +14,7 @@ public record CreateEpisodioCommand(Long aArquivoId,
                                              final String aTitulo,
                                              final Long aNumero,
                                              final Long aTemporada,
+                                             final String aCapaUrl,
                                              final Long aProgramaId,
                                              final List<Long> aCorteIds) {
 
@@ -21,6 +23,7 @@ public record CreateEpisodioCommand(Long aArquivoId,
                 aTitulo,
                 aNumero,
                 aTemporada,
+                aCapaUrl,
                 aProgramaId,
                 aCorteIds);
     }

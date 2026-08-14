@@ -21,8 +21,8 @@ public record ReadAllBlocoOutput(int aCurrentPage,
 
         return new ReadAllBlocoOutput(
                 aBlocoPagination.aPageNumber(),
+                aBlocoPagination.aContent().size(),
                 aBlocoPagination.aTotalElements(),
-                aBlocoPagination.aTotalPages(),
                 list);
     }
 }

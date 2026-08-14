@@ -20,8 +20,8 @@ public record ReadAllAvaliacaoOutput(int aCurrentPage,
 
         return new ReadAllAvaliacaoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

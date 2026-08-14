@@ -1,0 +1,1 @@
+{"aProcessado":true,"aIntrosDetectados":[{"aId":1,"aEpisodioId":9081,"aInicio":"1970-01-01T00:00:30Z","aInicioFormatado":"00:00:30","aDuracaoSegundos":null,"aConfianca":0.9959590517241378,"aDetectado":true}]}

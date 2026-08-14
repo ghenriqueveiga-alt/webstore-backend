@@ -21,8 +21,8 @@ public record ReadAllEpisodioOutput(int aCurrentPage,
 
         return new ReadAllEpisodioOutput(
                 aCortePagination.aPageNumber(),
+                aCortePagination.aContent().size(),
                 aCortePagination.aTotalElements(),
-                aCortePagination.aTotalPages(),
                 list);
     }
 }

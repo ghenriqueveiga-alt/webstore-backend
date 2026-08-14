@@ -21,8 +21,8 @@ public record ReadAllGradeOutput(int aCurrentPage,
 
         return new ReadAllGradeOutput(
                 aGradePagination.aPageNumber(),
+                aGradePagination.aContent().size(),
                 aGradePagination.aTotalElements(),
-                aGradePagination.aTotalPages(),
                 list);
     }
 }

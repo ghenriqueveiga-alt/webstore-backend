@@ -20,8 +20,8 @@ public record ReadAllLogAuditoriaOutput(int aCurrentPage,
 
         return new ReadAllLogAuditoriaOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

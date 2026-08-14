@@ -34,15 +34,28 @@ public class PatchProgramaUseCaseImpl extends PatchProgramaUseCase {
 
         if (programaDb.isPresent()) {
             final var notification = Notification.create();
-            final var programa = Programa.patch(aProgramaCommand.aStatusDesc(),
+            final var programa = Programa.patch(aProgramaCommand.aStatusCode(),
                                                 aProgramaCommand.aNome(),
                                                 aProgramaCommand.aEmProducao(),
-                                                aProgramaCommand.aTipoDesc(),
+                                                aProgramaCommand.aTipoCode(),
                                                 aProgramaCommand.aTemporadas(),
                                                 aProgramaCommand.aEpisodioIds(),
                                                 aProgramaCommand.aLancamento(),
                                                 aProgramaCommand.aEncerramento(),
                                                 aProgramaCommand.aBlocoIds(),
+                                                aProgramaCommand.aSinopse(),
+                                                aProgramaCommand.aClassificacaoEtariaCode(),
+                                                aProgramaCommand.aEstudio(),
+                                                aProgramaCommand.aDiretor(),
+                                                aProgramaCommand.aCapaUrl(),
+                                                aProgramaCommand.aTemporadaOriginal(),
+                                                aProgramaCommand.aRedeOriginal(),
+                                                aProgramaCommand.aTipoExibicaoCode(),
+                                                aProgramaCommand.aTituloAlternativo(),
+                                                aProgramaCommand.aAudioIdiomas(),
+                                                aProgramaCommand.aLegendasDisponiveis(),
+                                                aProgramaCommand.aSiteOficial(),
+                                                aProgramaCommand.aGeneroIds(),
                                                 programaDb.get());
             programa.validate(notification);
             return notification.hasError() ? Left(notification) : patch(programa);

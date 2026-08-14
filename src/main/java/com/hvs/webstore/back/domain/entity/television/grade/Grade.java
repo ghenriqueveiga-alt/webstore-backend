@@ -4,6 +4,7 @@ import com.hvs.webstore.back.domain.Entity;
 import com.hvs.webstore.back.domain.entity.television.bloco.Bloco;
 import com.hvs.webstore.back.domain.validation.ValidationHandler;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,13 +15,19 @@ public class Grade extends Entity<GradeId> {
     private final String nome;
     private final String descricao;
     private final List<Bloco> blocos;
+    private final LocalDateTime periodoInicio;
+    private final LocalDateTime periodoFim;
+    private final Boolean gradeAtiva;
 
     private Grade(final GradeId id,
                  final GradeUuid uuid,
                  final GradeStatus statusCode,
                  final String nome,
                  final String descricao,
-                 final List<Bloco> blocos) {
+                 final List<Bloco> blocos,
+                 final LocalDateTime periodoInicio,
+                 final LocalDateTime periodoFim,
+                 final Boolean gradeAtiva) {
 
         super(id);
         this.uuid = uuid;
@@ -28,11 +35,17 @@ public class Grade extends Entity<GradeId> {
         this.nome = nome;
         this.descricao = descricao;
         this.blocos = blocos;
+        this.periodoInicio = periodoInicio;
+        this.periodoFim = periodoFim;
+        this.gradeAtiva = gradeAtiva;
     }
 
     public static Grade create(final String aNome,
                                final String aDescricao,
-                               final List<Long> aBlocoIds) {
+                               final List<Long> aBlocoIds,
+                               final String aPeriodoInicio,
+                               final String aPeriodoFim,
+                               final Boolean aGradeAtiva) {
 
         return new Grade(
                 GradeId.from(-1L),
@@ -41,15 +54,21 @@ public class Grade extends Entity<GradeId> {
                 aNome,
                 aDescricao,
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+                        aBlocoIds.stream().map(Bloco::from).toList() : null,
+                aPeriodoInicio != null ? LocalDateTime.parse(aPeriodoInicio) : null,
+                aPeriodoFim != null ? LocalDateTime.parse(aPeriodoFim) : null,
+                aGradeAtiva);
     }
 
     public static Grade update(final Long aId,
-                                final String aUuid,
-                                final String aStatusCode,
-                                final String aNome,
-                                final String aDescricao,
-                                final List<Long> aBlocoIds) {
+                               final String aUuid,
+                               final String aStatusCode,
+                               final String aNome,
+                               final String aDescricao,
+                               final List<Long> aBlocoIds,
+                               final String aPeriodoInicio,
+                               final String aPeriodoFim,
+                               final Boolean aGradeAtiva) {
 
         return new Grade(
                 aId != null ? GradeId.from(aId) : null,
@@ -58,14 +77,20 @@ public class Grade extends Entity<GradeId> {
                 aNome,
                 aDescricao,
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : null);
+                        aBlocoIds.stream().map(Bloco::from).toList() : null,
+                aPeriodoInicio != null ? LocalDateTime.parse(aPeriodoInicio) : null,
+                aPeriodoFim != null ? LocalDateTime.parse(aPeriodoFim) : null,
+                aGradeAtiva);
     }
 
     public static Grade patch(final String aStatusCode,
-                               final String aNome,
-                               final String aDescricao,
-                               final List<Long> aBlocoIds,
-                               final Grade aExisting) {
+                              final String aNome,
+                              final String aDescricao,
+                              final List<Long> aBlocoIds,
+                              final String aPeriodoInicio,
+                              final String aPeriodoFim,
+                              final Boolean aGradeAtiva,
+                              final Grade aExisting) {
 
         return new Grade(
                 aExisting.getId(),
@@ -74,15 +99,21 @@ public class Grade extends Entity<GradeId> {
                 aNome != null ? aNome : aExisting.getNome(),
                 aDescricao != null ? aDescricao : aExisting.getDescricao(),
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
-                        aBlocoIds.stream().map(Bloco::from).toList() : aExisting.getBlocos());
+                        aBlocoIds.stream().map(Bloco::from).toList() : aExisting.getBlocos(),
+                aPeriodoInicio != null ? LocalDateTime.parse(aPeriodoInicio) : aExisting.getPeriodoInicio(),
+                aPeriodoFim != null ? LocalDateTime.parse(aPeriodoFim) : aExisting.getPeriodoFim(),
+                aGradeAtiva != null ? aGradeAtiva : aExisting.getGradeAtiva());
     }
 
     public static Grade from(final Long aId,
-                              final String aUuid,
-                              final String aStatusDesc,
-                              final String aNome,
-                              final String aDescricao,
-                              final List<Bloco> aBlocos) {
+                             final String aUuid,
+                             final String aStatusDesc,
+                             final String aNome,
+                             final String aDescricao,
+                             final List<Bloco> aBlocos,
+                             final LocalDateTime aPeriodoInicio,
+                             final LocalDateTime aPeriodoFim,
+                             final Boolean aGradeAtiva) {
 
         return new Grade(
                 aId != null ? GradeId.from(aId) : null,
@@ -90,13 +121,19 @@ public class Grade extends Entity<GradeId> {
                 aStatusDesc != null ? GradeStatus.findByDesc(aStatusDesc) : null,
                 aNome,
                 aDescricao,
-                aBlocos);
+                aBlocos,
+                aPeriodoInicio,
+                aPeriodoFim,
+                aGradeAtiva);
     }
 
     public static Grade from(final Long aId) {
 
         return new Grade(
                 aId != null ? GradeId.from(aId) : null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -109,6 +146,9 @@ public class Grade extends Entity<GradeId> {
         return new Grade(
                 null,
                 aUuid != null ? GradeUuid.from(aUuid) : null,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -136,6 +176,15 @@ public class Grade extends Entity<GradeId> {
     public List<Bloco> getBlocos() {
         return blocos;
     }
+    public LocalDateTime getPeriodoInicio() {
+        return periodoInicio;
+    }
+    public LocalDateTime getPeriodoFim() {
+        return periodoFim;
+    }
+    public Boolean getGradeAtiva() {
+        return gradeAtiva;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -152,7 +201,10 @@ public class Grade extends Entity<GradeId> {
                 statusCode == grade.statusCode &&
                 Objects.equals(nome, grade.nome) &&
                 Objects.equals(descricao, grade.descricao) &&
-                Objects.equals(blocos, grade.blocos);
+                Objects.equals(blocos, grade.blocos) &&
+                Objects.equals(periodoInicio, grade.periodoInicio) &&
+                Objects.equals(periodoFim, grade.periodoFim) &&
+                Objects.equals(gradeAtiva, grade.gradeAtiva);
     }
 
     @Override
@@ -164,6 +216,9 @@ public class Grade extends Entity<GradeId> {
                 statusCode,
                 nome,
                 descricao,
-                blocos);
+                blocos,
+                periodoInicio,
+                periodoFim,
+                gradeAtiva);
     }
 }

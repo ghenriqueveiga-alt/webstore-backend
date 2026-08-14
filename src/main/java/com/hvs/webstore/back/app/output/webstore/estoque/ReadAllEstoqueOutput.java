@@ -20,8 +20,8 @@ public record ReadAllEstoqueOutput(int aCurrentPage,
 
         return new ReadAllEstoqueOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

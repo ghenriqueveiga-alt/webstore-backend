@@ -19,6 +19,9 @@ public class BlocoValidator extends Validator {
     public void validate() {
 
         validateHoradaio();
+        validateDiaSemana();
+        validateFaixaHorario();
+        validateTipoBloco();
     }
 
     private void validateHoradaio() {
@@ -27,6 +30,33 @@ public class BlocoValidator extends Validator {
 
         if(horario == null) {
             this.validationHandler().append(new Erro("'time' cannot be null"));
+        }
+    }
+
+    private void validateDiaSemana() {
+
+        final var diaSemana = this.bloco.getDiaSemana();
+
+        if(diaSemana == null) {
+            this.validationHandler().append(new Erro("'day of week' cannot be null"));
+        }
+    }
+
+    private void validateFaixaHorario() {
+
+        final var faixaHorario = this.bloco.getFaixaHorario();
+
+        if(faixaHorario == null) {
+            this.validationHandler().append(new Erro("'time range' cannot be null"));
+        }
+    }
+
+    private void validateTipoBloco() {
+
+        final var tipoBloco = this.bloco.getTipoBloco();
+
+        if(tipoBloco == null) {
+            this.validationHandler().append(new Erro("'block type' cannot be null"));
         }
     }
 

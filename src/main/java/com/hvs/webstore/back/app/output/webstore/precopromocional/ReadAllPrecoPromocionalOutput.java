@@ -19,8 +19,8 @@ public record ReadAllPrecoPromocionalOutput(int aCurrentPage,
 
         return new ReadAllPrecoPromocionalOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

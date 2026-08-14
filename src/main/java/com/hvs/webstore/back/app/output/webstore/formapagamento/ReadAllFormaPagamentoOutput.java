@@ -20,8 +20,8 @@ public record ReadAllFormaPagamentoOutput(int aCurrentPage,
 
         return new ReadAllFormaPagamentoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

@@ -20,8 +20,8 @@ public record ReadAllCategoriaHierarquiaOutput(int aCurrentPage,
 
         return new ReadAllCategoriaHierarquiaOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

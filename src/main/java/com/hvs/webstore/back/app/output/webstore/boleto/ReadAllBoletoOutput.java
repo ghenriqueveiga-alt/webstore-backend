@@ -20,8 +20,8 @@ public record ReadAllBoletoOutput(int aCurrentPage,
 
         return new ReadAllBoletoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

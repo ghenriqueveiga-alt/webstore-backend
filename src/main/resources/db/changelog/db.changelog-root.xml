@@ -7,4 +7,6 @@
 
     <include file="db/changelog/changelog-inicial.xml"/>
     <include file="db/changelog/changelog-usuario-role.xml"/>
+    <include file="db/changelog/changelog-television.xml"/>
+    <include file="db/changelog/changelog-programa-seed.xml"/>
 </databaseChangeLog>

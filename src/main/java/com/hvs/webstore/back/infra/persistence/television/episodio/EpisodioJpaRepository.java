@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface EpisodioJpaRepository extends JpaRepository<EpisodioEntity, Long>, JpaSpecificationExecutor<EpisodioEntity> {
 
     Optional<EpisodioEntity> findByUuid(String uuid);
+
+    java.util.List<EpisodioEntity> findByProgramaId(Long programaId);
 }

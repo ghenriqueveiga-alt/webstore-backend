@@ -21,8 +21,8 @@ public record ReadAllProgramaOutput(int aCurrentPage,
 
         return new ReadAllProgramaOutput(
                 aProgramaPagination.aPageNumber(),
+                aProgramaPagination.aContent().size(),
                 aProgramaPagination.aTotalElements(),
-                aProgramaPagination.aTotalPages(),
                 list);
     }
 }

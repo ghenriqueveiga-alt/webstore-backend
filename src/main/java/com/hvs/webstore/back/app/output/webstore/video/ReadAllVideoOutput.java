@@ -20,8 +20,8 @@ public record ReadAllVideoOutput(int aCurrentPage,
 
         return new ReadAllVideoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 }

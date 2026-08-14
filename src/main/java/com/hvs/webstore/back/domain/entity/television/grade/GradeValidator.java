@@ -22,6 +22,9 @@ public class GradeValidator extends Validator {
 
         validateNome();
         validateDescricao();
+        validatePeriodoInicio();
+        validatePeriodoFim();
+        validateGradeAtiva();
     }
 
     private void validateNome() {
@@ -63,6 +66,33 @@ public class GradeValidator extends Validator {
         if(length < MIN_LENGTH || length > MAX_LENGTH) {
             this.validationHandler().append(new Erro("'description' must contain a minimum of 4 characters " +
                     "and a maximum of 255 characters"));
+        }
+    }
+
+    private void validatePeriodoInicio() {
+
+        final var periodoInicio = this.grade.getPeriodoInicio();
+
+        if(periodoInicio == null) {
+            this.validationHandler().append(new Erro("'start period' cannot be null"));
+        }
+    }
+
+    private void validatePeriodoFim() {
+
+        final var periodoFim = this.grade.getPeriodoFim();
+
+        if(periodoFim == null) {
+            this.validationHandler().append(new Erro("'end period' cannot be null"));
+        }
+    }
+
+    private void validateGradeAtiva() {
+
+        final var gradeAtiva = this.grade.getGradeAtiva();
+
+        if(gradeAtiva == null) {
+            this.validationHandler().append(new Erro("'active schedule' cannot be null"));
         }
     }
 

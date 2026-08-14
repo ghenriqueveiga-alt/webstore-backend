@@ -2,6 +2,8 @@ package com.hvs.webstore.back.infra.persistence.television.grade;
 
 import com.hvs.webstore.back.domain.entity.television.grade.Grade;
 import com.hvs.webstore.back.infra.persistence.BasicEntity;
+
+import java.time.LocalDateTime;
 import com.hvs.webstore.back.infra.persistence.television.bloco.BlocoEntity;
 import jakarta.persistence.*;
 
@@ -21,6 +23,9 @@ public class GradeEntity extends BasicEntity {
 
     @OneToMany(mappedBy = "grade")
     private List<BlocoEntity> blocos;
+    private String periodoInicio;
+    private String periodoFim;
+    private Boolean gradeAtiva;
 
     public GradeEntity() {
 
@@ -31,7 +36,10 @@ public class GradeEntity extends BasicEntity {
                        final String statusDesc,
                        final String nome,
                        final String descricao,
-                       final List<BlocoEntity> blocos) {
+                       final List<BlocoEntity> blocos,
+                       final String periodoInicio,
+                       final String periodoFim,
+                       final Boolean gradeAtiva) {
 
         this.id = id;
         this.uuid = uuid;
@@ -39,6 +47,9 @@ public class GradeEntity extends BasicEntity {
         this.nome = nome;
         this.descricao = descricao;
         this.blocos = blocos;
+        this.periodoInicio = periodoInicio;
+        this.periodoFim = periodoFim;
+        this.gradeAtiva = gradeAtiva;
     }
 
     public static GradeEntity from(final Grade aGrade) {
@@ -51,7 +62,10 @@ public class GradeEntity extends BasicEntity {
                 aGrade.getDescricao(),
                 aGrade.getBlocos() != null && !aGrade.getBlocos().isEmpty() ?
                         aGrade.getBlocos().stream().map(bloco ->
-                                BlocoEntity.from(bloco.getId().getValue())).toList() : null);
+                                BlocoEntity.from(bloco.getId().getValue())).toList() : null,
+                aGrade.getPeriodoInicio() != null ? aGrade.getPeriodoInicio().toString() : null,
+                aGrade.getPeriodoFim() != null ? aGrade.getPeriodoFim().toString() : null,
+                aGrade.getGradeAtiva());
 
     }
 
@@ -72,7 +86,10 @@ public class GradeEntity extends BasicEntity {
                 nome,
                 descricao,
                 blocos != null && !blocos.isEmpty() ?
-                        blocos.stream().map(BlocoEntity::toDomainChildren).toList() : null);
+                        blocos.stream().map(BlocoEntity::toDomainChildren).toList() : null,
+                periodoInicio != null ? LocalDateTime.parse(periodoInicio) : null,
+                periodoFim != null ? LocalDateTime.parse(periodoFim) : null,
+                gradeAtiva);
     }
 
     public Grade toDomainChildren() {
@@ -84,7 +101,10 @@ public class GradeEntity extends BasicEntity {
                 nome,
                 descricao,
                 blocos != null && !blocos.isEmpty() ?
-                        blocos.stream().map(BlocoEntity::toDomainSimple).toList() : null);
+                        blocos.stream().map(BlocoEntity::toDomainSimple).toList() : null,
+                periodoInicio != null ? LocalDateTime.parse(periodoInicio) : null,
+                periodoFim != null ? LocalDateTime.parse(periodoFim) : null,
+                gradeAtiva);
     }
 
     public Grade toDomainSimple() {
@@ -92,6 +112,9 @@ public class GradeEntity extends BasicEntity {
         return Grade.from(
                 getId(),
                 uuid,
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,

@@ -1,5 +1,7 @@
 package com.hvs.webstore.back.app.usecase.television.episodio;
 
+import com.hvs.webstore.back.app.service.VideoCutDetector;
+import com.hvs.webstore.back.app.service.VideoDurationReader;
 import com.hvs.webstore.back.domain.entity.television.episodio.EpisodioDomainGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,21 @@ public class EpisodioUseCaseConfig {
     public ReadEpisodioUseCase readEpisodioUseCaseBean(EpisodioDomainGateway gateway) {
 
         return new ReadEpisodioUseCaseImpl(gateway);
+    }
+    @Bean
+    public ReadEpisodioCortesTempoUseCase readEpisodioCortesTempoUseCaseBean(
+            EpisodioDomainGateway gateway,
+            VideoDurationReader videoDurationReader) {
+
+        return new ReadEpisodioCortesTempoUseCaseImpl(gateway, videoDurationReader);
+    }
+    @Bean
+    public ReadEpisodioCortesDetectadosUseCase readEpisodioCortesDetectadosUseCaseBean(
+            EpisodioDomainGateway gateway,
+            VideoDurationReader videoDurationReader,
+            VideoCutDetector videoCutDetector) {
+
+        return new ReadEpisodioCortesDetectadosUseCaseImpl(gateway, videoDurationReader, videoCutDetector);
     }
     @Bean
     public ReadAllEpisodioUseCase readAllEpisodioUseCaseBean(EpisodioDomainGateway gateway) {

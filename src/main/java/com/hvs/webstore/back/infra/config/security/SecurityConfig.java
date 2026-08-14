@@ -1,4 +1,4 @@
-package com.hvs.webstore.back.infra.api.config.security;
+package com.hvs.webstore.back.infra.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

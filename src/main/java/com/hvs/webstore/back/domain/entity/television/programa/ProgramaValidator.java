@@ -25,6 +25,9 @@ public class ProgramaValidator extends Validator {
         validateTipo();
         validateTemporadas();
         validateLancamento();
+        validateSinopse();
+        validateEstudio();
+        validateDiretor();
     }
 
     private void validateNome() {
@@ -100,6 +103,45 @@ public class ProgramaValidator extends Validator {
 
         if(lancamento == null) {
             this.validationHandler().append(new Erro("'launch' cannot be null"));
+        }
+    }
+
+    private void validateSinopse() {
+
+        final var sinopse = this.programa.getSinopse();
+
+        if(sinopse != null) {
+            final int length = sinopse.trim().length();
+
+            if(length > 2000) {
+                this.validationHandler().append(new Erro("'synopsis' must contain a maximum of 2000 characters"));
+            }
+        }
+    }
+
+    private void validateEstudio() {
+
+        final var estudio = this.programa.getEstudio();
+
+        if(estudio != null) {
+            final int length = estudio.trim().length();
+
+            if(length > 255) {
+                this.validationHandler().append(new Erro("'studio' must contain a maximum of 255 characters"));
+            }
+        }
+    }
+
+    private void validateDiretor() {
+
+        final var diretor = this.programa.getDiretor();
+
+        if(diretor != null) {
+            final int length = diretor.trim().length();
+
+            if(length > 255) {
+                this.validationHandler().append(new Erro("'director' must contain a maximum of 255 characters"));
+            }
         }
     }
 

@@ -19,8 +19,8 @@ public record ReadAllCupomPedidoOutput(int aCurrentPage,
 
         return new ReadAllCupomPedidoOutput(
                 aPagination.aPageNumber(),
+                aPagination.aContent().size(),
                 aPagination.aTotalElements(),
-                aPagination.aTotalPages(),
                 list);
     }
 

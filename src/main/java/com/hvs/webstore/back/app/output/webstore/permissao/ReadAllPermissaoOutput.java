@@ -18,8 +18,8 @@ public record ReadAllPermissaoOutput(int aCurrentPage,
 
         return new ReadAllPermissaoOutput(
                 p.aPageNumber(),
+                p.aContent().size(),
                 p.aTotalElements(),
-                p.aTotalPages(),
                 list);
     }
 }

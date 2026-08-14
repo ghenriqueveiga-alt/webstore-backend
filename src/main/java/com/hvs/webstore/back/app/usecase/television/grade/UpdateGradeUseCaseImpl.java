@@ -43,7 +43,10 @@ public class UpdateGradeUseCaseImpl extends UpdateGradeUseCase {
                                            aIn.aStatusDesc(),
                                            aIn.aNome(),
                                            aIn.aDescricao(),
-                                           aIn.aBlocoIds());
+                                           aIn.aBlocoIds(),
+                                           aIn.aPeriodoInicio(),
+                                           aIn.aPeriodoFim(),
+                                           aIn.aGradeAtiva());
             grade.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(grade);

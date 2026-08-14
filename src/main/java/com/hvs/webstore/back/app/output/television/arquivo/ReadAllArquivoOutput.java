@@ -23,8 +23,8 @@ public record ReadAllArquivoOutput(int aCurrentPage,
 
         return new ReadAllArquivoOutput(
                 aArquivoPagination.aPageNumber(),
+                aArquivoPagination.aContent().size(),
                 aArquivoPagination.aTotalElements(),
-                aArquivoPagination.aTotalPages(),
                 list);
     }
 }

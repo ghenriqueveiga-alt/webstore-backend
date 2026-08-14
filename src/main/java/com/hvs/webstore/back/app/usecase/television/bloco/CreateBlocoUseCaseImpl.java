@@ -25,7 +25,10 @@ public class CreateBlocoUseCaseImpl extends CreateBlocoUseCase {
         final var notification = Notification.create();
         final var bloco = Bloco.create(aIn.aProgramaId(),
                                        aIn.aHorario(),
-                                       aIn.aGradeId());
+                                       aIn.aGradeId(),
+                                       aIn.aDiaSemanaCode(),
+                                       aIn.aFaixaHorarioCode(),
+                                       aIn.aTipoBlocoCode());
         bloco.validate(notification);
 
         return notification.hasError() ? API.Left(notification) : create(bloco);

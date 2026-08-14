@@ -27,6 +27,7 @@ public class CreateEpisodioUseCaseImpl extends CreateEpisodioUseCase {
                                              aIn.aTitulo(),
                                              aIn.aNumero(),
                                              aIn.aTemporada(),
+                                             aIn.aCapaUrl(),
                                              aIn.aProgramaId(),
                                              aIn.aCorteIds());
         episodio.validate(notification);

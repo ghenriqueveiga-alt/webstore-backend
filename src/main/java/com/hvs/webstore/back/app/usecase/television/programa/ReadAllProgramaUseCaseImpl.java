@@ -8,7 +8,6 @@ import com.hvs.webstore.back.domain.pagination.Pagination;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
 import io.vavr.control.Either;
 import java.util.List;
-import static io.vavr.API.Try;
 
 public class ReadAllProgramaUseCaseImpl extends ReadAllProgramaUseCase {
 
@@ -23,11 +22,14 @@ public class ReadAllProgramaUseCaseImpl extends ReadAllProgramaUseCase {
 
         Pagination<Programa> programaPagination = this.gateway.readAll(aProgramaCommand.aProgramaSearchQuery());
         List<Programa> lista = programaPagination.aContent()
-                .stream().filter(corte -> corte.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(corte -> corte.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
-            return Try(() -> this.gateway.readAll(aProgramaCommand.aProgramaSearchQuery()))
-                    .toEither().bimap(Notification::create, ReadAllProgramaOutput::from);
+            return Either.right(ReadAllProgramaOutput.from(Pagination.from(
+                    programaPagination.aPageNumber(),
+                    programaPagination.aTotalElements(),
+                    programaPagination.aTotalPages(),
+                    lista)));
         } else {
             return Either.left(Notification.create(new Error("No Program was found.")));
         }
