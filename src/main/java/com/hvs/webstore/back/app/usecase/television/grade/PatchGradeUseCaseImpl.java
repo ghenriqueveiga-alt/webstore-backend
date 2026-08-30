@@ -38,7 +38,7 @@ public class PatchGradeUseCaseImpl extends PatchGradeUseCase {
         if (gradeDb.isPresent()) {
 
             final var notification = Notification.create();
-            final var grade = Grade.patch(aIn.aStatusDesc(),
+            final var grade = Grade.patch(aIn.aStatusCode(),
                                           aIn.aNome(),
                                           aIn.aDescricao(),
                                           aIn.aBlocoIds(),

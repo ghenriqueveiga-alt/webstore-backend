@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Detalhes de um episódio")
 public record ReadEpisodioOutput(Long aId,
                                  String aUuid,
-                                 String aStatusDesc,
+                                 String aStatusCode,
                                  ReadArquivoOutput aArquivo,
                                  String aTitulo,
                                  Long aNumero,
@@ -23,13 +23,13 @@ public record ReadEpisodioOutput(Long aId,
         return new ReadEpisodioOutput(
                 aEpisodio.getId().getValue(),
                 aEpisodio.getUuid().getValue(),
-                aEpisodio.getStatusCode().getDesc(),
+                aEpisodio.getStatus().getDesc(),
                 aEpisodio.getArquivo() != null ? ReadArquivoOutput.fromSimple(aEpisodio.getArquivo()) : null,
                 aEpisodio.getTitulo(),
                 aEpisodio.getNumero(),
                 aEpisodio.getTemporada(),
                 aEpisodio.getCapaUrl(),
-                aEpisodio.getPrograma() != null ? ReadProgramaOutput.fromSimple(aEpisodio.getPrograma()) : null,
+                aEpisodio.getPrograma() != null ? ReadProgramaOutput.fromMinimal(aEpisodio.getPrograma()) : null,
                 aEpisodio.getProcessado());
     }
 

@@ -1,5 +1,6 @@
 package com.hvs.webstore.back.app.usecase.television.episodio;
 
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.app.service.VideoCutDetector;
 import com.hvs.webstore.back.app.service.VideoDurationReader;
 import com.hvs.webstore.back.domain.entity.television.episodio.EpisodioDomainGateway;
@@ -22,17 +23,19 @@ public class EpisodioUseCaseConfig {
     @Bean
     public ReadEpisodioCortesTempoUseCase readEpisodioCortesTempoUseCaseBean(
             EpisodioDomainGateway gateway,
-            VideoDurationReader videoDurationReader) {
+            VideoDurationReader videoDurationReader,
+            MediaPathResolver mediaPathResolver) {
 
-        return new ReadEpisodioCortesTempoUseCaseImpl(gateway, videoDurationReader);
+        return new ReadEpisodioCortesTempoUseCaseImpl(gateway, videoDurationReader, mediaPathResolver);
     }
     @Bean
     public ReadEpisodioCortesDetectadosUseCase readEpisodioCortesDetectadosUseCaseBean(
             EpisodioDomainGateway gateway,
             VideoDurationReader videoDurationReader,
-            VideoCutDetector videoCutDetector) {
+            VideoCutDetector videoCutDetector,
+            MediaPathResolver mediaPathResolver) {
 
-        return new ReadEpisodioCortesDetectadosUseCaseImpl(gateway, videoDurationReader, videoCutDetector);
+        return new ReadEpisodioCortesDetectadosUseCaseImpl(gateway, videoDurationReader, videoCutDetector, mediaPathResolver);
     }
     @Bean
     public ReadAllEpisodioUseCase readAllEpisodioUseCaseBean(EpisodioDomainGateway gateway) {

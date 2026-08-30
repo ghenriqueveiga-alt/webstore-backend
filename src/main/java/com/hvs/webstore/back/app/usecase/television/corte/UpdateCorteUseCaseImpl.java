@@ -40,11 +40,13 @@ public class UpdateCorteUseCaseImpl extends UpdateCorteUseCase {
             final var notification = Notification.create();
             final var corte = Corte.update(corteDb.get().getId().getValue(),
                                            corteDb.get().getUuid().getValue(),
-                                           aIn.aStatusDesc(),
+                                           aIn.aStatusCode(),
                                            aIn.aArquivoId(),
-                                           aIn.aTipoDesc(),
+                                           aIn.aTipoCode(),
                                            aIn.aDuracao(),
-                                           aIn.aEpisodioId());
+                                           aIn.aEpisodioId(),
+                                           aIn.aInicio(),
+                                           aIn.aFim());
             corte.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(corte);

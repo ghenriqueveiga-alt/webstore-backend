@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Arquivo extends Entity<ArquivoId> {
 
     private final ArquivoUuid uuid;
-    private final ArquivoStatus statusCode;
+    private final ArquivoStatus status;
     private final String nome;
     private final String tipoArquivo;
     private final Long tamanho;
@@ -17,7 +17,7 @@ public class Arquivo extends Entity<ArquivoId> {
 
     private Arquivo(final ArquivoId id,
                     final ArquivoUuid uuid,
-                    final ArquivoStatus statusCode,
+                    final ArquivoStatus status,
                     final String nome,
                     final String tipoArquivo,
                     final Long tamanho,
@@ -26,7 +26,7 @@ public class Arquivo extends Entity<ArquivoId> {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.nome = nome;
         this.tipoArquivo = tipoArquivo;
         this.tamanho = tamanho;
@@ -82,7 +82,7 @@ public class Arquivo extends Entity<ArquivoId> {
         return new Arquivo(
                 aExisting.getId(),
                 aExisting.getUuid(),
-                aStatusCode != null ? ArquivoStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
+                aStatusCode != null ? ArquivoStatus.findByCode(aStatusCode) : aExisting.getStatus(),
                 aNome != null ? aNome : aExisting.getNome(),
                 aTipoArquivo != null ? aTipoArquivo : aExisting.getTipo(),
                 aTamanho != null ? aTamanho : aExisting.getTamanho(),
@@ -145,8 +145,8 @@ public class Arquivo extends Entity<ArquivoId> {
     public ArquivoUuid getUuid() {
         return uuid;
     }
-    public ArquivoStatus getStatusCode() {
-        return statusCode;
+    public ArquivoStatus getStatus() {
+        return status;
     }
     public String getNome() {
         return nome;
@@ -176,7 +176,7 @@ public class Arquivo extends Entity<ArquivoId> {
         Arquivo arquivo = (Arquivo) o;
 
         return Objects.equals(uuid, arquivo.uuid) &&
-                statusCode == arquivo.statusCode &&
+                status == arquivo.status &&
                 Objects.equals(nome, arquivo.nome) &&
                 Objects.equals(tipoArquivo, arquivo.tipoArquivo) &&
                 Objects.equals(tamanho, arquivo.tamanho) &&
@@ -190,7 +190,7 @@ public class Arquivo extends Entity<ArquivoId> {
         return Objects.hash(
                 super.hashCode(),
                 uuid,
-                statusCode,
+                status,
                 nome,
                 tipoArquivo,
                 tamanho,

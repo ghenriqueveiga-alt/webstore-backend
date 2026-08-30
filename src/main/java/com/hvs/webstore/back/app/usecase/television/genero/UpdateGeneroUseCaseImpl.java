@@ -36,7 +36,7 @@ public class UpdateGeneroUseCaseImpl extends UpdateGeneroUseCase {
             final var notification = Notification.create();
             final var genero = Genero.update(generoDb.get().getId().getValue(),
                                              generoDb.get().getUuid().getValue(),
-                                             aGeneroCommand.aStatusDesc(),
+                                             aGeneroCommand.aStatusCode(),
                                              aGeneroCommand.aNome(),
                                              aGeneroCommand.aDescricao());
             genero.validate(notification);

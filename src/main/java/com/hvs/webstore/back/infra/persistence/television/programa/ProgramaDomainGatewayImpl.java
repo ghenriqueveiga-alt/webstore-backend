@@ -65,7 +65,7 @@ public class ProgramaDomainGatewayImpl implements ProgramaDomainGateway {
                 pages.getNumber(),
                 pages.getTotalElements(),
                 pages.getTotalPages(),
-                pages.getContent().stream().map(ProgramaEntity::toDomain).toList());
+                pages.getContent().stream().map(ProgramaEntity::toDomainSimple).toList());
     }
 
     @Override

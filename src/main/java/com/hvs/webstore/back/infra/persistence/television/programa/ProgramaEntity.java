@@ -23,15 +23,15 @@ public class ProgramaEntity extends BasicEntity {
     private String tipoDesc;
     private Long temporadas;
 
-    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EpisodioEntity> episodios;
     private String lancamento;
     private String encerramento;
 
-    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BlocoEntity> blocos;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "programa_genero",
             joinColumns = @JoinColumn(name = "programa_id"),
@@ -214,6 +214,8 @@ public class ProgramaEntity extends BasicEntity {
 
         return Programa.from(getId(),
                              uuid,
+                             statusDesc,
+                             nome,
                              null,
                              null,
                              null,
@@ -225,9 +227,7 @@ public class ProgramaEntity extends BasicEntity {
                              null,
                              null,
                              null,
-                             null,
-                             null,
-                             null,
+                             capaUrl,
                              null,
                              null,
                              null,

@@ -2,6 +2,7 @@ package com.hvs.webstore.back.app.usecase.television.arquivo;
 
 import com.hvs.webstore.back.app.command.television.arquivo.UpdateArquivoCommand;
 import com.hvs.webstore.back.app.output.television.arquivo.UpdateArquivoOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.domain.entity.television.arquivo.Arquivo;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoDomainGateway;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoId;
@@ -16,10 +17,13 @@ import static io.vavr.API.Try;
 public class UpdateArquivoUseCaseImpl extends UpdateArquivoUseCase {
 
     private final ArquivoDomainGateway gateway;
+    private final MediaPathResolver mediaPathResolver;
 
     public UpdateArquivoUseCaseImpl(
-            ArquivoDomainGateway gateway) {
+            ArquivoDomainGateway gateway,
+            MediaPathResolver mediaPathResolver) {
         this.gateway = gateway;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @Override
@@ -40,11 +44,11 @@ public class UpdateArquivoUseCaseImpl extends UpdateArquivoUseCase {
             final var notification = Notification.create();
             final var arquivo = Arquivo.update(arquivoDb.get().getId().getValue(),
                                                arquivoDb.get().getUuid().getValue(),
-                                               aIn.aStatusDesc(),
+                                               aIn.aStatusCode(),
                                                aIn.aNome(),
-                                               aIn.aTipo(),
+                                               aIn.aTipoCode(),
                                                aIn.aTamanho(),
-                                               aIn.aCaminho(),
+                                               this.mediaPathResolver.relativize(aIn.aCaminho()),
                                                aIn.aDuracao());
             arquivo.validate(notification);
 

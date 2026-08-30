@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Episodio extends Entity<EpisodioId> {
 
     private final EpisodioUuid uuid;
-    private final EpisodioStatus statusCode;
+    private final EpisodioStatus status;
     private final Arquivo arquivo;
     private final String titulo;
     private final Long numero;
@@ -21,22 +21,26 @@ public class Episodio extends Entity<EpisodioId> {
     private final Programa programa;
     private final List<Corte> cortes;
     private final Boolean processado;
+    private final Integer parte;
+    private final Integer ordem;
 
-    private Episodio(final EpisodioId id,
-                     final EpisodioUuid uuid,
-                     final EpisodioStatus statusCode,
-                     final Arquivo arquivo,
-                     final String titulo,
-                     final Long numero,
-                     final Long temporada,
-                     final String capaUrl,
-                     final Programa programa,
-                     final List<Corte> cortes,
-                     final Boolean processado) {
+private Episodio(final EpisodioId id,
+                 final EpisodioUuid uuid,
+                 final EpisodioStatus status,
+                 final Arquivo arquivo,
+                 final String titulo,
+                 final Long numero,
+                 final Long temporada,
+                 final String capaUrl,
+                 final Programa programa,
+                 final List<Corte> cortes,
+                 final Boolean processado,
+                 final Integer parte,
+                 final Integer ordem) {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.arquivo = arquivo;
         this.titulo = titulo;
         this.numero = numero;
@@ -45,6 +49,8 @@ public class Episodio extends Entity<EpisodioId> {
         this.programa = programa;
         this.cortes = cortes;
         this.processado = processado;
+        this.parte = parte;
+        this.ordem = ordem;
     }
 
     public static Episodio create(final Long aArquivoId,
@@ -53,7 +59,9 @@ public class Episodio extends Entity<EpisodioId> {
                                   final Long aTemporada,
                                   final String aCapaUrl,
                                   final Long aProgramaId,
-                                  final List<Long> aCorteIds) {
+                                  final List<Long> aCorteIds,
+                                  final Integer parte,
+                                  final Integer ordem) {
 
         return new Episodio(
                 EpisodioId.from(-1L),
@@ -65,9 +73,11 @@ public class Episodio extends Entity<EpisodioId> {
                 aTemporada,
                 aCapaUrl,
                 aProgramaId != null ? Programa.from(aProgramaId) : null,
-                aCorteIds != null && !aCorteIds.isEmpty() ?
-                        aCorteIds.stream().map(Corte::from).toList() : null,
-                false);
+                aCorteIds != null && !aCorteIds.isEmpty()
+                        ? aCorteIds.stream().map(Corte::from).toList() : null,
+                false,
+                parte,
+                ordem);
     }
 
     public static Episodio update(final Long aId,
@@ -79,7 +89,9 @@ public class Episodio extends Entity<EpisodioId> {
                                   final Long aTemporada,
                                   final String aCapaUrl,
                                   final Long aProgramaId,
-                                  final List<Long> aCorteIds) {
+                                  final List<Long> aCorteIds,
+                                  final Integer parte,
+                                  final Integer ordem) {
 
         return new Episodio(
                 aId != null ? EpisodioId.from(aId) : null,
@@ -91,9 +103,11 @@ public class Episodio extends Entity<EpisodioId> {
                 aTemporada,
                 aCapaUrl,
                 aProgramaId != null ? Programa.from(aProgramaId) : null,
-                aCorteIds != null && !aCorteIds.isEmpty() ?
-                        aCorteIds.stream().map(Corte::from).toList() : null,
-                false);
+                aCorteIds != null && !aCorteIds.isEmpty()
+                        ? aCorteIds.stream().map(Corte::from).toList() : null,
+                false,
+                parte,
+                ordem);
     }
 
     public static Episodio patch(final String aStatusCode,
@@ -104,21 +118,25 @@ public class Episodio extends Entity<EpisodioId> {
                                  final String aCapaUrl,
                                  final Long aProgramaId,
                                  final List<Long> aCorteIds,
+                                 final Integer parte,
+                                 final Integer Ordem,
                                  final Episodio aEpisodioDB) {
 
         return new Episodio(
                 aEpisodioDB.getId(),
                 aEpisodioDB.getUuid(),
-                aStatusCode != null ? EpisodioStatus.findByCode(aStatusCode) : aEpisodioDB.getStatusCode(),
+                aStatusCode != null ? EpisodioStatus.findByCode(aStatusCode) : aEpisodioDB.getStatus(),
                 aArquivoId != null ? Arquivo.from(aArquivoId) : aEpisodioDB.getArquivo(),
                 aTitulo != null ? aTitulo : aEpisodioDB.getTitulo(),
                 aNumero != null ? aNumero : aEpisodioDB.getNumero(),
                 aTemporada != null ? aTemporada : aEpisodioDB.getTemporada(),
                 aCapaUrl != null ? aCapaUrl : aEpisodioDB.getCapaUrl(),
                 aProgramaId != null ? Programa.from(aProgramaId) : aEpisodioDB.getPrograma(),
-                aCorteIds != null && !aCorteIds.isEmpty() ?
-                        aCorteIds.stream().map(Corte::from).toList() : aEpisodioDB.getCortes(),
-                aEpisodioDB.getProcessado());
+                aCorteIds != null && !aCorteIds.isEmpty()
+                        ? aCorteIds.stream().map(Corte::from).toList() : aEpisodioDB.getCortes(),
+                aEpisodioDB.getProcessado(),
+                parte < 0 ? parte : aEpisodioDB.getParte(),
+                Ordem < 0 ? Ordem : aEpisodioDB.getOrdem());
     }
 
     public static Episodio from(final Long aId,
@@ -131,7 +149,9 @@ public class Episodio extends Entity<EpisodioId> {
                                 final String aCapaUrl,
                                 final Programa aPrograma,
                                 final List<Corte> aCortes,
-                                final Boolean aProcessado) {
+                                final Boolean aProcessado,
+                                final Integer parte,
+                                final Integer ordem) {
 
         return new Episodio(
                 aId != null ? EpisodioId.from(aId) : null,
@@ -144,7 +164,9 @@ public class Episodio extends Entity<EpisodioId> {
                 aCapaUrl,
                 aPrograma,
                 aCortes,
-                aProcessado);
+                aProcessado,
+                parte,
+                ordem);
     }
 
     public static Episodio from(final Long aId) {
@@ -160,7 +182,9 @@ public class Episodio extends Entity<EpisodioId> {
                 null,
                 null,
                 null,
-                null);
+                null,
+                0,
+                0);
     }
 
     public static Episodio from(final String aUuid) {
@@ -176,7 +200,9 @@ public class Episodio extends Entity<EpisodioId> {
                 null,
                 null,
                 null,
-                null);
+                null,
+                0,
+                0);
     }
 
     public Episodio processar() {
@@ -184,7 +210,7 @@ public class Episodio extends Entity<EpisodioId> {
         return new Episodio(
                 this.getId(),
                 this.getUuid(),
-                this.getStatusCode(),
+                this.getStatus(),
                 this.getArquivo(),
                 this.getTitulo(),
                 this.getNumero(),
@@ -192,7 +218,9 @@ public class Episodio extends Entity<EpisodioId> {
                 this.getCapaUrl(),
                 this.getPrograma(),
                 this.getCortes(),
-                Boolean.TRUE);
+                Boolean.TRUE,
+                this.getParte(),
+                this.getOrdem());
     }
 
     @Override
@@ -204,8 +232,8 @@ public class Episodio extends Entity<EpisodioId> {
     public EpisodioUuid getUuid() {
         return uuid;
     }
-    public EpisodioStatus getStatusCode() {
-        return statusCode;
+    public EpisodioStatus getStatus() {
+        return status;
     }
     public Arquivo getArquivo() {
         return arquivo;
@@ -232,6 +260,14 @@ public class Episodio extends Entity<EpisodioId> {
         return processado;
     }
 
+    public int getParte() {
+        return parte;
+    }
+
+    public int getOrdem() {
+        return ordem;
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -244,7 +280,7 @@ public class Episodio extends Entity<EpisodioId> {
         Episodio episodio = (Episodio) o;
 
         return Objects.equals(uuid, episodio.uuid) &&
-                statusCode == episodio.statusCode &&
+                status == episodio.status &&
                 Objects.equals(arquivo, episodio.arquivo) &&
                 Objects.equals(titulo, episodio.titulo) &&
                 Objects.equals(numero, episodio.numero) &&
@@ -252,7 +288,9 @@ public class Episodio extends Entity<EpisodioId> {
                 Objects.equals(capaUrl, episodio.capaUrl) &&
                 Objects.equals(programa, episodio.programa) &&
                 Objects.equals(cortes, episodio.cortes) &&
-                Objects.equals(processado, episodio.processado);
+                Objects.equals(processado, episodio.processado) &&
+                Objects.equals(parte, episodio.parte) &&
+                Objects.equals(ordem, episodio.ordem);
     }
 
     @Override
@@ -261,7 +299,7 @@ public class Episodio extends Entity<EpisodioId> {
         return Objects.hash(
                 super.hashCode(),
                 uuid,
-                statusCode,
+                status,
                 arquivo,
                 titulo,
                 numero,
@@ -269,6 +307,8 @@ public class Episodio extends Entity<EpisodioId> {
                 capaUrl,
                 programa,
                 cortes,
-                processado);
+                processado,
+                parte,
+                ordem);
     }
 }

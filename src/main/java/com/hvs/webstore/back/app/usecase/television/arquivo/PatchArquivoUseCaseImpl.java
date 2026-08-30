@@ -2,6 +2,7 @@ package com.hvs.webstore.back.app.usecase.television.arquivo;
 
 import com.hvs.webstore.back.app.command.television.arquivo.PatchArquivoCommand;
 import com.hvs.webstore.back.app.output.television.arquivo.PatchArquivoOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.domain.entity.television.arquivo.Arquivo;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoDomainGateway;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoId;
@@ -16,10 +17,13 @@ import static io.vavr.API.Try;
 public class PatchArquivoUseCaseImpl extends PatchArquivoUseCase {
 
     private final ArquivoDomainGateway gateway;
+    private final MediaPathResolver mediaPathResolver;
 
     public PatchArquivoUseCaseImpl(
-            ArquivoDomainGateway gateway) {
+            ArquivoDomainGateway gateway,
+            MediaPathResolver mediaPathResolver) {
         this.gateway = gateway;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @Override
@@ -38,11 +42,12 @@ public class PatchArquivoUseCaseImpl extends PatchArquivoUseCase {
         if (arquivoDb.isPresent()) {
 
             final var notification = Notification.create();
-            final var arquivo = Arquivo.patch(aIn.aStatusDesc(),
+            final var arquivo = Arquivo.patch(aIn.aStatusCode(),
                                               aIn.aNome(),
-                                              aIn.aTipo(),
+                                              aIn.aTipoCode(),
                                               aIn.aTamanho(),
-                                              aIn.aCaminho(),
+                                              aIn.aCaminho() != null
+                                                      ? this.mediaPathResolver.relativize(aIn.aCaminho()) : null,
                                               aIn.aDuracao(),
                                               arquivoDb.get());
             arquivo.validate(notification);

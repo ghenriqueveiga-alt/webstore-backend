@@ -8,7 +8,9 @@ public record CreateEpisodioCommand(Long aArquivoId,
                                     Long aTemporada,
                                     String aCapaUrl,
                                     Long aProgramaId,
-                                    List<Long> aCorteIds) {
+                                    List<Long> aCorteIds,
+                                    int parte,
+                                    int ordem) {
 
     public static CreateEpisodioCommand from(final Long aArquivoId,
                                              final String aTitulo,
@@ -16,7 +18,9 @@ public record CreateEpisodioCommand(Long aArquivoId,
                                              final Long aTemporada,
                                              final String aCapaUrl,
                                              final Long aProgramaId,
-                                             final List<Long> aCorteIds) {
+                                             final List<Long> aCorteIds,
+                                             final int parte,
+                                             final int ordem) {
 
         return new CreateEpisodioCommand(
                 aArquivoId,
@@ -25,6 +29,8 @@ public record CreateEpisodioCommand(Long aArquivoId,
                 aTemporada,
                 aCapaUrl,
                 aProgramaId,
-                aCorteIds);
+                aCorteIds,
+                parte,
+                ordem);
     }
 }

@@ -4,7 +4,7 @@ import com.hvs.webstore.back.domain.entity.television.canal.Canal;
 
 public record ReadCanalOutput(Long aId,
                               String aUuid,
-                              String aStatusDesc,
+                              String aStatusCode,
                               String aNome,
                               String aDescricao,
                               String aLogotipoUrl,
@@ -15,10 +15,22 @@ public record ReadCanalOutput(Long aId,
         return new ReadCanalOutput(
                 aCanal.getId().getValue(),
                 aCanal.getUuid().getValue(),
-                aCanal.getStatusCode().getDesc(),
+                aCanal.getStatus().getCode(),
                 aCanal.getNome(),
                 aCanal.getDescricao(),
                 aCanal.getLogotipoUrl(),
                 aCanal.getSite());
+    }
+
+    public static ReadCanalOutput fromSimple(final Canal aCanal) {
+
+        return new ReadCanalOutput(
+                aCanal.getId().getValue(),
+                aCanal.getUuid().getValue(),
+                null,
+                null,
+                null,
+                null,
+                null);
     }
 }

@@ -4,7 +4,10 @@ import com.hvs.webstore.back.domain.entity.television.corte.Corte;
 import com.hvs.webstore.back.infra.persistence.BasicEntity;
 import com.hvs.webstore.back.infra.persistence.television.arquivo.ArquivoEntity;
 import com.hvs.webstore.back.infra.persistence.television.episodio.EpisodioEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "corte")
@@ -19,12 +22,19 @@ public class CorteEntity extends BasicEntity {
     @ManyToOne
     @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
     private ArquivoEntity arquivo;
-    private String tipoCode;
+    private String tipoDesc;
     private String duracao;
 
     @ManyToOne
     @JoinColumn(name = "episodio_id")
+    @JsonIgnore
     private EpisodioEntity episodio;
+
+    @Column(name = "inicio")
+    private LocalTime inicio;
+
+    @Column(name = "fim")
+    private LocalTime fim;
 
     public CorteEntity() {
 
@@ -34,17 +44,21 @@ public class CorteEntity extends BasicEntity {
                        final String uuid,
                        final String statusDesc,
                        final ArquivoEntity arquivo,
-                       final String tipoCode,
+                       final String tipoDesc,
                        final String duracao,
-                       final EpisodioEntity episodio) {
+                       final EpisodioEntity episodio,
+                       final LocalTime inicio,
+                       final LocalTime fim) {
 
         this.id = id;
         this.uuid = uuid;
         this.statusDesc = statusDesc;
         this.arquivo = arquivo;
-        this.tipoCode = tipoCode;
+        this.tipoDesc = tipoDesc;
         this.duracao = duracao;
-        this.episodio =episodio;
+        this.episodio = episodio;
+        this.inicio = inicio;
+        this.fim = fim;
     }
 
     public static CorteEntity from(final Corte aCorte) {
@@ -52,11 +66,13 @@ public class CorteEntity extends BasicEntity {
         return new CorteEntity(
                 aCorte.getId().getValue() < 0 ? null : aCorte.getId().getValue(),
                 aCorte.getUuid().getValue(),
-                aCorte.getStatusCode().getDesc(),
+                aCorte.getStatus().getDesc(),
                 aCorte.getArquivo() != null ? ArquivoEntity.from(aCorte.getArquivo().getId().getValue()) : null,
-                aCorte.getTipo().getCode(),
+                aCorte.getTipo().getDesc(),
                 aCorte.getDuracao(),
-                aCorte.getEpisodio() != null ? EpisodioEntity.from(aCorte.getEpisodio().getId().getValue()) : null);
+                aCorte.getEpisodio() != null ? EpisodioEntity.from(aCorte.getEpisodio().getId().getValue()) : null,
+                aCorte.getInicio(),
+                aCorte.getFim());
     }
 
     public static CorteEntity from(final Long aCorteId) {
@@ -74,9 +90,11 @@ public class CorteEntity extends BasicEntity {
                 uuid,
                 statusDesc,
                 arquivo != null ? arquivo.toDomainChildren(): null,
-                tipoCode,
+                tipoDesc,
                 duracao,
-                episodio != null ? episodio.toDomainChildren(): null);
+                episodio != null ? episodio.toDomainChildren(): null,
+                inicio,
+                fim);
     }
 
     public Corte toDomainChildren() {
@@ -86,9 +104,11 @@ public class CorteEntity extends BasicEntity {
                 uuid,
                 statusDesc,
                 arquivo != null ? arquivo.toDomainSimple(): null,
-                tipoCode,
+                tipoDesc,
                 duracao,
-                episodio != null ? episodio.toDomainSimple(): null);
+                episodio != null ? episodio.toDomainSimple(): null,
+                inicio,
+                fim);
     }
 
     public Corte toDomainSimple() {
@@ -96,6 +116,8 @@ public class CorteEntity extends BasicEntity {
         return Corte.from(
                 getId(),
                 uuid,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -112,5 +134,18 @@ public class CorteEntity extends BasicEntity {
     }
     public void setStatusDesc(final String statusDesc) {
         this.statusDesc = statusDesc;
+    }
+
+    public LocalTime getInicio() {
+        return inicio;
+    }
+    public void setInicio(final LocalTime inicio) {
+        this.inicio = inicio;
+    }
+    public LocalTime getFim() {
+        return fim;
+    }
+    public void setFim(final LocalTime fim) {
+        this.fim = fim;
     }
 }

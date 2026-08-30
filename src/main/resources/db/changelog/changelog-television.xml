@@ -93,6 +93,13 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="20260827-add-parta-coluna-episodio" author="ai-assistant">
+        <comment>Coluna parte do episódio</comment>
+        <addColumn tableName="episodio">
+            <column name="parte" type="VARCHAR(100)" nullable="true"/>
+        </addColumn>
+    </changeSet>
+
     <changeSet id="adicionar-colunas-programa" author="hvs">
         <comment>Campos adicionais do programa (classificacao etaria, exibicao, etc)</comment>
         <addColumn tableName="programa">
@@ -110,4 +117,76 @@
             <column name="site_oficial" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="criar-tabela-ending-detectado" author="hvs">
+        <comment>Tabela de endings detectados por episódio</comment>
+        <createTable tableName="ending_detectado">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="uuid" type="VARCHAR(255)"/>
+            <column name="status_desc" type="VARCHAR(255)"/>
+            <column name="inicio" type="datetime(6)"/>
+            <column name="duracao" type="datetime(6)"/>
+            <column name="fim" type="datetime(6)"/>
+            <column name="confianca" type="DOUBLE"/>
+            <column name="detectado" type="BIT(1)"/>
+            <column name="arquivo_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_ending_detectado_arquivo" references="arquivo(id)"/>
+            </column>
+            <column name="episodio_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_ending_detectado_episodio" references="episodio(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="criar-tabela-propaganda-detectado" author="hvs">
+        <comment>Tabela com a posição da propaganda (média do fim da opening com o início do ending) por episódio</comment>
+        <createTable tableName="propaganda_detectado">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="uuid" type="VARCHAR(255)"/>
+            <column name="status_desc" type="VARCHAR(255)"/>
+            <column name="arquivo_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_propaganda_detectado_arquivo" references="arquivo(id)"/>
+            </column>
+            <column name="episodio_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_propaganda_detectado_episodio" references="episodio(id)"/>
+            </column>
+            <column name="inicio" type="datetime(6)"/>
+            <column name="duracao" type="datetime(6)"/>
+            <column name="fim" type="datetime(6)"/>
+            <column name="op_fim" type="datetime(6)"/>
+            <column name="ed_inicio" type="datetime(6)"/>
+            <column name="posicao_pct" type="DOUBLE"/>
+            <column name="confianca" type="DOUBLE"/>
+            <column name="detectado" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="remover-unique-programa-bloco" author="hvs">
+        <comment>Remove constraint unique de programa_id na tabela bloco para permitir multiplos blocos por programa</comment>
+        <sql>ALTER TABLE bloco DROP FOREIGN KEY FK1wjmqyqk0yqgex0yco85ec2j2</sql>
+        <sql>ALTER TABLE bloco DROP INDEX UK3kfigl2h1p4ckewnpajmmjrek</sql>
+    </changeSet>
+
+    <changeSet id="duplicar-blocos-demais-dias" author="hvs">
+        <comment>Duplica os blocos de segunda-feira para terça, quarta, quinta, sexta, sábado e domingo</comment>
+        <sql>
+            INSERT INTO bloco (uuid, status_desc, programa_id, horario, grade_id, dia_semana_desc, faixa_horario_desc, tipo_bloco_desc)
+            SELECT UUID(), status_desc, programa_id, horario, grade_id, dia_novo, faixa_horario_desc, tipo_bloco_desc
+            FROM bloco
+            CROSS JOIN (
+                SELECT 'Terça-feira' AS dia_novo UNION ALL
+                SELECT 'Quarta-feira' UNION ALL
+                SELECT 'Quinta-feira' UNION ALL
+                SELECT 'Sexta-feira' UNION ALL
+                SELECT 'Sábado' UNION ALL
+                SELECT 'Domingo'
+            ) dias
+            WHERE dia_semana_desc = 'Segunda-feira' AND status_desc = 'AT';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

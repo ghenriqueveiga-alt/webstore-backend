@@ -16,7 +16,7 @@ public record ReadAllProgramaOutput(int aCurrentPage,
         final List<ReadProgramaOutput> list = new ArrayList<>();
 
         for (Programa aPrograma : aProgramaPagination.aContent()) {
-            list.add(ReadProgramaOutput.from(aPrograma));
+            list.add(ReadProgramaOutput.fromMinimal(aPrograma));
         }
 
         return new ReadAllProgramaOutput(

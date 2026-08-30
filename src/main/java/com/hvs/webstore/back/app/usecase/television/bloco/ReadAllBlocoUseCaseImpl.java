@@ -23,7 +23,7 @@ public class ReadAllBlocoUseCaseImpl extends ReadAllBlocoUseCase {
 
         Pagination<Bloco> blocoPagination = this.gateway.readAll(aIn.aBlocoSearchQuery());
         List<Bloco> lista = blocoPagination.aContent()
-                .stream().filter(bloco -> bloco.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(bloco -> bloco.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
 

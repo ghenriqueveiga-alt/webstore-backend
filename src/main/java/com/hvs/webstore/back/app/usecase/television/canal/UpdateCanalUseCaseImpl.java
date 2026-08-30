@@ -36,7 +36,7 @@ public class UpdateCanalUseCaseImpl extends UpdateCanalUseCase {
             final var notification = Notification.create();
             final var canal = Canal.update(canalDb.get().getId().getValue(),
                                            canalDb.get().getUuid().getValue(),
-                                           aCanalCommand.aStatusDesc(),
+                                           aCanalCommand.aStatusCode(),
                                            aCanalCommand.aNome(),
                                            aCanalCommand.aDescricao(),
                                            aCanalCommand.aLogotipoUrl(),

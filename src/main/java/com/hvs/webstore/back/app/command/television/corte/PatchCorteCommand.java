@@ -1,12 +1,16 @@
 package com.hvs.webstore.back.app.command.television.corte;
 
+import java.time.LocalTime;
+
 public record PatchCorteCommand(Long aId,
                                 String aUuid,
-                                String aStatusDesc,
+                                String aStatusCode,
                                 Long aArquivoId,
-                                String aTipoDesc,
+                                String aTipoCode,
                                 String aDuracao,
-                                Long aEpisodioId) {
+                                Long aEpisodioId,
+                                LocalTime aInicio,
+                                LocalTime aFim) {
 
     public static PatchCorteCommand from(final Long aId,
                                          final PatchCorteCommand aInput) {
@@ -14,11 +18,13 @@ public record PatchCorteCommand(Long aId,
         return new PatchCorteCommand(
                 aId,
                 null,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aArquivoId,
-                aInput.aTipoDesc,
+                aInput.aTipoCode,
                 aInput.aDuracao,
-                aInput.aEpisodioId);
+                aInput.aEpisodioId,
+                aInput.aInicio,
+                aInput.aFim);
     }
     public static PatchCorteCommand from(final String aUuid,
                                          final PatchCorteCommand aInput) {
@@ -26,10 +32,12 @@ public record PatchCorteCommand(Long aId,
         return new PatchCorteCommand(
                 null,
                 aUuid,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aArquivoId,
-                aInput.aTipoDesc,
+                aInput.aTipoCode,
                 aInput.aDuracao,
-                aInput.aEpisodioId);
+                aInput.aEpisodioId,
+                aInput.aInicio,
+                aInput.aFim);
     }
 }

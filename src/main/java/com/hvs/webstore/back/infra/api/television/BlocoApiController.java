@@ -62,13 +62,14 @@ public class BlocoApiController {
     @GetMapping
     public ResponseEntity<?> readAllBloco(
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) Long gradeId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sort,
             @RequestParam(defaultValue = "asc") String direction) {
 
         return this.readAllBlocoUseCase.execute(new ReadAllBlocoCommand(
-                        new BlocoSearchQuery(search, page, size, sort, direction)))
+                        new BlocoSearchQuery(search, gradeId, page, size, sort, direction)))
                 .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
                         success -> new ResponseEntity<>(success, HttpStatus.OK));
     }

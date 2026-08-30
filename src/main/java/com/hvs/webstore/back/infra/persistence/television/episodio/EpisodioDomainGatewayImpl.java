@@ -56,9 +56,25 @@ public class EpisodioDomainGatewayImpl implements EpisodioDomainGateway {
             Specification<EpisodioEntity> specification =
                     (root, query, criteriaBuilder) -> {
                         String likePattern = "%" + aQuery.aSearch().toLowerCase() + "%";
-                        return criteriaBuilder.like(criteriaBuilder.lower(root.get("titulo")), likePattern);
+                        var pred = criteriaBuilder.like(criteriaBuilder.lower(root.get("titulo")), likePattern);
+                        if (aQuery.aProgramaId() != null) {
+                            pred = criteriaBuilder.and(pred, criteriaBuilder.equal(root.get("programa").get("id"), aQuery.aProgramaId()));
+                        } else if (aQuery.aProgramaIds() != null && !aQuery.aProgramaIds().isEmpty()) {
+                            pred = criteriaBuilder.and(pred, root.get("programa").get("id").in(aQuery.aProgramaIds()));
+                        }
+                        return pred;
                     };
 
+            pages = this.repository.findAll(specification, pageable);
+        } else if (aQuery.aProgramaId() != null) {
+            Specification<EpisodioEntity> specification =
+                    (root, query, criteriaBuilder) ->
+                            criteriaBuilder.equal(root.get("programa").get("id"), aQuery.aProgramaId());
+            pages = this.repository.findAll(specification, pageable);
+        } else if (aQuery.aProgramaIds() != null && !aQuery.aProgramaIds().isEmpty()) {
+            Specification<EpisodioEntity> specification =
+                    (root, query, criteriaBuilder) ->
+                            root.get("programa").get("id").in(aQuery.aProgramaIds());
             pages = this.repository.findAll(specification, pageable);
         } else {
             pages = this.repository.findAll(pageable);

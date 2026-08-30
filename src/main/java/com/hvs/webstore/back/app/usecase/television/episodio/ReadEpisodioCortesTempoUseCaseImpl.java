@@ -3,8 +3,10 @@ package com.hvs.webstore.back.app.usecase.television.episodio;
 import com.hvs.webstore.back.app.command.television.episodio.ReadEpisodioCommand;
 import com.hvs.webstore.back.app.output.television.episodio.CorteTempoOutput;
 import com.hvs.webstore.back.app.output.television.episodio.ReadEpisodioCortesTempoOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.app.service.VideoDurationReader;
 import com.hvs.webstore.back.domain.entity.television.corte.Corte;
+import com.hvs.webstore.back.domain.entity.television.corte.CorteStatus;
 import com.hvs.webstore.back.domain.entity.television.corte.CorteTipo;
 import com.hvs.webstore.back.domain.entity.television.episodio.Episodio;
 import com.hvs.webstore.back.domain.entity.television.episodio.EpisodioDomainGateway;
@@ -36,12 +38,15 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
 
     private final EpisodioDomainGateway gateway;
     private final VideoDurationReader videoDurationReader;
+    private final MediaPathResolver mediaPathResolver;
 
     public ReadEpisodioCortesTempoUseCaseImpl(
             EpisodioDomainGateway gateway,
-            VideoDurationReader videoDurationReader) {
+            VideoDurationReader videoDurationReader,
+            MediaPathResolver mediaPathResolver) {
         this.gateway = gateway;
         this.videoDurationReader = videoDurationReader;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @Override
@@ -77,13 +82,14 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
 
         final List<Corte> cortes = episodio.getCortes() != null
                 ? episodio.getCortes().stream()
+                        .filter(corte -> corte.getStatus() == CorteStatus.ACTIVE)
                         .filter(corte -> corte.getTipo() != null && corte.getDuracao() != null)
                         .sorted(Comparator.comparingInt(corte -> TIPO_ORDER.getOrDefault(corte.getTipo().getCode(), 99)))
                         .toList()
                 : List.of();
 
-        final String caminhoArquivo = episodio.getArquivo() != null
-                ? episodio.getArquivo().getCaminho() : null;
+        final String caminhoArquivo = this.mediaPathResolver.resolve(
+                episodio.getArquivo() != null ? episodio.getArquivo().getCaminho() : null);
 
         final long duracaoRealSegundos = caminhoArquivo != null
                 ? this.videoDurationReader.readDurationSeconds(caminhoArquivo) : 0L;
@@ -103,10 +109,12 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
             final double fimPercent = totalCortesSeconds > 0
                     ? ((accumulatedSeconds + corteSeconds) * 100.0) / totalCortesSeconds : 100.0;
 
-            final long inicioSeconds = fileSeconds > 0
-                    ? Math.round((inicioPercent / 100.0) * fileSeconds) : accumulatedSeconds;
-            final long fimSeconds = fileSeconds > 0
-                    ? Math.round((fimPercent / 100.0) * fileSeconds) : accumulatedSeconds + corteSeconds;
+            final long inicioSeconds = corte.getInicio() != null
+                    ? corte.getInicio().toSecondOfDay()
+                    : (fileSeconds > 0 ? Math.round((inicioPercent / 100.0) * fileSeconds) : accumulatedSeconds);
+            final long fimSeconds = corte.getFim() != null
+                    ? corte.getFim().toSecondOfDay()
+                    : (fileSeconds > 0 ? Math.round((fimPercent / 100.0) * fileSeconds) : accumulatedSeconds + corteSeconds);
 
             accumulatedSeconds += corteSeconds;
 
@@ -115,10 +123,10 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
                     corte.getTipo().getCode(),
                     corte.getTipo().getDesc(),
                     corte.getDuracao(),
+                    corte.getInicio(),
+                    corte.getFim(),
                     inicioSeconds,
                     fimSeconds,
-                    formatSeconds(inicioSeconds),
-                    formatSeconds(fimSeconds),
                     round2(inicioPercent),
                     round2(fimPercent)));
         }

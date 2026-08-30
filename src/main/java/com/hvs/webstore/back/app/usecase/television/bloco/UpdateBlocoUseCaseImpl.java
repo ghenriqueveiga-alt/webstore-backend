@@ -40,7 +40,7 @@ public class UpdateBlocoUseCaseImpl extends UpdateBlocoUseCase {
             final var notification = Notification.create();
             final var bloco = Bloco.update(blocoDb.get().getId().getValue(),
                                            blocoDb.get().getUuid().getValue(),
-                                           aIn.aStatusDesc(),
+                                           aIn.aStatusCode(),
                                            aIn.aProgramaId(),
                                            aIn.aHorario(),
                                            aIn.aGradeId(),

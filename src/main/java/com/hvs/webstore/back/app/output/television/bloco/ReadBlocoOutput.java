@@ -6,7 +6,7 @@ import com.hvs.webstore.back.domain.entity.television.bloco.Bloco;
 
 public record ReadBlocoOutput(Long aId,
                               String aUuid,
-                              String aStatusDesc,
+                              String aStatusCode,
                               ReadProgramaOutput aPrograma,
                               String aHorario,
                               ReadGradeOutput aGrade,
@@ -19,10 +19,10 @@ public record ReadBlocoOutput(Long aId,
         return new ReadBlocoOutput(
                 aBloco.getId().getValue(),
                 aBloco.getUuid().getValue(),
-                aBloco.getStatusCode().getDesc(),
-                aBloco.getPrograma() != null ? ReadProgramaOutput.fromSimple(aBloco.getPrograma()) : null,
+                aBloco.getStatus().getCode(),
+                aBloco.getPrograma() != null ? ReadProgramaOutput.fromMinimal(aBloco.getPrograma()) : null,
                 aBloco.getHorario(),
-                aBloco.getGrade() != null ? ReadGradeOutput.fromSimple(aBloco.getGrade()) : null,
+                aBloco.getGrade() != null ? ReadGradeOutput.fromMinimal(aBloco.getGrade()) : null,
                 aBloco.getDiaSemana() != null ? aBloco.getDiaSemana().getDesc() : null,
                 aBloco.getFaixaHorario() != null ? aBloco.getFaixaHorario().getDesc() : null,
                 aBloco.getTipoBloco() != null ? aBloco.getTipoBloco().getDesc() : null);

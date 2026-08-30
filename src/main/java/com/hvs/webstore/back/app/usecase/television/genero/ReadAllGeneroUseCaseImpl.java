@@ -22,7 +22,7 @@ public class ReadAllGeneroUseCaseImpl extends ReadAllGeneroUseCase {
 
         Pagination<Genero> generoPagination = this.gateway.readAll(aGeneroCommand.aGeneroSearchQuery());
         List<Genero> lista = generoPagination.aContent()
-                .stream().filter(genero -> genero.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(genero -> genero.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
             return Either.right(ReadAllGeneroOutput.from(Pagination.from(

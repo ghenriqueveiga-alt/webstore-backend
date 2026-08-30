@@ -3,9 +3,11 @@ package com.hvs.webstore.back.app.usecase.television.episodio;
 import com.hvs.webstore.back.app.command.television.episodio.ReadEpisodioCommand;
 import com.hvs.webstore.back.app.output.television.episodio.CorteDetectadoOutput;
 import com.hvs.webstore.back.app.output.television.episodio.ReadEpisodioCortesDetectadosOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.app.service.VideoCutDetector;
 import com.hvs.webstore.back.app.service.VideoDurationReader;
 import com.hvs.webstore.back.domain.entity.television.corte.Corte;
+import com.hvs.webstore.back.domain.entity.television.corte.CorteStatus;
 import com.hvs.webstore.back.domain.entity.television.episodio.Episodio;
 import com.hvs.webstore.back.domain.entity.television.episodio.EpisodioDomainGateway;
 import com.hvs.webstore.back.domain.entity.television.episodio.EpisodioId;
@@ -37,14 +39,17 @@ public class ReadEpisodioCortesDetectadosUseCaseImpl extends ReadEpisodioCortesD
     private final EpisodioDomainGateway gateway;
     private final VideoDurationReader videoDurationReader;
     private final VideoCutDetector videoCutDetector;
+    private final MediaPathResolver mediaPathResolver;
 
     public ReadEpisodioCortesDetectadosUseCaseImpl(
             EpisodioDomainGateway gateway,
             VideoDurationReader videoDurationReader,
-            VideoCutDetector videoCutDetector) {
+            VideoCutDetector videoCutDetector,
+            MediaPathResolver mediaPathResolver) {
         this.gateway = gateway;
         this.videoDurationReader = videoDurationReader;
         this.videoCutDetector = videoCutDetector;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @Override
@@ -75,8 +80,8 @@ public class ReadEpisodioCortesDetectadosUseCaseImpl extends ReadEpisodioCortesD
 
         final Episodio episodio = episodioDb.get();
 
-        final String caminhoArquivo = episodio.getArquivo() != null
-                ? episodio.getArquivo().getCaminho() : null;
+        final String caminhoArquivo = this.mediaPathResolver.resolve(
+                episodio.getArquivo() != null ? episodio.getArquivo().getCaminho() : null);
 
         final long duracaoRealSegundos = caminhoArquivo != null
                 ? this.videoDurationReader.readDurationSeconds(caminhoArquivo) : 0L;
@@ -87,6 +92,7 @@ public class ReadEpisodioCortesDetectadosUseCaseImpl extends ReadEpisodioCortesD
 
         final List<Corte> cortes = episodio.getCortes() != null
                 ? episodio.getCortes().stream()
+                        .filter(corte -> corte.getStatus() == CorteStatus.ACTIVE)
                         .filter(corte -> corte.getTipo() != null && corte.getDuracao() != null)
                         .sorted(Comparator.comparingInt(corte -> TIPO_ORDER.getOrDefault(corte.getTipo().getCode(), 99)))
                         .toList()

@@ -24,9 +24,11 @@ public class CreateCorteUseCaseImpl extends CreateCorteUseCase {
 
         final var notification = Notification.create();
         final var corte = Corte.create(aIn.aArquivoId(),
-                                       aIn.aTipoDesc(),
+                                       aIn.aTipoCode(),
                                        aIn.aDuracao(),
-                                       aIn.aEpisodioId());
+                                       aIn.aEpisodioId(),
+                                       aIn.aInicio(),
+                                       aIn.aFim());
         corte.validate(notification);
 
         return notification.hasError() ? API.Left(notification) : create(corte);

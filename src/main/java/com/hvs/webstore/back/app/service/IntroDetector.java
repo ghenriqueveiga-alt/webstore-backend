@@ -7,6 +7,6 @@ public interface IntroDetector {
 
     Map<String, DetectedIntro> detectIntro(List<String> aCaminhos);
 
-    record DetectedIntro(String aCaminho, long aInicioSegundos, double aConfianca, boolean aDetectado) {
+    record DetectedIntro(String aCaminho, long aInicioSegundos, double aDuracaoSegundos, double aConfianca, boolean aDetectado) {
     }
 }

@@ -38,7 +38,7 @@ public class PatchEpisodioUseCaseImpl extends PatchEpisodioUseCase {
         if (episodioDb.isPresent()) {
 
             final var notification = Notification.create();
-            final var episodio = Episodio.patch(aIn.aStatusDesc(),
+            final var episodio = Episodio.patch(aIn.aStatusCode(),
                                                 aIn.aArquivoId(),
                                                 aIn.aTitulo(),
                                                 aIn.aNumero(),
@@ -46,6 +46,8 @@ public class PatchEpisodioUseCaseImpl extends PatchEpisodioUseCase {
                                                 aIn.aCapaUrl(),
                                                 aIn.aProgramaId(),
                                                 aIn.aCorteIds(),
+                                                aIn.aParte(),
+                                                aIn.aOrdem(),
                                                 episodioDb.get());
             episodio.validate(notification);
 

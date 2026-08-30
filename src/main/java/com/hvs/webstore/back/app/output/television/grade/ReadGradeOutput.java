@@ -8,7 +8,7 @@ import java.util.List;
 
 public record ReadGradeOutput(Long aId,
                               String aUuid,
-                              String aStatusDesc,
+                              String aStatusCode,
                               String aNome,
                               String aDescricao,
                               List<ReadBlocoOutput> aBlocos,
@@ -21,7 +21,7 @@ public record ReadGradeOutput(Long aId,
         return new ReadGradeOutput(
                 aGrade.getId().getValue(),
                 aGrade.getUuid().getValue(),
-                aGrade.getStatusCode().getDesc(),
+                aGrade.getStatus().getCode(),
                 aGrade.getNome(),
                 aGrade.getDescricao(),
                 aGrade.getBlocos() != null ? aGrade.getBlocos().stream().map(ReadBlocoOutput::fromSimple).toList() : null,
@@ -37,6 +37,20 @@ public record ReadGradeOutput(Long aId,
                 aGrade.getUuid().getValue(),
                 null,
                 null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static ReadGradeOutput fromMinimal(final Grade aGrade) {
+
+        return new ReadGradeOutput(
+                aGrade.getId().getValue(),
+                aGrade.getUuid().getValue(),
+                null,
+                aGrade.getNome(),
                 null,
                 null,
                 null,

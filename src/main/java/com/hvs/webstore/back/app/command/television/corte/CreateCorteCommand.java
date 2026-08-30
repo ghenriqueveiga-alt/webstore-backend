@@ -1,19 +1,27 @@
 package com.hvs.webstore.back.app.command.television.corte;
 
+import java.time.LocalTime;
+
 public record CreateCorteCommand(Long aArquivoId,
-                                 String aTipoDesc,
+                                 String aTipoCode,
                                  String aDuracao,
-                                 Long aEpisodioId) {
+                                 Long aEpisodioId,
+                                 LocalTime aInicio,
+                                 LocalTime aFim) {
 
     public static CreateCorteCommand from(final Long aArquivoId,
-                                          final String aTipoDesc,
+                                          final String aTipoCode,
                                           final String duracao,
-                                          final Long aEpisodioId) {
+                                          final Long aEpisodioId,
+                                          final LocalTime aInicio,
+                                          final LocalTime aFim) {
 
         return new CreateCorteCommand(
                 aArquivoId,
-                aTipoDesc,
+                aTipoCode,
                 duracao,
-                aEpisodioId);
+                aEpisodioId,
+                aInicio,
+                aFim);
     }
 }

@@ -3,15 +3,18 @@ package com.hvs.webstore.back.infra.api.television;
 import com.hvs.webstore.back.app.command.television.episodio.*;
 import com.hvs.webstore.back.app.output.television.episodio.ReadEpisodioCortesDetectadosOutput;
 import com.hvs.webstore.back.app.output.television.episodio.ReadEpisodioOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.app.usecase.television.episodio.*;
+import com.hvs.webstore.back.infra.persistence.television.episodio.EpisodioJpaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
 
 @RestController
 @RequestMapping("/api/v1/episodio")
@@ -26,6 +29,8 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
     private final UpdateEpisodioUseCase updateEpisodioUseCase;
     private final PatchEpisodioUseCase patchEpisodioUseCase;
     private final DeleteEpisodioUseCase deleteEpisodioUseCase;
+    private final MediaPathResolver mediaPathResolver;
+    private final EpisodioJpaRepository episodioJpaRepository;
 
     public EpisodioApiController(
             final CreateEpisodioUseCase createEpisodioUseCase,
@@ -35,7 +40,9 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
             final ReadAllEpisodioUseCase readAllEpisodioUseCase,
             final UpdateEpisodioUseCase updateEpisodioUseCase,
             final PatchEpisodioUseCase patchEpisodioUseCase,
-            final DeleteEpisodioUseCase deleteEpisodioUseCase) {
+            final DeleteEpisodioUseCase deleteEpisodioUseCase,
+            final MediaPathResolver mediaPathResolver,
+            final EpisodioJpaRepository episodioJpaRepository) {
         this.createEpisodioUseCase = createEpisodioUseCase;
         this.readEpisodioUseCase = readEpisodioUseCase;
         this.readEpisodioCortesTempoUseCase = readEpisodioCortesTempoUseCase;
@@ -44,6 +51,8 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
         this.updateEpisodioUseCase = updateEpisodioUseCase;
         this.patchEpisodioUseCase = patchEpisodioUseCase;
         this.deleteEpisodioUseCase = deleteEpisodioUseCase;
+        this.mediaPathResolver = mediaPathResolver;
+        this.episodioJpaRepository = episodioJpaRepository;
     }
 
     @PostMapping
@@ -111,15 +120,76 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
                             schema = @Schema(implementation = com.hvs.webstore.back.app.output.television.episodio.ReadAllEpisodioOutput.class))))
     public ResponseEntity<?> readAllEpisodio(
             @RequestParam(required = false) String search,
+            @RequestParam(required = false) Long programaId,
+            @RequestParam(required = false) String programaIds,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sort,
             @RequestParam(defaultValue = "asc") String direction) {
 
+        final java.util.List<Long> ids = (programaIds != null && !programaIds.isBlank())
+                ? java.util.Arrays.stream(programaIds.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .map(Long::parseLong)
+                    .toList()
+                : null;
+
         return this.readAllEpisodioUseCase.execute(new ReadAllEpisodioCommand(
-                        new EpisodioSearchQuery(search, page, size, sort, direction)))
+                        new EpisodioSearchQuery(search, programaId, ids, page, size, sort, direction)))
                 .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
                         success -> new ResponseEntity<>(success, HttpStatus.OK));
+    }
+
+    @GetMapping(value = "/primeiro-por-programa")
+    public ResponseEntity<?> readFirstEpisodioByProgramaIds(
+            @RequestParam String programaIds) {
+
+        final java.util.List<Long> ids = java.util.Arrays.stream(programaIds.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(Long::parseLong)
+                .toList();
+
+        final var entities = this.episodioJpaRepository.findFirstByProgramaIds(ids);
+        final var result = entities.stream()
+                .map(e -> {
+                    final var d = e.toDomainChildren();
+                    return ReadEpisodioOutput.from(d);
+                })
+                .toList();
+
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/primeiros-por-programa")
+    public ResponseEntity<?> readPrimeirosEpisodiosByProgramaIds(
+            @RequestParam String programaIds,
+            @RequestParam(defaultValue = "0") int offset,
+            @RequestParam(defaultValue = "1") int limite) {
+
+        final java.util.List<Long> ids = java.util.Arrays.stream(programaIds.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(Long::parseLong)
+                .toList();
+
+        final var rows = this.episodioJpaRepository.findPrimeirosPorProgramaIds(ids, offset, limite);
+        final var result = rows.stream()
+                .map(row -> {
+                    java.util.Map<String, Object> m = new java.util.HashMap<>();
+                    m.put("aId", ((Number) row[0]).longValue());
+                    m.put("aNumero", row[1] != null ? ((Number) row[1]).longValue() : null);
+                    m.put("aTitulo", row[2] != null ? row[2].toString() : null);
+                    m.put("aProgramaId", ((Number) row[3]).longValue());
+                    m.put("aTemporada", row[4] != null ? ((Number) row[4]).longValue() : null);
+                    m.put("aParte", row[5] != null ? ((Number) row[5]).longValue() : 0L);
+                    m.put("aDuracao", row[6] != null ? row[6].toString() : null);
+                    return m;
+                })
+                .toList();
+
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping(value = "/id/{id}")
@@ -178,5 +248,39 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
         return this.deleteEpisodioUseCase.execute(DeleteEpisodioCommand.from(aUuid))
                 .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
                         success -> new ResponseEntity<>(success, HttpStatus.OK));
+    }
+
+    @GetMapping(value = "/{id}/capa")
+    public ResponseEntity<byte[]> getCapa(
+            @PathVariable("id") Long aId) {
+
+        return this.readEpisodioUseCase.execute(ReadEpisodioCommand.from(aId))
+                .fold(error -> ResponseEntity.notFound().<byte[]>build(),
+                        output -> {
+                            if (output.aCapaUrl() == null || output.aCapaUrl().isBlank()) {
+                                return ResponseEntity.notFound().<byte[]>build();
+                            }
+
+                            final String resolved = this.mediaPathResolver.resolve(output.aCapaUrl());
+                            final File file = new File(resolved);
+
+                            if (!file.exists()) {
+                                return ResponseEntity.notFound().<byte[]>build();
+                            }
+
+                            try {
+                                final byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
+                                final String name = output.aCapaUrl().toLowerCase();
+                                final MediaType mediaType = name.endsWith(".png")
+                                        ? MediaType.IMAGE_PNG : MediaType.IMAGE_JPEG;
+
+                                return ResponseEntity.ok()
+                                        .contentType(mediaType)
+                                        .contentLength(bytes.length)
+                                        .body(bytes);
+                            } catch (IOException e) {
+                                return ResponseEntity.internalServerError().<byte[]>build();
+                            }
+                        });
     }
 }

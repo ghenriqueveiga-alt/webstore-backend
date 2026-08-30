@@ -44,7 +44,7 @@ public class CanalEntity extends BasicEntity {
         return new CanalEntity(
                 aCanal.getId().getValue() < 0 ? null : aCanal.getId().getValue(),
                 aCanal.getUuid().getValue(),
-                aCanal.getStatusCode().getDesc(),
+                aCanal.getStatus().getDesc(),
                 aCanal.getNome(),
                 aCanal.getDescricao(),
                 aCanal.getLogotipoUrl(),

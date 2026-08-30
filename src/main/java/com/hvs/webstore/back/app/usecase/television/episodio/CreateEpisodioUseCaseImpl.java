@@ -29,7 +29,9 @@ public class CreateEpisodioUseCaseImpl extends CreateEpisodioUseCase {
                                              aIn.aTemporada(),
                                              aIn.aCapaUrl(),
                                              aIn.aProgramaId(),
-                                             aIn.aCorteIds());
+                                             aIn.aCorteIds(),
+                                             aIn.parte(),
+                                             aIn.ordem());
         episodio.validate(notification);
 
         return notification.hasError() ? API.Left(notification) : create(episodio);

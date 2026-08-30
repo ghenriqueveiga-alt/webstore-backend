@@ -4,13 +4,15 @@ import java.util.List;
 
 public record UpdateEpisodioCommand(Long aId,
                                     String aUuid,
-                                    String aStatusDesc,
+                                    String aStatusCode,
                                     Long aArquivoId,
                                     String aTitulo,
                                     Long aNumero,
                                     Long aTemporada,
                                     String aCapaUrl,
                                     Long aProgramaId,
+                                    Integer aParte,
+                                    Integer aOrdem,
                                     List<Long> aCorteIds) {
 
     public static UpdateEpisodioCommand from(final Long aId,
@@ -19,13 +21,15 @@ public record UpdateEpisodioCommand(Long aId,
         return new UpdateEpisodioCommand(
                 aId,
                 null,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aArquivoId,
                 aInput.aTitulo,
                 aInput.aNumero,
                 aInput.aTemporada,
                 aInput.aCapaUrl,
                 aInput.aProgramaId,
+                aInput.aParte,
+                aInput.aOrdem,
                 aInput.aCorteIds);
     }
 
@@ -35,13 +39,15 @@ public record UpdateEpisodioCommand(Long aId,
         return new UpdateEpisodioCommand(
                 null,
                 aUuid,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aArquivoId,
                 aInput.aTitulo,
                 aInput.aNumero,
                 aInput.aTemporada,
                 aInput.aCapaUrl,
                 aInput.aProgramaId,
+                aInput.aParte,
+                aInput.aOrdem,
                 aInput.aCorteIds);
     }
 }

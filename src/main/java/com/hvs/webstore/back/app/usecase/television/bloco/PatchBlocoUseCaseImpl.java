@@ -38,7 +38,7 @@ public class PatchBlocoUseCaseImpl extends PatchBlocoUseCase {
         if (blocoDb.isPresent()) {
 
             final var notification = Notification.create();
-            final var bloco = Bloco.patch(aIn.aStatusDesc(),
+            final var bloco = Bloco.patch(aIn.aStatusCode(),
                                           aIn.aProgramaId(),
                                           aIn.aHorario(),
                                           aIn.aGradeId(),

@@ -8,19 +8,19 @@ import java.util.Objects;
 public class Genero extends Entity<GeneroId> {
 
     private final GeneroUuid uuid;
-    private final GeneroStatus statusCode;
+    private final GeneroStatus status;
     private final String nome;
     private final String descricao;
 
     private Genero(final GeneroId id,
                   final GeneroUuid uuid,
-                  final GeneroStatus statusCode,
+                  final GeneroStatus status,
                   final String nome,
                   final String descricao) {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -58,7 +58,7 @@ public class Genero extends Entity<GeneroId> {
         return new Genero(
                 aGeneroDB.getId(),
                 aGeneroDB.getUuid(),
-                aStatusCode != null ? GeneroStatus.findByCode(aStatusCode) : aGeneroDB.getStatusCode(),
+                aStatusCode != null ? GeneroStatus.findByCode(aStatusCode) : aGeneroDB.getStatus(),
                 aNome != null ? aNome : aGeneroDB.getNome(),
                 aDescricao != null ? aDescricao : aGeneroDB.getDescricao());
     }
@@ -104,19 +104,23 @@ public class Genero extends Entity<GeneroId> {
     }
 
     public GeneroUuid getUuid() { return uuid; }
-    public GeneroStatus getStatusCode() { return statusCode; }
+    public GeneroStatus getStatus() { return status; }
     public String getNome() { return nome; }
     public String getDescricao() { return descricao; }
 
     @Override
     public boolean equals(Object o) {
+
         if (o == null || getClass() != o.getClass())
             return false;
+
         if (!super.equals(o))
             return false;
+
         Genero genero = (Genero) o;
+
         return Objects.equals(uuid, genero.uuid) &&
-                statusCode == genero.statusCode &&
+                status == genero.status &&
                 Objects.equals(nome, genero.nome) &&
                 Objects.equals(descricao, genero.descricao);
     }
@@ -124,6 +128,11 @@ public class Genero extends Entity<GeneroId> {
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), uuid, statusCode, nome, descricao);
+        return Objects.hash(
+                super.hashCode(),
+                uuid,
+                status,
+                nome,
+                descricao);
     }
 }

@@ -23,7 +23,7 @@ public class ReadAllGradeUseCaseImpl extends ReadAllGradeUseCase {
 
         Pagination<Grade> gradePagination = this.gateway.readAll(aIn.aGradeSearchQuery());
         List<Grade> lista = gradePagination.aContent()
-                .stream().filter(corte -> corte.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(corte -> corte.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
 

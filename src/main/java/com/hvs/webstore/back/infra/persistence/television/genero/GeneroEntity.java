@@ -38,7 +38,7 @@ public class GeneroEntity extends BasicEntity {
         return new GeneroEntity(
                 aGenero.getId().getValue() < 0 ? null : aGenero.getId().getValue(),
                 aGenero.getUuid().getValue(),
-                aGenero.getStatusCode().getDesc(),
+                aGenero.getStatus().getDesc(),
                 aGenero.getNome(),
                 aGenero.getDescricao());
     }

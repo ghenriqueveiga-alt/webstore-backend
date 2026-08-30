@@ -92,7 +92,7 @@ public class Bloco extends Entity<BlocoId> {
         return new Bloco(
                 aBlocoDB.getId(),
                 aBlocoDB.getUuid(),
-                aStatusCode != null ? BlocoStatus.findByCode(aStatusCode) : aBlocoDB.getStatusCode(),
+                aStatusCode != null ? BlocoStatus.findByCode(aStatusCode) : aBlocoDB.getStatus(),
                 aProgramaId != null ? Programa.from(aProgramaId) : aBlocoDB.getPrograma(),
                 aHorario != null ? aHorario : aBlocoDB.getHorario(),
                 aGradeId != null ? Grade.from(aGradeId) : aBlocoDB.getGrade(),
@@ -160,7 +160,7 @@ public class Bloco extends Entity<BlocoId> {
     public BlocoUuid getUuid() {
         return uuid;
     }
-    public BlocoStatus getStatusCode() {
+    public BlocoStatus getStatus() {
         return status;
     }
     public Programa getPrograma() {

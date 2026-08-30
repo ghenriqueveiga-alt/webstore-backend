@@ -22,7 +22,7 @@ public class ReadAllCanalUseCaseImpl extends ReadAllCanalUseCase {
 
         Pagination<Canal> canalPagination = this.gateway.readAll(aCanalCommand.aCanalSearchQuery());
         List<Canal> lista = canalPagination.aContent()
-                .stream().filter(canal -> canal.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(canal -> canal.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
             return Either.right(ReadAllCanalOutput.from(Pagination.from(

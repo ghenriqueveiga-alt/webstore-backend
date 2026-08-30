@@ -51,17 +51,24 @@ public class BlocoDomainGatewayImpl implements BlocoDomainGateway {
                 Sort.Direction.fromString(aQuery.aDirection()),
                 aQuery.aSort());
 
-        if (aQuery.aSearch() != null && !aQuery.aSearch().trim().isEmpty()) {
-            Specification<BlocoEntity> specification =
-                    (root, query, criteriaBuilder) -> {
-                        String likePattern = "%" + aQuery.aSearch().toLowerCase() + "%";
-                        return criteriaBuilder.like(criteriaBuilder.lower(root.get("horario")), likePattern);
-                    };
+        Specification<BlocoEntity> specification = (root, query, criteriaBuilder) -> {
+            var predicates = new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
 
-            pages = this.repository.findAll(specification, pageable);
-        } else {
-            pages = this.repository.findAll(pageable);
-        }
+            predicates.add(criteriaBuilder.equal(root.get("statusDesc"), "Active"));
+
+            if (aQuery.aGradeId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("grade").get("id"), aQuery.aGradeId()));
+            }
+
+            if (aQuery.aSearch() != null && !aQuery.aSearch().trim().isEmpty()) {
+                String likePattern = "%" + aQuery.aSearch().toLowerCase() + "%";
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("horario")), likePattern));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new jakarta.persistence.criteria.Predicate[0]));
+        };
+
+        pages = this.repository.findAll(specification, pageable);
 
         return new Pagination<>(
                 pages.getNumber(),

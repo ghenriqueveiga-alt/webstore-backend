@@ -4,7 +4,7 @@ import com.hvs.webstore.back.domain.entity.television.genero.Genero;
 
 public record ReadGeneroOutput(Long aId,
                                String aUuid,
-                               String aStatusDesc,
+                               String aStatusCode,
                                String aNome,
                                String aDescricao) {
 
@@ -13,7 +13,7 @@ public record ReadGeneroOutput(Long aId,
         return new ReadGeneroOutput(
                 aGenero.getId().getValue(),
                 aGenero.getUuid().getValue(),
-                aGenero.getStatusCode().getDesc(),
+                aGenero.getStatus().getCode(),
                 aGenero.getNome(),
                 aGenero.getDescricao());
     }

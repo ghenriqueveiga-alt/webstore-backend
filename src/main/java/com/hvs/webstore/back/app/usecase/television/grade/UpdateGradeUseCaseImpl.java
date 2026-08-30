@@ -40,7 +40,7 @@ public class UpdateGradeUseCaseImpl extends UpdateGradeUseCase {
             final var notification = Notification.create();
             final var grade = Grade.update(gradeDb.get().getId().getValue(),
                                            gradeDb.get().getUuid().getValue(),
-                                           aIn.aStatusDesc(),
+                                           aIn.aStatusCode(),
                                            aIn.aNome(),
                                            aIn.aDescricao(),
                                            aIn.aBlocoIds(),

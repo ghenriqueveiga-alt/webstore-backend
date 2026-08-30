@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Canal extends Entity<CanalId> {
 
     private final CanalUuid uuid;
-    private final CanalStatus statusCode;
+    private final CanalStatus status;
     private final String nome;
     private final String descricao;
     private final String logotipoUrl;
@@ -16,7 +16,7 @@ public class Canal extends Entity<CanalId> {
 
     private Canal(final CanalId id,
                   final CanalUuid uuid,
-                  final CanalStatus statusCode,
+                  final CanalStatus status,
                   final String nome,
                   final String descricao,
                   final String logotipoUrl,
@@ -24,7 +24,7 @@ public class Canal extends Entity<CanalId> {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.nome = nome;
         this.descricao = descricao;
         this.logotipoUrl = logotipoUrl;
@@ -74,7 +74,7 @@ public class Canal extends Entity<CanalId> {
         return new Canal(
                 aCanalDB.getId(),
                 aCanalDB.getUuid(),
-                aStatusCode != null ? CanalStatus.findByCode(aStatusCode) : aCanalDB.getStatusCode(),
+                aStatusCode != null ? CanalStatus.findByCode(aStatusCode) : aCanalDB.getStatus(),
                 aNome != null ? aNome : aCanalDB.getNome(),
                 aDescricao != null ? aDescricao : aCanalDB.getDescricao(),
                 aLogotipoUrl != null ? aLogotipoUrl : aCanalDB.getLogotipoUrl(),
@@ -130,7 +130,7 @@ public class Canal extends Entity<CanalId> {
     }
 
     public CanalUuid getUuid() { return uuid; }
-    public CanalStatus getStatusCode() { return statusCode; }
+    public CanalStatus getStatus() { return status; }
     public String getNome() { return nome; }
     public String getDescricao() { return descricao; }
     public String getLogotipoUrl() { return logotipoUrl; }
@@ -138,13 +138,17 @@ public class Canal extends Entity<CanalId> {
 
     @Override
     public boolean equals(Object o) {
+
         if (o == null || getClass() != o.getClass())
             return false;
+
         if (!super.equals(o))
             return false;
+
         Canal canal = (Canal) o;
+
         return Objects.equals(uuid, canal.uuid) &&
-                statusCode == canal.statusCode &&
+                status == canal.status &&
                 Objects.equals(nome, canal.nome) &&
                 Objects.equals(descricao, canal.descricao) &&
                 Objects.equals(logotipoUrl, canal.logotipoUrl) &&
@@ -153,6 +157,14 @@ public class Canal extends Entity<CanalId> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), uuid, statusCode, nome, descricao, logotipoUrl, site);
+
+        return Objects.hash(
+                super.hashCode(),
+                uuid,
+                status,
+                nome,
+                descricao,
+                logotipoUrl,
+                site);
     }
 }

@@ -2,7 +2,7 @@ package com.hvs.webstore.back.app.command.television.genero;
 
 public record UpdateGeneroCommand(Long aId,
                                   String aUuid,
-                                  String aStatusDesc,
+                                  String aStatusCode,
                                   String aNome,
                                   String aDescricao) {
 
@@ -12,7 +12,7 @@ public record UpdateGeneroCommand(Long aId,
         return new UpdateGeneroCommand(
                 aId,
                 null,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aNome,
                 aInput.aDescricao);
     }
@@ -23,7 +23,7 @@ public record UpdateGeneroCommand(Long aId,
         return new UpdateGeneroCommand(
                 null,
                 aUuid,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aNome,
                 aInput.aDescricao);
     }

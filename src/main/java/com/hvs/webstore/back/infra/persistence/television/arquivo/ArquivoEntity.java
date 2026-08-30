@@ -47,7 +47,7 @@ public class ArquivoEntity extends BasicEntity {
         return new ArquivoEntity(
                 aArquivo.getId().getValue() < 0 ? null : aArquivo.getId().getValue(),
                 aArquivo.getUuid().getValue(),
-                aArquivo.getStatusCode() != null ? aArquivo.getStatusCode().getDesc() : null,
+                aArquivo.getStatus() != null ? aArquivo.getStatus().getDesc() : null,
                 aArquivo.getNome(),
                 aArquivo.getTipo(),
                 aArquivo.getTamanho(),

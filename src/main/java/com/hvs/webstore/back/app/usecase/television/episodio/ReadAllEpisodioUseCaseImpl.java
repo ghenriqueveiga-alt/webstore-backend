@@ -24,7 +24,7 @@ public class ReadAllEpisodioUseCaseImpl extends ReadAllEpisodioUseCase {
 
         Pagination<Episodio> episodioPagination = this.gateway.readAll(aIn.aEpisodioSearchQuery());
         List<Episodio> lista = episodioPagination.aContent()
-                .stream().filter(corte -> corte.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(corte -> corte.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
 

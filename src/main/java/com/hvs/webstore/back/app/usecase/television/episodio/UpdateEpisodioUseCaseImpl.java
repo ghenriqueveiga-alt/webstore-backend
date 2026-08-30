@@ -40,14 +40,16 @@ public class UpdateEpisodioUseCaseImpl extends UpdateEpisodioUseCase {
             final var notification = Notification.create();
             final var episodio = Episodio.update(episodioDb.get().getId().getValue(),
                                                  episodioDb.get().getUuid().getValue(),
-                                                 aIn.aStatusDesc(),
+                                                 aIn.aStatusCode(),
                                                  aIn.aArquivoId(),
                                                  aIn.aTitulo(),
                                                  aIn.aNumero(),
                                                  aIn.aTemporada(),
                                                  aIn.aCapaUrl(),
                                                  aIn.aProgramaId(),
-                                                 aIn.aCorteIds());
+                                                 aIn.aCorteIds(),
+                                                 aIn.aParte(),
+                                                 aIn.aOrdem());
             episodio.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(episodio);

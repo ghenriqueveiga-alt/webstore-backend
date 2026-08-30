@@ -55,12 +55,17 @@ public class CorteDomainGatewayImpl implements CorteDomainGateway {
             Specification<CorteEntity> specification =
                     (root, query, criteriaBuilder) -> {
                         String likePattern = "%" + aQuery.aSearch().toLowerCase() + "%";
-                        return criteriaBuilder.like(criteriaBuilder.lower(root.get("tipoCode")), likePattern);
+                        return criteriaBuilder.and(
+                                criteriaBuilder.equal(root.get("statusDesc"), "Active"),
+                                criteriaBuilder.like(criteriaBuilder.lower(root.get("tipoDesc")), likePattern));
                     };
 
             pages = this.repository.findAll(specification, pageable);
         } else {
-            pages = this.repository.findAll(pageable);
+            Specification<CorteEntity> specActive =
+                    (root, query, criteriaBuilder) ->
+                            criteriaBuilder.equal(root.get("statusDesc"), "Active");
+            pages = this.repository.findAll(specActive, pageable);
         }
 
         return new Pagination<>(

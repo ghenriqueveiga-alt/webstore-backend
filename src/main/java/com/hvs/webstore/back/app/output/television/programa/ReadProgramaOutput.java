@@ -90,4 +90,33 @@ public record ReadProgramaOutput(Long aId,
                 null,
                 null);
     }
+
+    public static ReadProgramaOutput fromMinimal(final Programa aPrograma) {
+
+        return new ReadProgramaOutput(
+                aPrograma.getId().getValue(),
+                aPrograma.getUuid().getValue(),
+                null,
+                aPrograma.getNome(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                aPrograma.getCapaUrl(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
 }

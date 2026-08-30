@@ -28,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' //OAUTH 2
 	implementation 'io.vavr:vavr:0.10.7' //Either
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6' //Swagger
+	testImplementation 'org.json:json:20240303'
+	testImplementation 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
@@ -68,4 +70,18 @@ tasks.register("pTest") {
 		apply from: 'build-test.gradle'
 	}
 	finalizedBy("bootRun")
+}
+
+tasks.register("scanCortes", JavaExec) {
+	group = "detection"
+	description = "Scans all episodes and saves intros, endings and commercials to corte table"
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = "com.hvs.webstore.back.EscanearESalvarCortes"
+}
+
+tasks.register("buscarCapas", JavaExec) {
+	group = "util"
+	description = "Fetches cover images from TMDB for programs without a capa_url"
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = "com.hvs.webstore.back.util.BuscarCapasProgramas"
 }

@@ -2,6 +2,7 @@ package com.hvs.webstore.back.app.usecase.television.arquivo;
 
 import com.hvs.webstore.back.app.command.television.arquivo.CreateArquivoCommand;
 import com.hvs.webstore.back.app.output.television.arquivo.CreateArquivoOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.domain.entity.television.arquivo.Arquivo;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoDomainGateway;
 import com.hvs.webstore.back.domain.validation.notification.Notification;
@@ -13,10 +14,13 @@ import static io.vavr.API.Try;
 public class CreateArquivoUseCaseImpl extends CreateArquivoUseCase {
 
     private final ArquivoDomainGateway gateway;
+    private final MediaPathResolver mediaPathResolver;
 
     public CreateArquivoUseCaseImpl(
-            ArquivoDomainGateway gateway) {
+            ArquivoDomainGateway gateway,
+            MediaPathResolver mediaPathResolver) {
         this.gateway = gateway;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @Override
@@ -26,7 +30,7 @@ public class CreateArquivoUseCaseImpl extends CreateArquivoUseCase {
         final var arquivo = Arquivo.create(aIn.aNome(),
                                            aIn.aTipoCode(),
                                            aIn.aTamanho(),
-                                           aIn.aCaminho(),
+                                           this.mediaPathResolver.relativize(aIn.aCaminho()),
                                            aIn.aDuracao());
         arquivo.validate(notification);
 

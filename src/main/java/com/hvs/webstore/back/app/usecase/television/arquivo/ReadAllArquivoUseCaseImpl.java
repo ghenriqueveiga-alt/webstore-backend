@@ -23,7 +23,7 @@ public class ReadAllArquivoUseCaseImpl extends ReadAllArquivoUseCase {
 
         Pagination<Arquivo> arquivoPagination = this.gateway.readAll(aIn.aArquivoSearchQuery());
         List<Arquivo> lista = arquivoPagination.aContent()
-                .stream().filter(arquivo -> arquivo.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(arquivo -> arquivo.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
 

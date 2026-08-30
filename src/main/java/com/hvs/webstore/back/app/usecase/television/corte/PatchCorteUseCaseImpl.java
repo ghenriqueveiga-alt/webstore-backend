@@ -38,11 +38,13 @@ public class PatchCorteUseCaseImpl extends PatchCorteUseCase {
         if (corteDb.isPresent()) {
 
             final var notification = Notification.create();
-            final var corte = Corte.patch(aIn.aStatusDesc(),
+            final var corte = Corte.patch(aIn.aStatusCode(),
                                           aIn.aArquivoId(),
-                                          aIn.aTipoDesc(),
+                                          aIn.aTipoCode(),
                                           aIn.aDuracao(),
                                           aIn.aEpisodioId(),
+                                          aIn.aInicio(),
+                                          aIn.aFim(),
                                           corteDb.get());
             corte.validate(notification);
 

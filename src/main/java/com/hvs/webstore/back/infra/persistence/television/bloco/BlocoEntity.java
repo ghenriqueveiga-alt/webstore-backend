@@ -19,7 +19,7 @@ public class BlocoEntity extends BasicEntity {
     private String uuid;
     private String statusDesc;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "programa_id", referencedColumnName = "id")
     private ProgramaEntity programa;
     private String horario;
@@ -61,7 +61,7 @@ public class BlocoEntity extends BasicEntity {
         return new BlocoEntity(
                 aBloco.getId().getValue() < 0 ? null : aBloco.getId().getValue(),
                 aBloco.getUuid().getValue(),
-                aBloco.getStatusCode().getDesc(),
+                aBloco.getStatus().getDesc(),
                 aBloco.getPrograma() != null ? ProgramaEntity.from(aBloco.getPrograma().getId().getValue()) : null,
                 aBloco.getHorario(),
                 aBloco.getGrade() != null ? GradeEntity.from(aBloco.getGrade().getId().getValue()) : null,

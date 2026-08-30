@@ -1,0 +1,1 @@
+SELECT p.nome, GROUP_CONCAT(DISTINCT e.temporada ORDER BY e.temporada) as temps, COUNT(*) as total FROM episodio e JOIN programa p ON e.programa_id=p.id GROUP BY p.nome HAVING temps LIKE '%0%' ORDER BY p.nome;

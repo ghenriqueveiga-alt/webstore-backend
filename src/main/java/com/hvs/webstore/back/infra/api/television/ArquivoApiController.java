@@ -1,10 +1,21 @@
 package com.hvs.webstore.back.infra.api.television;
 
 import com.hvs.webstore.back.app.command.television.arquivo.*;
+import com.hvs.webstore.back.app.output.television.arquivo.ReadArquivoOutput;
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.app.usecase.television.arquivo.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/arquivo")
@@ -16,6 +27,7 @@ public class ArquivoApiController {
     private final UpdateArquivoUseCase updateArquivoUseCase;
     private final PatchArquivoUseCase patchArquivoUseCase;
     private final DeleteArquivoUseCase deleteArquivoUseCase;
+    private final MediaPathResolver mediaPathResolver;
 
     public ArquivoApiController(
             final CreateArquivoUseCase createArquivoUseCase,
@@ -23,13 +35,15 @@ public class ArquivoApiController {
             final ReadAllArquivoUseCase readAllArquivoUseCase,
             final UpdateArquivoUseCase updateArquivoUseCase,
             final PatchArquivoUseCase patchArquivoUseCase,
-            final DeleteArquivoUseCase deleteArquivoUseCase) {
+            final DeleteArquivoUseCase deleteArquivoUseCase,
+            final MediaPathResolver mediaPathResolver) {
         this.createArquivoUseCase = createArquivoUseCase;
         this.readArquivoUseCase = readArquivoUseCase;
         this.readAllArquivoUseCase = readAllArquivoUseCase;
         this.updateArquivoUseCase = updateArquivoUseCase;
         this.patchArquivoUseCase = patchArquivoUseCase;
         this.deleteArquivoUseCase = deleteArquivoUseCase;
+        this.mediaPathResolver = mediaPathResolver;
     }
 
     @PostMapping
@@ -129,5 +143,135 @@ public class ArquivoApiController {
         return this.deleteArquivoUseCase.execute(DeleteArquivoCommand.from(aUuid))
                 .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
                         success -> new ResponseEntity<>(success, HttpStatus.OK));
+    }
+
+    @GetMapping(value = "/{id}/stream")
+    public ResponseEntity<StreamingResponseBody> streamArquivo(
+            @PathVariable("id") Long aId,
+            @RequestHeader(value = "Range", required = false) String aRange) {
+
+        return this.readArquivoUseCase.execute(ReadArquivoCommand.from(aId))
+                .fold(error -> ResponseEntity.notFound().<StreamingResponseBody>build(),
+                        output -> {
+                            final String resolved = this.mediaPathResolver.resolve(output.aCaminho());
+                            final File file = new File(resolved);
+
+                            if (!file.exists()) {
+                                return ResponseEntity.notFound().<StreamingResponseBody>build();
+                            }
+
+                            final String contentType = resolveContentType(output.aTipo());
+                            final long fileLength = file.length();
+
+                            if (aRange == null) {
+                                final StreamingResponseBody stream = outputStream -> {
+                                    try (var in = new BufferedInputStream(new FileInputStream(file))) {
+                                        in.transferTo(outputStream);
+                                    }
+                                };
+                                return ResponseEntity.ok()
+                                        .contentType(MediaType.parseMediaType(contentType))
+                                        .contentLength(fileLength)
+                                        .header(HttpHeaders.ACCEPT_RANGES, "bytes")
+                                        .body(stream);
+                            }
+
+                            final long[] range = parseRange(aRange, fileLength);
+                            final long start = range[0];
+                            final long end = range[1];
+                            final long contentLength = end - start + 1;
+
+                            final StreamingResponseBody stream = outputStream -> {
+                                try (var in = new BufferedInputStream(new FileInputStream(file))) {
+                                    in.skip(start);
+                                    final byte[] buffer = new byte[8192];
+                                    long remaining = contentLength;
+                                    int read;
+                                    while (remaining > 0 && (read = in.read(buffer, 0, (int) Math.min(buffer.length, remaining))) != -1) {
+                                        outputStream.write(buffer, 0, read);
+                                        remaining -= read;
+                                    }
+                                }
+                            };
+
+                            final HttpHeaders headers = new HttpHeaders();
+                            headers.setContentType(MediaType.parseMediaType(contentType));
+                            headers.set(HttpHeaders.CONTENT_RANGE,
+                                    "bytes " + start + "-" + end + "/" + fileLength);
+                            headers.set(HttpHeaders.ACCEPT_RANGES, "bytes");
+                            headers.setContentLength(contentLength);
+
+                            return new ResponseEntity<>(stream, headers, HttpStatus.PARTIAL_CONTENT);
+                        });
+    }
+
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadArquivo(
+            @RequestParam("file") MultipartFile aFile,
+            @RequestParam(value = "nome", required = false) String aNome,
+            @RequestParam(value = "tipo", required = false) String aTipo,
+            @RequestParam(value = "duracao", required = false) String aDuracao) {
+
+        if (aFile.isEmpty()) {
+            return ResponseEntity.badRequest().body("Arquivo vazio.");
+        }
+
+        try {
+            final String originalName = aNome != null ? aNome : aFile.getOriginalFilename();
+            final String fileName = UUID.randomUUID() + "_" + originalName;
+            final String uploadDir = this.mediaPathResolver.resolve("");
+            final Path targetPath = Paths.get(uploadDir, "uploads", fileName);
+
+            Files.createDirectories(targetPath.getParent());
+            aFile.transferTo(targetPath.toFile());
+
+            final String relativePath = this.mediaPathResolver.relativize(targetPath.toString());
+            final String tipo = aTipo != null ? aTipo : aFile.getContentType();
+            final long tamanho = aFile.getSize();
+
+            final CreateArquivoCommand command = new CreateArquivoCommand(
+                    originalName, tipo, tamanho, relativePath, aDuracao);
+
+            return this.createArquivoUseCase.execute(command)
+                    .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
+                            success -> new ResponseEntity<>(success, HttpStatus.OK));
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError()
+                    .body("Erro ao salvar arquivo: " + e.getMessage());
+        }
+    }
+
+    private long[] parseRange(final String aRange, final long aFileLength) {
+        final String rangeValue = aRange.replace("bytes=", "");
+        final String[] parts = rangeValue.split("-");
+
+        long start = Long.parseLong(parts[0]);
+        long end = parts.length > 1 && !parts[1].isEmpty()
+                ? Long.parseLong(parts[1])
+                : aFileLength - 1;
+
+        if (end >= aFileLength) {
+            end = aFileLength - 1;
+        }
+
+        return new long[]{start, end};
+    }
+
+    private static String resolveContentType(final String aTipo) {
+        if (aTipo == null || aTipo.isBlank()) {
+            return MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+        final String lower = aTipo.toLowerCase().trim();
+        return switch (lower) {
+            case "mp4" -> "video/mp4";
+            case "avi" -> "video/x-msvideo";
+            case "mkv" -> "video/x-matroska";
+            case "flv" -> "video/x-flv";
+            case "rmvb" -> "application/vnd.rn-realmedia-vbr";
+            case "mov" -> "video/quicktime";
+            case "wmv" -> "video/x-ms-wmv";
+            case "webm" -> "video/webm";
+            default -> lower.contains("/") ? lower : "video/" + lower;
+        };
     }
 }

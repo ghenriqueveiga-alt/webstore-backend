@@ -34,7 +34,7 @@ public class PatchCanalUseCaseImpl extends PatchCanalUseCase {
 
         if (canalDb.isPresent()) {
             final var notification = Notification.create();
-            final var canal = Canal.patch(aCanalCommand.aStatusDesc(),
+            final var canal = Canal.patch(aCanalCommand.aStatusCode(),
                                           aCanalCommand.aNome(),
                                           aCanalCommand.aDescricao(),
                                           aCanalCommand.aLogotipoUrl(),

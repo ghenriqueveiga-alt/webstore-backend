@@ -1,5 +1,6 @@
 package com.hvs.webstore.back.app.usecase.television.arquivo;
 
+import com.hvs.webstore.back.app.service.MediaPathResolver;
 import com.hvs.webstore.back.domain.entity.television.arquivo.ArquivoDomainGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,9 +9,10 @@ import org.springframework.context.annotation.Configuration;
 public class ArquivoUseCaseConfig {
 
     @Bean
-    public CreateArquivoUseCase createArquivoUseCaseBean(ArquivoDomainGateway gateway) {
+    public CreateArquivoUseCase createArquivoUseCaseBean(ArquivoDomainGateway gateway,
+                                                         MediaPathResolver mediaPathResolver) {
 
-        return new CreateArquivoUseCaseImpl(gateway);
+        return new CreateArquivoUseCaseImpl(gateway, mediaPathResolver);
     }
     @Bean
     public ReadArquivoUseCase readArquivoUseCaseBean(ArquivoDomainGateway gateway) {
@@ -23,14 +25,16 @@ public class ArquivoUseCaseConfig {
         return new ReadAllArquivoUseCaseImpl(gateway);
     }
     @Bean
-    public UpdateArquivoUseCase updateArquivoUseCaseBean(ArquivoDomainGateway gateway) {
+    public UpdateArquivoUseCase updateArquivoUseCaseBean(ArquivoDomainGateway gateway,
+                                                         MediaPathResolver mediaPathResolver) {
 
-        return new UpdateArquivoUseCaseImpl(gateway);
+        return new UpdateArquivoUseCaseImpl(gateway, mediaPathResolver);
     }
     @Bean
-    public PatchArquivoUseCase patchArquivoUseCaseBean(ArquivoDomainGateway gateway) {
+    public PatchArquivoUseCase patchArquivoUseCaseBean(ArquivoDomainGateway gateway,
+                                                       MediaPathResolver mediaPathResolver) {
 
-        return new PatchArquivoUseCaseImpl(gateway);
+        return new PatchArquivoUseCaseImpl(gateway, mediaPathResolver);
     }
     @Bean
     public DeleteArquivoUseCase deleteArquivoUseCaseBean(ArquivoDomainGateway gateway) {

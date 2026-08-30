@@ -2,9 +2,9 @@ package com.hvs.webstore.back.app.command.television.arquivo;
 
 public record UpdateArquivoCommand(Long aId,
                                    String aUuid,
-                                   String aStatusDesc,
+                                   String aStatusCode,
                                    String aNome,
-                                   String aTipo,
+                                   String aTipoCode,
                                    Long aTamanho,
                                    String aCaminho,
                                    String aDuracao) {
@@ -15,9 +15,9 @@ public record UpdateArquivoCommand(Long aId,
         return new UpdateArquivoCommand(
                 aId,
                 null,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aNome,
-                aInput.aTipo,
+                aInput.aTipoCode,
                 aInput.aTamanho,
                 aInput.aCaminho,
                 aInput.aDuracao);
@@ -29,9 +29,9 @@ public record UpdateArquivoCommand(Long aId,
         return new UpdateArquivoCommand(
                 null,
                 aUuid,
-                aInput.aStatusDesc,
+                aInput.aStatusCode,
                 aInput.aNome,
-                aInput.aTipo,
+                aInput.aTipoCode,
                 aInput.aTamanho,
                 aInput.aCaminho,
                 aInput.aDuracao);

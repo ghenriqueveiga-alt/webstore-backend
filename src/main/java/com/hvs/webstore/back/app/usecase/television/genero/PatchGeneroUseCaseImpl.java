@@ -34,7 +34,7 @@ public class PatchGeneroUseCaseImpl extends PatchGeneroUseCase {
 
         if (generoDb.isPresent()) {
             final var notification = Notification.create();
-            final var genero = Genero.patch(aGeneroCommand.aStatusDesc(),
+            final var genero = Genero.patch(aGeneroCommand.aStatusCode(),
                                             aGeneroCommand.aNome(),
                                             aGeneroCommand.aDescricao(),
                                             generoDb.get());

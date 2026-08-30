@@ -23,7 +23,7 @@ public class ReadAllCorteUseCaseImpl extends ReadAllCorteUseCase {
 
         Pagination<Corte> cortePagination = this.gateway.readAll(aIn.aCorteSearchQuery());
         List<Corte> lista = cortePagination.aContent()
-                .stream().filter(corte -> corte.getStatusCode().getDesc().equals("Active")).toList();
+                .stream().filter(corte -> corte.getStatus().getDesc().equals("Active")).toList();
 
         if (!lista.isEmpty()) {
 

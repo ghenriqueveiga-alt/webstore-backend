@@ -1,0 +1,1 @@
+SELECT id, nome, grade_pai_id, ativo FROM grade ORDER BY id;

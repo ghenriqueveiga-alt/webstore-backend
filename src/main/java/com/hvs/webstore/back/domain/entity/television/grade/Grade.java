@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Grade extends Entity<GradeId> {
 
     private final GradeUuid uuid;
-    private final GradeStatus statusCode;
+    private final GradeStatus status;
     private final String nome;
     private final String descricao;
     private final List<Bloco> blocos;
@@ -21,7 +21,7 @@ public class Grade extends Entity<GradeId> {
 
     private Grade(final GradeId id,
                  final GradeUuid uuid,
-                 final GradeStatus statusCode,
+                 final GradeStatus status,
                  final String nome,
                  final String descricao,
                  final List<Bloco> blocos,
@@ -31,7 +31,7 @@ public class Grade extends Entity<GradeId> {
 
         super(id);
         this.uuid = uuid;
-        this.statusCode = statusCode;
+        this.status = status;
         this.nome = nome;
         this.descricao = descricao;
         this.blocos = blocos;
@@ -95,7 +95,7 @@ public class Grade extends Entity<GradeId> {
         return new Grade(
                 aExisting.getId(),
                 aExisting.getUuid(),
-                aStatusCode != null ? GradeStatus.findByCode(aStatusCode) : aExisting.getStatusCode(),
+                aStatusCode != null ? GradeStatus.findByCode(aStatusCode) : aExisting.getStatus(),
                 aNome != null ? aNome : aExisting.getNome(),
                 aDescricao != null ? aDescricao : aExisting.getDescricao(),
                 aBlocoIds != null && !aBlocoIds.isEmpty() ?
@@ -164,8 +164,8 @@ public class Grade extends Entity<GradeId> {
     public GradeUuid getUuid() {
         return uuid;
     }
-    public GradeStatus getStatusCode() {
-        return statusCode;
+    public GradeStatus getStatus() {
+        return status;
     }
     public String getNome() {
         return nome;
@@ -198,7 +198,7 @@ public class Grade extends Entity<GradeId> {
         Grade grade = (Grade) o;
 
         return Objects.equals(uuid, grade.uuid) &&
-                statusCode == grade.statusCode &&
+                status == grade.status &&
                 Objects.equals(nome, grade.nome) &&
                 Objects.equals(descricao, grade.descricao) &&
                 Objects.equals(blocos, grade.blocos) &&
@@ -213,7 +213,7 @@ public class Grade extends Entity<GradeId> {
         return Objects.hash(
                 super.hashCode(),
                 uuid,
-                statusCode,
+                status,
                 nome,
                 descricao,
                 blocos,

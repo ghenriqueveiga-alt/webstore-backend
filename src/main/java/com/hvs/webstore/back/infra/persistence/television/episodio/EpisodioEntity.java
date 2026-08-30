@@ -19,7 +19,7 @@ public class EpisodioEntity extends BasicEntity {
     private String uuid;
     private String statusDesc;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
     private ArquivoEntity arquivo;
     private String titulo;
@@ -27,7 +27,7 @@ public class EpisodioEntity extends BasicEntity {
     private Long temporada;
     private String capaUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "programa_id")
     private ProgramaEntity programa;
 
@@ -35,6 +35,8 @@ public class EpisodioEntity extends BasicEntity {
     private List<CorteEntity> cortes;
 
     private Boolean processado;
+    private int parte;
+    private int ordem;
 
     public EpisodioEntity() {
 
@@ -50,7 +52,9 @@ public class EpisodioEntity extends BasicEntity {
                           final String capaUrl,
                           final ProgramaEntity programa,
                           final List<CorteEntity> cortes,
-                          final Boolean processado) {
+                          final Boolean processado,
+                          final int parte,
+                          final int ordem) {
 
         this.id = id;
         this.uuid = uuid;
@@ -63,6 +67,8 @@ public class EpisodioEntity extends BasicEntity {
         this.programa = programa;
         this.cortes = cortes;
         this.processado = processado;
+        this.parte = parte;
+        this.ordem = ordem;
     }
 
     public static EpisodioEntity from(final Episodio aEpisodio) {
@@ -70,7 +76,7 @@ public class EpisodioEntity extends BasicEntity {
         return new EpisodioEntity(
                 aEpisodio.getId().getValue() < 0 ? null : aEpisodio.getId().getValue(),
                 aEpisodio.getUuid().getValue(),
-                aEpisodio.getStatusCode().getDesc(),
+                aEpisodio.getStatus().getDesc(),
                 aEpisodio.getArquivo() != null ? ArquivoEntity.from(aEpisodio.getArquivo()) : null,
                 aEpisodio.getTitulo(),
                 aEpisodio.getNumero(),
@@ -80,7 +86,9 @@ public class EpisodioEntity extends BasicEntity {
                 aEpisodio.getCortes() != null && !aEpisodio.getCortes().isEmpty() ?
                     aEpisodio.getCortes().stream().map(corte ->
                             CorteEntity.from(corte.getId().getValue())).toList() : null,
-                aEpisodio.getProcessado());
+                aEpisodio.getProcessado(),
+                aEpisodio.getParte(),
+                aEpisodio.getOrdem());
     }
 
     public static EpisodioEntity from(final Long aEpisodioId) {
@@ -105,7 +113,9 @@ public class EpisodioEntity extends BasicEntity {
                 programa != null ? programa.toDomainChildren() : null,
                 cortes != null && !cortes.isEmpty() ?
                         cortes.stream().map(CorteEntity::toDomainChildren).toList() : null,
-                processado);
+                processado,
+                parte,
+                ordem);
     }
 
     public Episodio toDomainChildren() {
@@ -114,7 +124,7 @@ public class EpisodioEntity extends BasicEntity {
                 getId(),
                 uuid,
                 statusDesc,
-                arquivo != null ? arquivo.toDomainSimple(): null,
+                arquivo != null ? arquivo.toDomainChildren(): null,
                 titulo,
                 numero,
                 temporada,
@@ -122,7 +132,9 @@ public class EpisodioEntity extends BasicEntity {
                 programa != null ? programa.toDomainSimple() : null,
                 cortes != null && !cortes.isEmpty() ?
                         cortes.stream().map(CorteEntity::toDomainSimple).toList() : null,
-                processado);
+                processado,
+                parte,
+                ordem);
     }
 
     public Episodio toDomainSimple() {
@@ -138,7 +150,9 @@ public class EpisodioEntity extends BasicEntity {
                 null,
                 null,
                 null,
-                null);
+                null,
+                -1,
+                -1);
     }
 
     @Override

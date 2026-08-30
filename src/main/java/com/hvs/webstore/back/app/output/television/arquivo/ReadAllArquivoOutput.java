@@ -16,7 +16,7 @@ public record ReadAllArquivoOutput(int aCurrentPage,
         final List<ReadArquivoOutput> list = new ArrayList<>();
 
         for (Arquivo aArquivo : aArquivoPagination.aContent()) {
-            if (aArquivo.getStatusCode().getDesc().equals("Active")) {
+            if (aArquivo.getStatus().getDesc().equals("Active")) {
                 list.add(ReadArquivoOutput.from(aArquivo));
             }
         }

@@ -4,6 +4,9 @@ import com.hvs.webstore.back.domain.entity.television.grade.Grade;
 import com.hvs.webstore.back.infra.persistence.BasicEntity;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import com.hvs.webstore.back.infra.persistence.television.bloco.BlocoEntity;
 import jakarta.persistence.*;
 
@@ -57,7 +60,7 @@ public class GradeEntity extends BasicEntity {
         return new GradeEntity(
                 aGrade.getId().getValue() < 0 ? null : aGrade.getId().getValue(),
                 aGrade.getUuid().getValue(),
-                aGrade.getStatusCode().getDesc(),
+                aGrade.getStatus().getDesc(),
                 aGrade.getNome(),
                 aGrade.getDescricao(),
                 aGrade.getBlocos() != null && !aGrade.getBlocos().isEmpty() ?
@@ -77,6 +80,15 @@ public class GradeEntity extends BasicEntity {
         return grade;
     }
 
+    private LocalDateTime parseDate(String aDate) {
+        if (aDate == null) return null;
+        try {
+            return LocalDateTime.parse(aDate);
+        } catch (DateTimeParseException e) {
+            return LocalDate.parse(aDate).atStartOfDay();
+        }
+    }
+
     public Grade toDomain() {
 
         return Grade.from(
@@ -87,8 +99,8 @@ public class GradeEntity extends BasicEntity {
                 descricao,
                 blocos != null && !blocos.isEmpty() ?
                         blocos.stream().map(BlocoEntity::toDomainChildren).toList() : null,
-                periodoInicio != null ? LocalDateTime.parse(periodoInicio) : null,
-                periodoFim != null ? LocalDateTime.parse(periodoFim) : null,
+                parseDate(periodoInicio),
+                parseDate(periodoFim),
                 gradeAtiva);
     }
 
@@ -102,8 +114,8 @@ public class GradeEntity extends BasicEntity {
                 descricao,
                 blocos != null && !blocos.isEmpty() ?
                         blocos.stream().map(BlocoEntity::toDomainSimple).toList() : null,
-                periodoInicio != null ? LocalDateTime.parse(periodoInicio) : null,
-                periodoFim != null ? LocalDateTime.parse(periodoFim) : null,
+                parseDate(periodoInicio),
+                parseDate(periodoFim),
                 gradeAtiva);
     }
 
