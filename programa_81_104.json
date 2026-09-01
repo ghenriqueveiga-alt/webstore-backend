@@ -1,0 +1,200 @@
+[
+  {
+    "id": 81,
+    "nome": "Tiny Toons",
+    "site_oficial": "https://www.warnerbros.com/tv/steven-spielberg-presents-tiny-toon-adventures",
+    "temporada_original": "1990",
+    "titulo_alternativo": "Steven Spielberg Presents Tiny Toon Adventures",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "1992-02-24",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/1316.jpg"
+  },
+  {
+    "id": 82,
+    "nome": "Tokyo Ghoul",
+    "site_oficial": "https://myanimelist.net/anime/22319/Tokyo_Ghoul",
+    "temporada_original": "Summer 2014",
+    "titulo_alternativo": "Tokyo Kushu, Toukyou Kushu, Toukyou Ghoul",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2014-09-19",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/22319.jpg"
+  },
+  {
+    "id": 83,
+    "nome": "Tokyo Revengers",
+    "site_oficial": "https://myanimelist.net/anime/42249/Tokyo_Revengers",
+    "temporada_original": "Spring 2021",
+    "titulo_alternativo": "Tokyo Revengers",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2021-09-19",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/42249.jpg"
+  },
+  {
+    "id": 84,
+    "nome": "Tom e Jerry",
+    "site_oficial": "https://www.warnerbros.com/brands/tom-and-jerry",
+    "temporada_original": "1940",
+    "titulo_alternativo": "Tom & Jerry",
+    "legendas_disponiveis": "Legendas disponíveis",
+    "encerramento": "1967-12-31",
+    "audio_idiomas": "English, Japanese",
+    "capa_url": "https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLsVxapQbl2B2QFrame.jpg"
+  },
+  {
+    "id": 85,
+    "nome": "Trigun",
+    "site_oficial": "https://myanimelist.net/anime/6/Trigun",
+    "temporada_original": "Spring 1998",
+    "titulo_alternativo": "Trigun 1998",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "1998-10-01",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/6.jpg"
+  },
+  {
+    "id": 86,
+    "nome": "Undead Unluck - Legendado",
+    "site_oficial": "https://myanimelist.net/anime/52741/Undead_Unluck",
+    "temporada_original": "Fall 2023",
+    "titulo_alternativo": "Undead Unluck",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2024-03-23",
+    "audio_idiomas": "Japanese, Portuguese",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/52741.jpg"
+  },
+  {
+    "id": 87,
+    "nome": "Violet Evergarden - Legendado",
+    "site_oficial": "https://myanimelist.net/anime/33352/Violet_Evergarden",
+    "temporada_original": "Winter 2018",
+    "titulo_alternativo": "Violet Evergarden",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2018-04-05",
+    "audio_idiomas": "Japanese, Portuguese",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/33352.jpg"
+  },
+  {
+    "id": 88,
+    "nome": "Yu Yu Hakusho",
+    "site_oficial": "https://myanimelist.net/anime/392/Yuu%E2%98%86Yuu%E2%98%86Hakusho",
+    "temporada_original": "Fall 1992",
+    "titulo_alternativo": "Ghost Fighter, Poltergeist Report",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "1995-01-07",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/392.jpg"
+  },
+  {
+    "id": 89,
+    "nome": "Yu-Gi-Oh!",
+    "site_oficial": "https://www.yugioh.com/",
+    "temporada_original": "1998",
+    "titulo_alternativo": "Yugioh, Yu-Gi-Oh!, Yu-Gi-Oh!: Duel Monsters",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "1998-10-10",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://image.tmdb.org/t/p/w500/c9mQJ0uJab6E0dPBQbO7QBrJ2hw.jpg"
+  },
+  {
+    "id": 90,
+    "nome": "Dragon Quest",
+    "site_oficial": "https://myanimelist.net/anime/2229/Dragon_Quest__Dai_no_Daibouken_TV",
+    "temporada_original": "Fall 1991",
+    "titulo_alternativo": "Dragon Quest: The Adventure of Dai, Dragon Quest: Great Adventure of Dai",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "1992-09-24",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/2229.jpg"
+  },
+  {
+    "id": 91,
+    "nome": "Vinland Saga",
+    "site_oficial": "https://myanimelist.net/anime/37521/Vinland_Saga",
+    "temporada_original": "Summer 2019",
+    "titulo_alternativo": "Vinland Saga",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2019-12-30",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/37521.jpg"
+  },
+  {
+    "id": 98,
+    "nome": "Demon Slayer: Infinity Castle",
+    "site_oficial": "https://anilist.co/anime/178788/Kimetsu-no-Yaiba-Mugenjou-hen-Movie-1-Akaza-Sairai",
+    "temporada_original": "2025",
+    "titulo_alternativo": "Kimetsu no Yaiba Movie: Mugenjou-hen, Demon Slayer: Infinity Castle Part 1",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2025-07-18",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://image.tmdb.org/t/p/w500/ Kis3vYIYkFaxsbar8qTkMCuHu9LP.jpg"
+  },
+  {
+    "id": 99,
+    "nome": "Attack on Titans: Wings of Freedom",
+    "site_oficial": "https://myanimelist.net/anime/23777/Shingeki_no_Kyojin_Movie_2__Jiyuu_no_Tsubasa",
+    "temporada_original": "2015",
+    "titulo_alternativo": "Shingeki no Kyojin Movie 2: Jiyuu no Tsubasa, Attack on Titan: Wings of Freedom",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2015-06-27",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://image.tmdb.org/t/p/w500/7lqgL5I6C0u8Y6lqwN5qTiB7Y90.jpg"
+  },
+  {
+    "id": 100,
+    "nome": "Attack on Titans OVA 1",
+    "site_oficial": "https://myanimelist.net/anime/18397/Shingeki_no_Kyojin_OVA",
+    "temporada_original": "2013",
+    "titulo_alternativo": "Shingeki no Kyojin: Ilse no Techou, Attack on Titan OAD Ilse's Journal",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2013-12-09",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/18397.jpg"
+  },
+  {
+    "id": 101,
+    "nome": "Attack on Titans OVA 2",
+    "site_oficial": "https://myanimelist.net/anime/18397/Shingeki_no_Kyojin_OVA",
+    "temporada_original": "2014",
+    "titulo_alternativo": "Shingeki no Kyojin: Totsuzen no Raihousha, Attack on Titan OAD The Sudden Visitor",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2014-04-09",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/18397.jpg"
+  },
+  {
+    "id": 102,
+    "nome": "Attack on Titans OVA 3",
+    "site_oficial": "https://myanimelist.net/anime/18397/Shingeki_no_Kyojin_OVA",
+    "temporada_original": "2014",
+    "titulo_alternativo": "Shingeki no Kyojin: Konnan, Attack on Titan OAD Distress",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2014-08-08",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/18397.jpg"
+  },
+  {
+    "id": 103,
+    "nome": "Chainsaw Man: Reze-hen",
+    "site_oficial": "https://myanimelist.net/anime/57555/Chainsaw_Man_Movie__Reze-hen",
+    "temporada_original": "2025",
+    "titulo_alternativo": "Chainsaw Man – The Movie: Reze Arc, Gekijouban Chainsaw Man: Reze-hen",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2025-09-19",
+    "audio_idiomas": "Japanese, English",
+    "capa_url": "https://cdn.myanimelist.net/images/anime/large/57555.jpg"
+  },
+  {
+    "id": 104,
+    "nome": "As Meninas Super Poderosas: O Filme",
+    "site_oficial": "https://www.warnerbros.com/movies/powerpuff-girls-movie",
+    "temporada_original": "2002",
+    "titulo_alternativo": "The Powerpuff Girls Movie, Powerpuff Girls: The Movie",
+    "legendas_disponiveis": "Legendado",
+    "encerramento": "2002-07-03",
+    "audio_idiomas": "English",
+    "capa_url": "https://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLsVxapQbl2B2QFrame.jpg"
+  }
+]

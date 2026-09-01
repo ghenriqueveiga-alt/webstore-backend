@@ -9,4 +9,5 @@
     <include file="db/changelog/changelog-usuario-role.xml"/>
     <include file="db/changelog/changelog-television.xml"/>
     <include file="db/changelog/changelog-programa-seed.xml"/>
+    <include file="db/changelog/changelog-grade-criativa.xml"/>
 </databaseChangeLog>
