@@ -38,7 +38,6 @@ public class ProgramaEntity extends BasicEntity {
             inverseJoinColumns = @JoinColumn(name = "genero_id"))
     private List<GeneroEntity> generos;
 
-    @Column(columnDefinition = "TEXT")
     private String sinopse;
     private String classificacaoEtariaDesc;
     private String estudio;
