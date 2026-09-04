@@ -1,0 +1,56 @@
+Starting a Gradle Daemon, 9 busy Daemons could not be reused, use --status for details
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :buscarCapas
+Programas sem capa: 31
+[3] As Meninas Super Poderosas => "As Meninas Superpoderosas" [score=2.00] https://image.tmdb.org/t/p/w500/ftFTY3EZTTAP5RKfRijD8Q8PNQX.jpg
+[4] Attack on Titans - Legendado => "Attack on Titan" [score=2.00] https://image.tmdb.org/t/p/w500/8aMqmB5xSblsZc7bLMEhE28yHa2.jpg
+[11] Buko no Hero => REVIEW "My Hero Academia" [score=0.67] query="Boku no Hero Academia" https://image.tmdb.org/t/p/w500/cfESQ8y8oNAeLuRbs7NkW7Qjwhy.jpg (nao salvo)
+[19] Digimon - Adventure => "Digimon Adventure:" [score=2.00] https://image.tmdb.org/t/p/w500/vYoiupxiXVJBT8Bz0hCBwi1FLdL.jpg
+[22] Digimon - Savers => "Digimon Data Squad" [score=2.00] https://image.tmdb.org/t/p/w500/mghmdyXQWJKETQEXx7er0PwVj5k.jpg
+[31] Dragon Ball Z => "Dragon Ball Z" [score=2.00] https://image.tmdb.org/t/p/w500/kbkuYkaFsDwL6cyMgnBf77LczEo.jpg
+[35] Hanna-Barbera => "The Hanna-Barbera New Cartoon Series" [score=1.00] https://image.tmdb.org/t/p/w500/zvxkzPqSdBr4OjdniE9Ol05XQYR.jpg
+[42] Konosuba => "KONOSUBA: As B�n��os de Deus Neste Mundo Maravilhoso!" [score=1.00] https://image.tmdb.org/t/p/w500/kvXF7ugmNHo2HyNLy7lhQQVbBBa.jpg
+[43] Looney Tones => "Looney Tunes" [score=2.00] https://image.tmdb.org/t/p/w500/iJ7tEJYIYdCvBUvf1vqb5ITGyeq.jpg
+[45] Medabots - Spirits => "Medabots" [score=2.00] https://image.tmdb.org/t/p/w500/ahzidbJO3YZKD0F1Yfe7s7SPD3e.jpg
+[47] Nanatsu no Taizai => "The Seven Deadly Sins" [score=2.00] https://image.tmdb.org/t/p/w500/lfpXaHTiwV63RzOheV1GFKdpikL.jpg
+[52] Os Cavaleiros do Zod�aco - Asgard => "Os Cavaleiros do Zod�aco" [score=2.00] https://image.tmdb.org/t/p/w500/e4cC6W5sSAKE8lQYRBTqU9jfdya.jpg
+[53] Os Cavaleiros do Zod�aco - Cavaleiros de Prata => "Os Cavaleiros do Zod�aco" [score=2.00] https://image.tmdb.org/t/p/w500/e4cC6W5sSAKE8lQYRBTqU9jfdya.jpg
+[54] Os Cavaleiros do Zod�aco - Doze Casas => "Os Cavaleiros do Zod�aco" [score=2.00] https://image.tmdb.org/t/p/w500/e4cC6W5sSAKE8lQYRBTqU9jfdya.jpg
+[55] Os Cavaleiros do Zod�aco - Guerra Gal�tica => "Os Cavaleiros do Zod�aco" [score=2.00] https://image.tmdb.org/t/p/w500/e4cC6W5sSAKE8lQYRBTqU9jfdya.jpg
+[56] Os Cavaleiros do Zod�aco - Hades - El�seos => "Os Cavaleiros do Zod�aco: A Saga de Hades" [score=2.00] https://image.tmdb.org/t/p/w500/8nCfBKaGVftgH65FpKoGFIUNOob.jpg
+[57] Os Cavaleiros do Zod�aco - Hades - Inferno -> nao encontrado
+[60] Os Cavaleiros do Zod�aco - Poseidon => "Os Cavaleiros do Zod�aco" [score=2.00] https://image.tmdb.org/t/p/w500/e4cC6W5sSAKE8lQYRBTqU9jfdya.jpg
+[62] Papa L�guas -> nao encontrado
+[76] Stains;Gate0 => "Steins;Gate" [score=2.00] https://image.tmdb.org/t/p/w500/6iysgZr6Upm5RlAlVFo5f4D9euu.jpg
+[81] Tiny Toons => "Tiny Toon" [score=2.00] https://image.tmdb.org/t/p/w500/x7iW1Kwo05Bz4FIxTJBLRuLeaLk.jpg
+[84] Tom e Jerry => "O Novo Festival Tom e Jerry" [score=1.00] https://image.tmdb.org/t/p/w500/5mrrui1AQQClGdjqLTDFmfW4H2I.jpg
+[89] Yu-Gi-Oh! => "Yu-Gi-Oh!" [score=2.00] https://image.tmdb.org/t/p/w500/dJas6Y7lXzgPHgr4ro0qCOTgNiM.jpg
+[98] Cinema - Demon Slayer: Infinity Castle => REVIEW "Demon Slayer: Kimetsu no Yaiba Castelo Infinito" [score=0.50] query="Demon Slayer: Infinity Castle" https://image.tmdb.org/t/p/w500/41XdjOXGQoH0HTDNqEfwKGvGgwm.jpg (nao salvo)
+[99] Cinema - Attack on Titans: Kakusei no Houkou => REVIEW "Attack on Titan: O Rugido do Despertar" [score=0.50] query="Attack on Titan: Kakusei no Houkou" https://image.tmdb.org/t/p/w500/gJlzMgbPBFx2ntXXaucJQNRZYBN.jpg (nao salvo)
+[100] Cinema - Attack on Titans OVA 1 => "Ataque dos Tit�s" [score=2.00] https://image.tmdb.org/t/p/w500/phu4GbOWsvNeg4FvlwPNGNXOQPU.jpg
+[101] Cinema - Attack on Titans OVA 2 => "Ataque dos Tit�s" [score=2.00] https://image.tmdb.org/t/p/w500/phu4GbOWsvNeg4FvlwPNGNXOQPU.jpg
+[102] Cinema - Attack on Titans OVA 3 => "Ataque dos Tit�s" [score=2.00] https://image.tmdb.org/t/p/w500/phu4GbOWsvNeg4FvlwPNGNXOQPU.jpg
+[104] Cinema - As Meninas Super Poderosas: O Filme => "As Meninas Superpoderosas: O Filme" [score=2.00] https://image.tmdb.org/t/p/w500/qUW6cgfzc7Sg2WG337HENcELiF0.jpg
+[121] Attack on Titans - Lost Girls => REVIEW "Attack on Titan" [score=0.50] query="Attack on Titan - Lost Girls" https://image.tmdb.org/t/p/w500/8aMqmB5xSblsZc7bLMEhE28yHa2.jpg (nao salvo)
+[122] Attack on Titans - Sem Arrependimentos -> nao encontrado
+
+=== RESUMO ===
+Salvas: 24
+Revisar (4):
+  [11] Buko no Hero => "My Hero Academia" [score=0.67] https://image.tmdb.org/t/p/w500/cfESQ8y8oNAeLuRbs7NkW7Qjwhy.jpg
+  [98] Cinema - Demon Slayer: Infinity Castle => "Demon Slayer: Kimetsu no Yaiba Castelo Infinito" [score=0.50] https://image.tmdb.org/t/p/w500/41XdjOXGQoH0HTDNqEfwKGvGgwm.jpg
+  [99] Cinema - Attack on Titans: Kakusei no Houkou => "Attack on Titan: O Rugido do Despertar" [score=0.50] https://image.tmdb.org/t/p/w500/gJlzMgbPBFx2ntXXaucJQNRZYBN.jpg
+  [121] Attack on Titans - Lost Girls => "Attack on Titan" [score=0.50] https://image.tmdb.org/t/p/w500/8aMqmB5xSblsZc7bLMEhE28yHa2.jpg
+Nao encontrados (3):
+  [57] Os Cavaleiros do Zod�aco - Hades - Inferno
+  [62] Papa L�guas
+  [122] Attack on Titans - Sem Arrependimentos
+
+BUILD SUCCESSFUL in 1m 1s
+4 actionable tasks: 2 executed, 2 up-to-date
