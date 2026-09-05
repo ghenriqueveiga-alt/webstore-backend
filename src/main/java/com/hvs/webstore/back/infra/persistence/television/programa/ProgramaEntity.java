@@ -6,7 +6,6 @@ import com.hvs.webstore.back.infra.persistence.television.bloco.BlocoEntity;
 import com.hvs.webstore.back.infra.persistence.television.episodio.EpisodioEntity;
 import com.hvs.webstore.back.infra.persistence.television.genero.GeneroEntity;
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -38,6 +37,7 @@ public class ProgramaEntity extends BasicEntity {
             inverseJoinColumns = @JoinColumn(name = "genero_id"))
     private List<GeneroEntity> generos;
 
+    @Column(columnDefinition = "TEXT")
     private String sinopse;
     private String classificacaoEtariaDesc;
     private String estudio;

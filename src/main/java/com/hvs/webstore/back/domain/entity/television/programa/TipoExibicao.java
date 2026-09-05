@@ -32,6 +32,7 @@ public enum TipoExibicao {
                     return te;
                 }
             }
+            if (aDesc.equalsIgnoreCase("Normal")) return INEDITO;
         }
         return null;
     }

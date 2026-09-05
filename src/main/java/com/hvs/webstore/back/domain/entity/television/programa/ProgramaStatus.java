@@ -4,6 +4,7 @@ public enum ProgramaStatus {
 
     ACTIVE("AT", "Active"),
     INACTIVE("IN", "Inactive"),
+    ENDED("EN", "Encerrado"),
     DELETED("DE", "Deleted");
 
     private final String code;
@@ -35,6 +36,7 @@ public enum ProgramaStatus {
                     return status;
                 }
             }
+            if (aDesc.equalsIgnoreCase("Ativo")) return ACTIVE;
         }
 
         return null;

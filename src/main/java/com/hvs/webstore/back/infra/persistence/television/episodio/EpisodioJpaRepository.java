@@ -16,7 +16,7 @@ public interface EpisodioJpaRepository extends JpaRepository<EpisodioEntity, Lon
 
     @Query(value =
         "SELECT e.* FROM episodio e INNER JOIN (" +
-        "  SELECT ep.id, ROW_NUMBER() OVER (PARTITION BY ep.programa_id ORDER BY ep.numero, ep.parte, ep.temporada) AS rn" +
+        "  SELECT ep.id, ROW_NUMBER() OVER (PARTITION BY ep.programa_id ORDER BY ep.temporada, ep.parte, ep.numero) AS rn" +
         "  FROM episodio ep" +
         "  WHERE ep.programa_id IN (:programaIds) AND ep.status_desc IN ('Active', 'Created')" +
         ") sub ON e.id = sub.id WHERE sub.rn = 1",
@@ -27,7 +27,7 @@ public interface EpisodioJpaRepository extends JpaRepository<EpisodioEntity, Lon
         "SELECT e.id, e.numero, e.titulo, e.programa_id, e.temporada, e.parte, a.duracao " +
         "FROM episodio e " +
         "INNER JOIN (" +
-        "  SELECT ep.id, ROW_NUMBER() OVER (PARTITION BY ep.programa_id ORDER BY ep.numero, ep.parte, ep.temporada) AS rn" +
+        "  SELECT ep.id, ROW_NUMBER() OVER (PARTITION BY ep.programa_id ORDER BY ep.temporada, ep.parte, ep.numero) AS rn" +
         "  FROM episodio ep" +
         "  WHERE ep.programa_id IN (:programaIds) AND ep.status_desc IN ('Active', 'Created')" +
         ") sub ON e.id = sub.id " +

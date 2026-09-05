@@ -35,6 +35,11 @@ public enum ClassificacaoEtaria {
                     return ce;
                 }
             }
+            if (aDesc.contains("10") || aDesc.contains("Y7")) return DEZ;
+            if (aDesc.contains("12")) return DOZE;
+            if (aDesc.contains("14")) return QUATORZE;
+            if (aDesc.contains("16")) return DEZESSEIS;
+            if (aDesc.contains("18") || aDesc.contains("MA")) return DEZOITO;
         }
         return null;
     }
