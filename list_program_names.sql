@@ -1,1 +1,0 @@
-SELECT DISTINCT SUBSTRING_INDEX(caminho, '\\', 1) as programa_nome FROM arquivo WHERE caminho LIKE '%.mp4' OR caminho LIKE '%.mkv' OR caminho LIKE '%.avi' OR caminho LIKE '%.mov' OR caminho LIKE '%.wmv' ORDER BY programa_nome;
