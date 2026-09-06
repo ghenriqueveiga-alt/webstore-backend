@@ -1,11 +1,10 @@
-INSERT INTO canal (nome, descricao, logotipo_url, site, status_desc, uuid) VALUES
-('AnimeVault HD', 'O maior canal de animes do Brasil, com dublagem e legendas em português. Programação 24h com os melhores animes clássicos e lançamentos do Japão.', 'https://example.com/logos/animevault.png', 'https://www.animevault.com.br', 'ATIVO', UUID()),
-('Canal Criatividade 24h', 'Canal dedicado a conteúdo artístico e cultural, trazendo programação variada com filmes, séries documentários e programas educativos 24 horas por dia.', 'https://example.com/logos/criatividade24h.png', 'https://www.criatividade24h.com.br', 'ATIVO', UUID()),
-('Telecine Anime', 'Canal premium com os animes mais exclusivos e recentes do mercado japonês, com legendas profissionais e áudio original.', 'https://example.com/logos/telecineanime.png', 'https://www.telecineanime.com.br', 'ATIVO', UUID()),
-('Animax Brasil', 'Canal internacional de animes com programação variada incluindo shonen, shojo e seinen para todas as idades.', 'https://example.com/logos/animaxbrasil.png', 'https://www.animaxbrasil.com.br', 'ATIVO', UUID()),
-('Loading... Anime', 'Canal focado em animes de niche e independente, trazendo obras underground e cult para os verdadeiros fãs.', 'https://example.com/logos/loadinganime.png', 'https://www.loadinganime.com.br', 'ATIVO', UUID()),
-('Crunchyroll TV', 'Canal oficial do Crunchyroll com os animes mais populares e simulcasts semanais do Japão.', 'https://example.com/logos/crunchyrolltv.png', 'https://www.crunchyrolltv.com.br', 'ATIVO', UUID()),
-('Netflix Anime', 'Seleção curada dos melhores animes disponíveis na Netflix, incluindo produções originais e exclusivas.', 'https://example.com/logos/netflixanime.png', 'https://www.netflixanime.com.br', 'ATIVO', UUID()),
-('HBO Max Anime', 'Canal com acervo de animes clássicos e contemporâneos da Warner Bros. e parceiros japoneses.', 'https://example.com/logos/hbomaxanime.png', 'https://www.hbomaxanime.com.br', 'ATIVO', UUID()),
-('Disney+ Anime', 'Animes exclusivos da Disney com foco em produções de alta qualidade e histórias envolventes.', 'https://example.com/logos/disneyplusanime.png', 'https://www.disneyplusanime.com.br', 'ATIVO', UUID()),
-('Amazon Prime Anime', 'Catálogo diversificado de animes na Amazon Prime Video com legendas em múltiplos idiomas.', 'https://example.com/logos/amazonprimeanime.png', 'https://www.amazonprimeanime.com.br', 'ATIVO', UUID());
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (2, '117b4081-a9e1-11f1-adb3-5612c5722cec', 'AnimeVault HD', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (3, '117b4901-a9e1-11f1-adb3-5612c5722cec', 'Canal Criatividade 24h', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (4, '117b4c7d-a9e1-11f1-adb3-5612c5722cec', 'Telecine Anime', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (5, '117b4df9-a9e1-11f1-adb3-5612c5722cec', 'Animax Brasil', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (6, '117b4fae-a9e1-11f1-adb3-5612c5722cec', 'Loading... Anime', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (7, '117b5165-a9e1-11f1-adb3-5612c5722cec', 'Crunchyroll TV', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (8, '117b528e-a9e1-11f1-adb3-5612c5722cec', 'Netflix Anime', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (9, '117b53f1-a9e1-11f1-adb3-5612c5722cec', 'HBO Max Anime', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (10, '117b552c-a9e1-11f1-adb3-5612c5722cec', 'Disney+ Anime', 'ATIVO');
+INSERT INTO canal (id, uuid, nome, status_desc) VALUES (11, '117b562f-a9e1-11f1-adb3-5612c5722cec', 'Amazon Prime Anime', 'ATIVO');

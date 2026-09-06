@@ -24,14 +24,13 @@ public interface EpisodioJpaRepository extends JpaRepository<EpisodioEntity, Lon
     List<EpisodioEntity> findFirstByProgramaIds(@Param("programaIds") List<Long> programaIds);
 
     @Query(value =
-        "SELECT e.id, e.numero, e.titulo, e.programa_id, e.temporada, e.parte, a.duracao " +
+        "SELECT e.id, e.numero, e.titulo, e.programa_id, e.temporada, e.parte, e.duracao " +
         "FROM episodio e " +
         "INNER JOIN (" +
         "  SELECT ep.id, ROW_NUMBER() OVER (PARTITION BY ep.programa_id ORDER BY ep.temporada, ep.parte, ep.numero) AS rn" +
         "  FROM episodio ep" +
         "  WHERE ep.programa_id IN (:programaIds) AND ep.status_desc IN ('Active', 'Created')" +
         ") sub ON e.id = sub.id " +
-        "LEFT JOIN arquivo a ON a.id = e.arquivo_id " +
         "WHERE sub.rn > :offset AND sub.rn <= :limite + :offset",
         nativeQuery = true)
     List<Object[]> findPrimeirosPorProgramaIds(@Param("programaIds") List<Long> programaIds, @Param("offset") int offset, @Param("limite") int limite);
