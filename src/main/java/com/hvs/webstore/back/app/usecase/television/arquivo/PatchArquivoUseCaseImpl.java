@@ -48,7 +48,6 @@ public class PatchArquivoUseCaseImpl extends PatchArquivoUseCase {
                                               aIn.aTamanho(),
                                               aIn.aCaminho() != null
                                                       ? this.mediaPathResolver.relativize(aIn.aCaminho()) : null,
-                                              aIn.aDuracao(),
                                               arquivoDb.get());
             arquivo.validate(notification);
 

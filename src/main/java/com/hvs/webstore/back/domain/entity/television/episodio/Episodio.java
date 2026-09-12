@@ -20,9 +20,8 @@ public class Episodio extends Entity<EpisodioId> {
     private final String capaUrl;
     private final Programa programa;
     private final List<Corte> cortes;
-    private final Boolean processado;
     private final Integer parte;
-    private final Integer ordem;
+    private final String duracao;
 
 private Episodio(final EpisodioId id,
                  final EpisodioUuid uuid,
@@ -34,9 +33,8 @@ private Episodio(final EpisodioId id,
                  final String capaUrl,
                  final Programa programa,
                  final List<Corte> cortes,
-                 final Boolean processado,
                  final Integer parte,
-                 final Integer ordem) {
+                 final String duracao) {
 
         super(id);
         this.uuid = uuid;
@@ -48,9 +46,8 @@ private Episodio(final EpisodioId id,
         this.capaUrl = capaUrl;
         this.programa = programa;
         this.cortes = cortes;
-        this.processado = processado;
         this.parte = parte;
-        this.ordem = ordem;
+        this.duracao = duracao;
     }
 
     public static Episodio create(final Long aArquivoId,
@@ -60,8 +57,7 @@ private Episodio(final EpisodioId id,
                                   final String aCapaUrl,
                                   final Long aProgramaId,
                                   final List<Long> aCorteIds,
-                                  final Integer parte,
-                                  final Integer ordem) {
+                                  final Integer parte) {
 
         return new Episodio(
                 EpisodioId.from(-1L),
@@ -75,9 +71,8 @@ private Episodio(final EpisodioId id,
                 aProgramaId != null ? Programa.from(aProgramaId) : null,
                 aCorteIds != null && !aCorteIds.isEmpty()
                         ? aCorteIds.stream().map(Corte::from).toList() : null,
-                false,
                 parte,
-                ordem);
+                null);
     }
 
     public static Episodio update(final Long aId,
@@ -90,8 +85,7 @@ private Episodio(final EpisodioId id,
                                   final String aCapaUrl,
                                   final Long aProgramaId,
                                   final List<Long> aCorteIds,
-                                  final Integer parte,
-                                  final Integer ordem) {
+                                  final Integer parte) {
 
         return new Episodio(
                 aId != null ? EpisodioId.from(aId) : null,
@@ -105,9 +99,8 @@ private Episodio(final EpisodioId id,
                 aProgramaId != null ? Programa.from(aProgramaId) : null,
                 aCorteIds != null && !aCorteIds.isEmpty()
                         ? aCorteIds.stream().map(Corte::from).toList() : null,
-                false,
                 parte,
-                ordem);
+                null);
     }
 
     public static Episodio patch(final String aStatusCode,
@@ -119,7 +112,6 @@ private Episodio(final EpisodioId id,
                                  final Long aProgramaId,
                                  final List<Long> aCorteIds,
                                  final Integer parte,
-                                 final Integer Ordem,
                                  final Episodio aEpisodioDB) {
 
         return new Episodio(
@@ -134,9 +126,8 @@ private Episodio(final EpisodioId id,
                 aProgramaId != null ? Programa.from(aProgramaId) : aEpisodioDB.getPrograma(),
                 aCorteIds != null && !aCorteIds.isEmpty()
                         ? aCorteIds.stream().map(Corte::from).toList() : aEpisodioDB.getCortes(),
-                aEpisodioDB.getProcessado(),
                 parte < 0 ? parte : aEpisodioDB.getParte(),
-                Ordem < 0 ? Ordem : aEpisodioDB.getOrdem());
+                aEpisodioDB.getDuracao());
     }
 
     public static Episodio from(final Long aId,
@@ -149,9 +140,8 @@ private Episodio(final EpisodioId id,
                                 final String aCapaUrl,
                                 final Programa aPrograma,
                                 final List<Corte> aCortes,
-                                final Boolean aProcessado,
                                 final Integer parte,
-                                final Integer ordem) {
+                                final String aDuracao) {
 
         return new Episodio(
                 aId != null ? EpisodioId.from(aId) : null,
@@ -164,9 +154,8 @@ private Episodio(final EpisodioId id,
                 aCapaUrl,
                 aPrograma,
                 aCortes,
-                aProcessado,
                 parte,
-                ordem);
+                aDuracao);
     }
 
     public static Episodio from(final Long aId) {
@@ -182,9 +171,8 @@ private Episodio(final EpisodioId id,
                 null,
                 null,
                 null,
-                null,
                 0,
-                0);
+                null);
     }
 
     public static Episodio from(final String aUuid) {
@@ -200,9 +188,8 @@ private Episodio(final EpisodioId id,
                 null,
                 null,
                 null,
-                null,
                 0,
-                0);
+                null);
     }
 
     public Episodio processar() {
@@ -218,9 +205,8 @@ private Episodio(final EpisodioId id,
                 this.getCapaUrl(),
                 this.getPrograma(),
                 this.getCortes(),
-                Boolean.TRUE,
                 this.getParte(),
-                this.getOrdem());
+                this.getDuracao());
     }
 
     @Override
@@ -256,16 +242,13 @@ private Episodio(final EpisodioId id,
     public List<Corte> getCortes() {
         return cortes;
     }
-    public Boolean getProcessado() {
-        return processado;
-    }
 
     public int getParte() {
         return parte;
     }
 
-    public int getOrdem() {
-        return ordem;
+    public String getDuracao() {
+        return duracao;
     }
 
     @Override
@@ -288,9 +271,8 @@ private Episodio(final EpisodioId id,
                 Objects.equals(capaUrl, episodio.capaUrl) &&
                 Objects.equals(programa, episodio.programa) &&
                 Objects.equals(cortes, episodio.cortes) &&
-                Objects.equals(processado, episodio.processado) &&
                 Objects.equals(parte, episodio.parte) &&
-                Objects.equals(ordem, episodio.ordem);
+                Objects.equals(duracao, episodio.duracao);
     }
 
     @Override
@@ -307,8 +289,7 @@ private Episodio(final EpisodioId id,
                 capaUrl,
                 programa,
                 cortes,
-                processado,
                 parte,
-                ordem);
+                duracao);
     }
 }

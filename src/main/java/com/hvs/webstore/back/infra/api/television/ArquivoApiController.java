@@ -209,8 +209,7 @@ public class ArquivoApiController {
     public ResponseEntity<?> uploadArquivo(
             @RequestParam("file") MultipartFile aFile,
             @RequestParam(value = "nome", required = false) String aNome,
-            @RequestParam(value = "tipo", required = false) String aTipo,
-            @RequestParam(value = "duracao", required = false) String aDuracao) {
+            @RequestParam(value = "tipo", required = false) String aTipo) {
 
         if (aFile.isEmpty()) {
             return ResponseEntity.badRequest().body("Arquivo vazio.");
@@ -230,7 +229,7 @@ public class ArquivoApiController {
             final long tamanho = aFile.getSize();
 
             final CreateArquivoCommand command = new CreateArquivoCommand(
-                    originalName, tipo, tamanho, relativePath, aDuracao);
+                    originalName, tipo, tamanho, relativePath);
 
             return this.createArquivoUseCase.execute(command)
                     .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),

@@ -48,8 +48,7 @@ public class UpdateArquivoUseCaseImpl extends UpdateArquivoUseCase {
                                                aIn.aNome(),
                                                aIn.aTipoCode(),
                                                aIn.aTamanho(),
-                                               this.mediaPathResolver.relativize(aIn.aCaminho()),
-                                               aIn.aDuracao());
+                                               this.mediaPathResolver.relativize(aIn.aCaminho()));
             arquivo.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(arquivo);

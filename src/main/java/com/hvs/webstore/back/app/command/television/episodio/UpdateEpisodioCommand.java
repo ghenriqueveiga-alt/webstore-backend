@@ -12,7 +12,6 @@ public record UpdateEpisodioCommand(Long aId,
                                     String aCapaUrl,
                                     Long aProgramaId,
                                     Integer aParte,
-                                    Integer aOrdem,
                                     List<Long> aCorteIds) {
 
     public static UpdateEpisodioCommand from(final Long aId,
@@ -29,7 +28,6 @@ public record UpdateEpisodioCommand(Long aId,
                 aInput.aCapaUrl,
                 aInput.aProgramaId,
                 aInput.aParte,
-                aInput.aOrdem,
                 aInput.aCorteIds);
     }
 
@@ -47,7 +45,6 @@ public record UpdateEpisodioCommand(Long aId,
                 aInput.aCapaUrl,
                 aInput.aProgramaId,
                 aInput.aParte,
-                aInput.aOrdem,
                 aInput.aCorteIds);
     }
 }

@@ -18,6 +18,7 @@ public class Programa extends Entity<ProgramaId> {
     private final Boolean emProducao;
     private final ProgramaTipo tipo;
     private final Long temporadas;
+    private final Long partes;
     private final List<Episodio> episodios;
     private final LocalDateTime lancamento;
     private final LocalDateTime encerramento;
@@ -25,9 +26,7 @@ public class Programa extends Entity<ProgramaId> {
     private final String sinopse;
     private final ClassificacaoEtaria classificacaoEtaria;
     private final String estudio;
-    private final String diretor;
     private final String capaUrl;
-    private final String temporadaOriginal;
     private final String redeOriginal;
     private final TipoExibicao tipoExibicao;
     private final String tituloAlternativo;
@@ -43,6 +42,7 @@ public class Programa extends Entity<ProgramaId> {
                      final Boolean emProducao,
                      final ProgramaTipo tipo,
                      final Long temporadas,
+                     final Long partes,
                      final List<Episodio> episodios,
                      final LocalDateTime lancamento,
                      final LocalDateTime encerramento,
@@ -50,9 +50,7 @@ public class Programa extends Entity<ProgramaId> {
                      final String sinopse,
                      final ClassificacaoEtaria classificacaoEtaria,
                      final String estudio,
-                     final String diretor,
                      final String capaUrl,
-                     final String temporadaOriginal,
                      final String redeOriginal,
                      final TipoExibicao tipoExibicao,
                      final String tituloAlternativo,
@@ -68,6 +66,7 @@ public class Programa extends Entity<ProgramaId> {
         this.emProducao = emProducao;
         this.tipo = tipo;
         this.temporadas = temporadas;
+        this.partes = partes;
         this.episodios = episodios;
         this.lancamento = lancamento;
         this.encerramento = encerramento;
@@ -75,9 +74,7 @@ public class Programa extends Entity<ProgramaId> {
         this.sinopse = sinopse;
         this.classificacaoEtaria = classificacaoEtaria;
         this.estudio = estudio;
-        this.diretor = diretor;
         this.capaUrl = capaUrl;
-        this.temporadaOriginal = temporadaOriginal;
         this.redeOriginal = redeOriginal;
         this.tipoExibicao = tipoExibicao;
         this.tituloAlternativo = tituloAlternativo;
@@ -91,6 +88,7 @@ public class Programa extends Entity<ProgramaId> {
                                   final Boolean aEmProducao,
                                   final String aTipoCode,
                                   final Long aTemporadas,
+                                  final Long aPartes,
                                   final List<Long> aEpisodioIds,
                                   final String aLancamento,
                                   final String aEncerramento,
@@ -98,9 +96,7 @@ public class Programa extends Entity<ProgramaId> {
                                   final String aSinopse,
                                   final String aClassificacaoEtariaCode,
                                   final String aEstudio,
-                                  final String aDiretor,
                                   final String aCapaUrl,
-                                  final String aTemporadaOriginal,
                                   final String aRedeOriginal,
                                   final String aTipoExibicaoCode,
                                   final String aTituloAlternativo,
@@ -117,6 +113,7 @@ public class Programa extends Entity<ProgramaId> {
                 aEmProducao,
                 aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : null,
                 aTemporadas,
+                aPartes,
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
                         aEpisodioIds.stream().map(Episodio::from).toList() : null,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
@@ -126,9 +123,7 @@ public class Programa extends Entity<ProgramaId> {
                 aSinopse,
                 aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : null,
                 aEstudio,
-                aDiretor,
                 aCapaUrl,
-                aTemporadaOriginal,
                 aRedeOriginal,
                 aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : null,
                 aTituloAlternativo,
@@ -146,6 +141,7 @@ public class Programa extends Entity<ProgramaId> {
                                   final Boolean aEmProducao,
                                   final String aTipoCode,
                                   final Long aTemporadas,
+                                  final Long aPartes,
                                   final List<Long> aEpisodioIds,
                                   final String aLancamento,
                                   final String aEncerramento,
@@ -153,9 +149,7 @@ public class Programa extends Entity<ProgramaId> {
                                   final String aSinopse,
                                   final String aClassificacaoEtariaCode,
                                   final String aEstudio,
-                                  final String aDiretor,
                                   final String aCapaUrl,
-                                  final String aTemporadaOriginal,
                                   final String aRedeOriginal,
                                   final String aTipoExibicaoCode,
                                   final String aTituloAlternativo,
@@ -172,6 +166,7 @@ public class Programa extends Entity<ProgramaId> {
                 aEmProducao,
                 aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : null,
                 aTemporadas,
+                aPartes,
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
                         aEpisodioIds.stream().map(Episodio::from).toList() : null,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
@@ -181,9 +176,7 @@ public class Programa extends Entity<ProgramaId> {
                 aSinopse,
                 aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : null,
                 aEstudio,
-                aDiretor,
                 aCapaUrl,
-                aTemporadaOriginal,
                 aRedeOriginal,
                 aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : null,
                 aTituloAlternativo,
@@ -199,6 +192,7 @@ public class Programa extends Entity<ProgramaId> {
                                  final Boolean aEmProducao,
                                  final String aTipoCode,
                                  final Long aTemporadas,
+                                 final Long aPartes,
                                  final List<Long> aEpisodioIds,
                                  final String aLancamento,
                                  final String aEncerramento,
@@ -206,9 +200,7 @@ public class Programa extends Entity<ProgramaId> {
                                  final String aSinopse,
                                  final String aClassificacaoEtariaCode,
                                  final String aEstudio,
-                                 final String aDiretor,
                                  final String aCapaUrl,
-                                 final String aTemporadaOriginal,
                                  final String aRedeOriginal,
                                  final String aTipoExibicaoCode,
                                  final String aTituloAlternativo,
@@ -226,6 +218,7 @@ public class Programa extends Entity<ProgramaId> {
                 aEmProducao != null ? aEmProducao : aProgramaDB.getEmProducao(),
                 aTipoCode != null ? ProgramaTipo.findByCode(aTipoCode) : aProgramaDB.getTipo(),
                 aTemporadas != null ? aTemporadas : aProgramaDB.getTemporadas(),
+                aPartes != null ? aPartes : aProgramaDB.getPartes(),
                 aEpisodioIds != null && !aEpisodioIds.isEmpty() ?
                         aEpisodioIds.stream().map(Episodio::from).toList() : aProgramaDB.getEpisodios(),
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : aProgramaDB.getLancamento(),
@@ -235,9 +228,7 @@ public class Programa extends Entity<ProgramaId> {
                 aSinopse != null ? aSinopse : aProgramaDB.getSinopse(),
                 aClassificacaoEtariaCode != null ? ClassificacaoEtaria.findByCode(aClassificacaoEtariaCode) : aProgramaDB.getClassificacaoEtaria(),
                 aEstudio != null ? aEstudio : aProgramaDB.getEstudio(),
-                aDiretor != null ? aDiretor : aProgramaDB.getDiretor(),
                 aCapaUrl != null ? aCapaUrl : aProgramaDB.getCapaUrl(),
-                aTemporadaOriginal != null ? aTemporadaOriginal : aProgramaDB.getTemporadaOriginal(),
                 aRedeOriginal != null ? aRedeOriginal : aProgramaDB.getRedeOriginal(),
                 aTipoExibicaoCode != null ? TipoExibicao.findByCode(aTipoExibicaoCode) : aProgramaDB.getTipoExibicao(),
                 aTituloAlternativo != null ? aTituloAlternativo : aProgramaDB.getTituloAlternativo(),
@@ -255,6 +246,7 @@ public class Programa extends Entity<ProgramaId> {
                                 final Boolean aEmProducao,
                                 final String aTipoDesc,
                                 final Long aTemporadas,
+                                final Long aPartes,
                                 final List<Episodio> aEpisodios,
                                 final String aLancamento,
                                 final String aEncerramento,
@@ -262,9 +254,7 @@ public class Programa extends Entity<ProgramaId> {
                                 final String aSinopse,
                                 final String aClassificacaoEtariaDesc,
                                 final String aEstudio,
-                                final String aDiretor,
                                 final String aCapaUrl,
-                                final String aTemporadaOriginal,
                                 final String aRedeOriginal,
                                 final String aTipoExibicaoDesc,
                                 final String aTituloAlternativo,
@@ -281,6 +271,7 @@ public class Programa extends Entity<ProgramaId> {
                 aEmProducao,
                 aTipoDesc != null ? ProgramaTipo.findByDesc(aTipoDesc) : null,
                 aTemporadas,
+                aPartes,
                 aEpisodios,
                 aLancamento != null ? LocalDateTime.parse(aLancamento) : null,
                 aEncerramento != null ? LocalDateTime.parse(aEncerramento) : null,
@@ -288,9 +279,7 @@ public class Programa extends Entity<ProgramaId> {
                 aSinopse,
                 aClassificacaoEtariaDesc != null ? ClassificacaoEtaria.findByDesc(aClassificacaoEtariaDesc) : null,
                 aEstudio,
-                aDiretor,
                 aCapaUrl,
-                aTemporadaOriginal,
                 aRedeOriginal,
                 aTipoExibicaoDesc != null ? TipoExibicao.findByDesc(aTipoExibicaoDesc) : null,
                 aTituloAlternativo,
@@ -304,7 +293,6 @@ public class Programa extends Entity<ProgramaId> {
 
         return new Programa(
                 aId != null ? ProgramaId.from(aId) : null,
-                null,
                 null,
                 null,
                 null,
@@ -354,7 +342,6 @@ public class Programa extends Entity<ProgramaId> {
                 null,
                 null,
                 null,
-                null,
                 null);
     }
 
@@ -382,6 +369,9 @@ public class Programa extends Entity<ProgramaId> {
     public Long getTemporadas() {
         return temporadas;
     }
+    public Long getPartes() {
+        return partes;
+    }
     public List<Episodio> getEpisodios() {
         return episodios;
     }
@@ -403,14 +393,8 @@ public class Programa extends Entity<ProgramaId> {
     public String getEstudio() {
         return estudio;
     }
-    public String getDiretor() {
-        return diretor;
-    }
     public String getCapaUrl() {
         return capaUrl;
-    }
-    public String getTemporadaOriginal() {
-        return temporadaOriginal;
     }
     public String getRedeOriginal() {
         return redeOriginal;
@@ -451,6 +435,7 @@ public class Programa extends Entity<ProgramaId> {
                 Objects.equals(emProducao, programa.emProducao) &&
                 tipo == programa.tipo &&
                 Objects.equals(temporadas, programa.temporadas) &&
+                Objects.equals(partes, programa.partes) &&
                 Objects.equals(episodios, programa.episodios) &&
                 Objects.equals(lancamento, programa.lancamento) &&
                 Objects.equals(encerramento, programa.encerramento) &&
@@ -458,9 +443,7 @@ public class Programa extends Entity<ProgramaId> {
                 Objects.equals(sinopse, programa.sinopse) &&
                 classificacaoEtaria == programa.classificacaoEtaria &&
                 Objects.equals(estudio, programa.estudio) &&
-                Objects.equals(diretor, programa.diretor) &&
                 Objects.equals(capaUrl, programa.capaUrl) &&
-                Objects.equals(temporadaOriginal, programa.temporadaOriginal) &&
                 Objects.equals(redeOriginal, programa.redeOriginal) &&
                 tipoExibicao == programa.tipoExibicao &&
                 Objects.equals(tituloAlternativo, programa.tituloAlternativo) &&
@@ -481,6 +464,7 @@ public class Programa extends Entity<ProgramaId> {
                 emProducao,
                 tipo,
                 temporadas,
+                partes,
                 episodios,
                 lancamento,
                 encerramento,
@@ -488,9 +472,7 @@ public class Programa extends Entity<ProgramaId> {
                 sinopse,
                 classificacaoEtaria,
                 estudio,
-                diretor,
                 capaUrl,
-                temporadaOriginal,
                 redeOriginal,
                 tipoExibicao,
                 tituloAlternativo,

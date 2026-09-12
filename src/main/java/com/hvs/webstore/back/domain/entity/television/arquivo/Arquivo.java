@@ -13,7 +13,6 @@ public class Arquivo extends Entity<ArquivoId> {
     private final String tipoArquivo;
     private final Long tamanho;
     private final String caminho;
-    private final String duracao;
 
     private Arquivo(final ArquivoId id,
                     final ArquivoUuid uuid,
@@ -21,8 +20,7 @@ public class Arquivo extends Entity<ArquivoId> {
                     final String nome,
                     final String tipoArquivo,
                     final Long tamanho,
-                    final String caminho,
-                    final String duracao) {
+                    final String caminho) {
 
         super(id);
         this.uuid = uuid;
@@ -31,14 +29,12 @@ public class Arquivo extends Entity<ArquivoId> {
         this.tipoArquivo = tipoArquivo;
         this.tamanho = tamanho;
         this.caminho = caminho;
-        this.duracao = duracao;
     }
 
     public static Arquivo create(final String aNome,
                                  final String aTipoArquivo,
                                  final Long aTamanho,
-                                 final String aCaminho,
-                                 final String aDuracao) {
+                                 final String aCaminho) {
 
         return new Arquivo(
                 ArquivoId.from(-1L),
@@ -47,8 +43,7 @@ public class Arquivo extends Entity<ArquivoId> {
                 aNome,
                 aTipoArquivo,
                 aTamanho,
-                aCaminho,
-                aDuracao);
+                aCaminho);
     }
 
     public static Arquivo update(final Long aId,
@@ -57,8 +52,7 @@ public class Arquivo extends Entity<ArquivoId> {
                                  final String aNome,
                                  final String aTipo,
                                  final Long aTamanho,
-                                 final String aCaminho,
-                                 final String aDuracao) {
+                                 final String aCaminho) {
 
         return new Arquivo(
                 aId != null ? ArquivoId.from(aId) : null,
@@ -67,8 +61,7 @@ public class Arquivo extends Entity<ArquivoId> {
                 aNome,
                 aTipo,
                 aTamanho,
-                aCaminho,
-                aDuracao);
+                aCaminho);
     }
 
     public static Arquivo patch(final String aStatusCode,
@@ -76,7 +69,6 @@ public class Arquivo extends Entity<ArquivoId> {
                                 final String aTipoArquivo,
                                 final Long aTamanho,
                                 final String aCaminho,
-                                final String aDuracao,
                                 final Arquivo aExisting) {
 
         return new Arquivo(
@@ -86,8 +78,7 @@ public class Arquivo extends Entity<ArquivoId> {
                 aNome != null ? aNome : aExisting.getNome(),
                 aTipoArquivo != null ? aTipoArquivo : aExisting.getTipo(),
                 aTamanho != null ? aTamanho : aExisting.getTamanho(),
-                aCaminho != null ? aCaminho : aExisting.getCaminho(),
-                aDuracao != null ? aDuracao : aExisting.getDuracao());
+                aCaminho != null ? aCaminho : aExisting.getCaminho());
     }
 
     public static Arquivo from(final Long aId,
@@ -96,8 +87,7 @@ public class Arquivo extends Entity<ArquivoId> {
                                final String aNome,
                                final String aTipo,
                                final Long aTamanho,
-                               final String aCaminho,
-                               final String aDuracao) {
+                               final String aCaminho) {
 
         return new Arquivo(
                 aId != null ? ArquivoId.from(aId) : null,
@@ -106,15 +96,13 @@ public class Arquivo extends Entity<ArquivoId> {
                 aNome,
                 aTipo,
                 aTamanho,
-                aCaminho,
-                aDuracao);
+                aCaminho);
     }
 
     public static Arquivo from(final Long aId) {
 
         return new Arquivo(
                 aId != null ? ArquivoId.from(aId) : null,
-                null,
                 null,
                 null,
                 null,
@@ -128,7 +116,6 @@ public class Arquivo extends Entity<ArquivoId> {
         return new Arquivo(
                 null,
                 aUuid != null ? ArquivoUuid.from(aUuid) : null,
-                null,
                 null,
                 null,
                 null,
@@ -160,9 +147,6 @@ public class Arquivo extends Entity<ArquivoId> {
     public String getCaminho() {
         return caminho;
     }
-    public String getDuracao() {
-        return duracao;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -180,8 +164,7 @@ public class Arquivo extends Entity<ArquivoId> {
                 Objects.equals(nome, arquivo.nome) &&
                 Objects.equals(tipoArquivo, arquivo.tipoArquivo) &&
                 Objects.equals(tamanho, arquivo.tamanho) &&
-                Objects.equals(caminho, arquivo.caminho) &&
-                Objects.equals(duracao, arquivo.duracao);
+                Objects.equals(caminho, arquivo.caminho);
     }
 
     @Override
@@ -194,7 +177,6 @@ public class Arquivo extends Entity<ArquivoId> {
                 nome,
                 tipoArquivo,
                 tamanho,
-                caminho,
-                duracao);
+                caminho);
     }
 }

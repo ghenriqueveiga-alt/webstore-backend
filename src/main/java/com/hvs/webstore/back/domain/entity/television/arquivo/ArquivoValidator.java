@@ -24,7 +24,6 @@ public class ArquivoValidator extends Validator {
         validateTipo();
         validateTamanho();
         validateCaminho();
-        validateDuracao();
     }
 
     private void validateNome() {
@@ -104,26 +103,6 @@ public class ArquivoValidator extends Validator {
 
         if(length < MIN_LENGTH || length > MAX_LENGTH) {
             this.validationHandler().append(new Erro("'path' must contain a minimum of 3 characters and a maximum of 255 characters"));
-        }
-    }
-
-    private void validateDuracao() {
-
-        final var duracao = this.arquivo.getDuracao();
-
-        if (duracao == null) {
-            this.validationHandler().append(new Erro("'duration' cannot be null"));
-        }
-
-        if (duracao != null && duracao.isBlank()) {
-            this.validationHandler().append(new Erro("'duration' cannot be blank"));
-        }
-
-        assert duracao != null;
-        final int length = arquivo.getDuracao().length();
-
-        if(length < MIN_LENGTH || length > MAX_LENGTH) {
-            this.validationHandler().append(new Erro("'duration' must contain a minimum of 3 characters and a maximum of 255 characters"));
         }
     }
 

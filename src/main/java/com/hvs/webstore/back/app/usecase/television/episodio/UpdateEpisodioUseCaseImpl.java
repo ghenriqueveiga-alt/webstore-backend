@@ -48,8 +48,7 @@ public class UpdateEpisodioUseCaseImpl extends UpdateEpisodioUseCase {
                                                  aIn.aCapaUrl(),
                                                  aIn.aProgramaId(),
                                                  aIn.aCorteIds(),
-                                                 aIn.aParte(),
-                                                 aIn.aOrdem());
+                                                 aIn.aParte());
             episodio.validate(notification);
 
             return notification.hasError() ? Left(notification) : update(episodio);

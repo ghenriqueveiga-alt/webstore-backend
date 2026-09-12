@@ -15,8 +15,7 @@ public record ReadEpisodioOutput(Long aId,
                                  Long aTemporada,
                                  String aCapaUrl,
                                  ReadProgramaOutput aPrograma,
-                                 @Schema(description = "Indica se a detecção automática de comerciais já foi executada para este episódio", example = "true")
-                                 Boolean aProcessado) {
+                                 String aDuracao) {
 
     public static ReadEpisodioOutput from(final Episodio aEpisodio) {
 
@@ -30,7 +29,7 @@ public record ReadEpisodioOutput(Long aId,
                 aEpisodio.getTemporada(),
                 aEpisodio.getCapaUrl(),
                 aEpisodio.getPrograma() != null ? ReadProgramaOutput.fromMinimal(aEpisodio.getPrograma()) : null,
-                aEpisodio.getProcessado());
+                aEpisodio.getDuracao());
     }
 
     public static ReadEpisodioOutput fromSimple(final Episodio aEpisodio) {

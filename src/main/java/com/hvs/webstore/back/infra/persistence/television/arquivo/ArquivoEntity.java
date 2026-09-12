@@ -17,7 +17,6 @@ public class ArquivoEntity extends BasicEntity {
     private String tipo;
     private Long tamanho;
     private String caminho;
-    private String duracao;
 
     public ArquivoEntity() {
 
@@ -29,8 +28,7 @@ public class ArquivoEntity extends BasicEntity {
                          final String nome,
                          final String tipo,
                          final Long tamanho,
-                         final String caminho,
-                         final String duracao) {
+                         final String caminho) {
 
         this.id = id;
         this.uuid = uuid;
@@ -39,7 +37,6 @@ public class ArquivoEntity extends BasicEntity {
         this.tipo = tipo;
         this.tamanho = tamanho;
         this.caminho = caminho;
-        this.duracao = duracao;
     }
 
     public static ArquivoEntity from(final Arquivo aArquivo) {
@@ -51,8 +48,7 @@ public class ArquivoEntity extends BasicEntity {
                 aArquivo.getNome(),
                 aArquivo.getTipo(),
                 aArquivo.getTamanho(),
-                aArquivo.getCaminho(),
-                aArquivo.getDuracao());
+                aArquivo.getCaminho());
     }
 
     public static ArquivoEntity from(final Long aArquivoId) {
@@ -72,8 +68,7 @@ public class ArquivoEntity extends BasicEntity {
                 nome,
                 tipo,
                 tamanho,
-                caminho,
-                duracao);
+                caminho);
     }
 
     public Arquivo toDomainChildren() {
@@ -85,8 +80,7 @@ public class ArquivoEntity extends BasicEntity {
                 nome,
                 tipo,
                 tamanho,
-                caminho,
-                duracao);
+                caminho);
     }
 
     public Arquivo toDomainSimple() {
@@ -96,7 +90,6 @@ public class ArquivoEntity extends BasicEntity {
                 uuid,
                 null,
                 nome,
-                null,
                 null,
                 null,
                 null);

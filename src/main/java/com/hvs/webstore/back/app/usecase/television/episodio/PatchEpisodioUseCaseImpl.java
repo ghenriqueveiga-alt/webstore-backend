@@ -47,7 +47,6 @@ public class PatchEpisodioUseCaseImpl extends PatchEpisodioUseCase {
                                                 aIn.aProgramaId(),
                                                 aIn.aCorteIds(),
                                                 aIn.aParte(),
-                                                aIn.aOrdem(),
                                                 episodioDb.get());
             episodio.validate(notification);
 

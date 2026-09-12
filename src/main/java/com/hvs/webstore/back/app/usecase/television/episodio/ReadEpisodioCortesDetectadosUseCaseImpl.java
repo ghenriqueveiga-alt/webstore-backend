@@ -88,7 +88,7 @@ public class ReadEpisodioCortesDetectadosUseCaseImpl extends ReadEpisodioCortesD
 
         final long fileSeconds = duracaoRealSegundos > 0
                 ? duracaoRealSegundos
-                : toSeconds(episodio.getArquivo() != null ? episodio.getArquivo().getDuracao() : null);
+                : toSeconds(episodio.getDuracao());
 
         final List<Corte> cortes = episodio.getCortes() != null
                 ? episodio.getCortes().stream()
@@ -161,8 +161,7 @@ public class ReadEpisodioCortesDetectadosUseCaseImpl extends ReadEpisodioCortesD
                 episodio.getTitulo(),
                 fileSeconds,
                 cortesOutput,
-                detectados,
-                episodio.getProcessado()));
+                detectados));
     }
 
     private static long toSeconds(final String aDuracao) {

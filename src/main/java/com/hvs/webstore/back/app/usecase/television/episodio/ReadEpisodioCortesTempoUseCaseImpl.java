@@ -96,7 +96,7 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
 
         final long fileSeconds = duracaoRealSegundos > 0
                 ? duracaoRealSegundos
-                : toSeconds(episodio.getArquivo() != null ? episodio.getArquivo().getDuracao() : null);
+                : toSeconds(episodio.getDuracao());
         final long totalCortesSeconds = cortes.stream().mapToLong(corte -> toSeconds(corte.getDuracao())).sum();
 
         long accumulatedSeconds = 0L;
@@ -134,7 +134,7 @@ public class ReadEpisodioCortesTempoUseCaseImpl extends ReadEpisodioCortesTempoU
         return Either.right(new ReadEpisodioCortesTempoOutput(
                 episodio.getId().getValue(),
                 episodio.getTitulo(),
-                episodio.getArquivo() != null ? episodio.getArquivo().getDuracao() : null,
+                episodio.getDuracao(),
                 formatSeconds(fileSeconds),
                 duracaoRealSegundos > 0 ? "video" : "banco",
                 formatSeconds(totalCortesSeconds),

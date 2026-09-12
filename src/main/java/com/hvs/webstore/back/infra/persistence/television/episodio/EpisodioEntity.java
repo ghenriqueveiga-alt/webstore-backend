@@ -34,9 +34,8 @@ public class EpisodioEntity extends BasicEntity {
     @OneToMany(mappedBy = "episodio")
     private List<CorteEntity> cortes;
 
-    private Boolean processado;
     private int parte;
-    private int ordem;
+    private String duracao;
 
     public EpisodioEntity() {
 
@@ -52,9 +51,8 @@ public class EpisodioEntity extends BasicEntity {
                           final String capaUrl,
                           final ProgramaEntity programa,
                           final List<CorteEntity> cortes,
-                          final Boolean processado,
                           final int parte,
-                          final int ordem) {
+                          final String duracao) {
 
         this.id = id;
         this.uuid = uuid;
@@ -66,9 +64,8 @@ public class EpisodioEntity extends BasicEntity {
         this.capaUrl = capaUrl;
         this.programa = programa;
         this.cortes = cortes;
-        this.processado = processado;
         this.parte = parte;
-        this.ordem = ordem;
+        this.duracao = duracao;
     }
 
     public static EpisodioEntity from(final Episodio aEpisodio) {
@@ -86,9 +83,8 @@ public class EpisodioEntity extends BasicEntity {
                 aEpisodio.getCortes() != null && !aEpisodio.getCortes().isEmpty() ?
                     aEpisodio.getCortes().stream().map(corte ->
                             CorteEntity.from(corte.getId().getValue())).toList() : null,
-                aEpisodio.getProcessado(),
                 aEpisodio.getParte(),
-                aEpisodio.getOrdem());
+                aEpisodio.getDuracao());
     }
 
     public static EpisodioEntity from(final Long aEpisodioId) {
@@ -113,9 +109,8 @@ public class EpisodioEntity extends BasicEntity {
                 programa != null ? programa.toDomainChildren() : null,
                 cortes != null && !cortes.isEmpty() ?
                         cortes.stream().map(CorteEntity::toDomainChildren).toList() : null,
-                processado,
                 parte,
-                ordem);
+                duracao);
     }
 
     public Episodio toDomainChildren() {
@@ -132,9 +127,8 @@ public class EpisodioEntity extends BasicEntity {
                 programa != null ? programa.toDomainSimple() : null,
                 cortes != null && !cortes.isEmpty() ?
                         cortes.stream().map(CorteEntity::toDomainSimple).toList() : null,
-                processado,
                 parte,
-                ordem);
+                duracao);
     }
 
     public Episodio toDomainSimple() {
@@ -150,9 +144,8 @@ public class EpisodioEntity extends BasicEntity {
                 null,
                 null,
                 null,
-                null,
                 -1,
-                -1);
+                null);
     }
 
     @Override

@@ -8,8 +8,7 @@ public record ReadArquivoOutput(Long aId,
                                 String aNome,
                                 String aTipo,
                                 Long aTamanho,
-                                String aCaminho,
-                                String aDuracao) {
+                                String aCaminho) {
 
     public static ReadArquivoOutput from(final Arquivo aArquivo) {
 
@@ -20,8 +19,7 @@ public record ReadArquivoOutput(Long aId,
                 aArquivo.getNome(),
                 aArquivo.getTipo(),
                 aArquivo.getTamanho(),
-                aArquivo.getCaminho(),
-                aArquivo.getDuracao());
+                aArquivo.getCaminho());
     }
 
     public static ReadArquivoOutput fromSimple(final Arquivo aArquivo) {
@@ -30,7 +28,6 @@ public record ReadArquivoOutput(Long aId,
                 aArquivo.getId().getValue(),
                 aArquivo.getUuid().getValue(),
                 aArquivo.getStatus().getCode(),
-                null,
                 null,
                 null,
                 null,

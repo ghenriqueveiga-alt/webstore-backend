@@ -30,8 +30,7 @@ public class CreateArquivoUseCaseImpl extends CreateArquivoUseCase {
         final var arquivo = Arquivo.create(aIn.aNome(),
                                            aIn.aTipoCode(),
                                            aIn.aTamanho(),
-                                           this.mediaPathResolver.relativize(aIn.aCaminho()),
-                                           aIn.aDuracao());
+                                           this.mediaPathResolver.relativize(aIn.aCaminho()));
         arquivo.validate(notification);
 
         return notification.hasError() ? API.Left(notification) : create(arquivo);

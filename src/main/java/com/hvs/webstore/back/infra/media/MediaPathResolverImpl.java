@@ -24,7 +24,16 @@ public class MediaPathResolverImpl implements MediaPathResolver {
         if (p.isAbsolute()) {
             return aCaminho;
         }
-        return this.root.resolve(p).normalize().toString();
+        // No container Linux, caminhos Windows ("F:\..." ou "F:/...") chegam
+        // aqui como relativos: remove a letra da unidade e resolve contra a raiz.
+        String normalized = aCaminho.replace('\\', '/');
+        if (normalized.length() >= 2 && normalized.charAt(1) == ':') {
+            normalized = normalized.substring(2);
+        }
+        while (normalized.startsWith("/")) {
+            normalized = normalized.substring(1);
+        }
+        return this.root.resolve(normalized).normalize().toString();
     }
 
     @Override

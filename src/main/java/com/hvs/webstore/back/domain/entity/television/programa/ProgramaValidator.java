@@ -27,7 +27,6 @@ public class ProgramaValidator extends Validator {
         validateLancamento();
         validateSinopse();
         validateEstudio();
-        validateDiretor();
     }
 
     private void validateNome() {
@@ -128,19 +127,6 @@ public class ProgramaValidator extends Validator {
 
             if(length > 255) {
                 this.validationHandler().append(new Erro("'studio' must contain a maximum of 255 characters"));
-            }
-        }
-    }
-
-    private void validateDiretor() {
-
-        final var diretor = this.programa.getDiretor();
-
-        if(diretor != null) {
-            final int length = diretor.trim().length();
-
-            if(length > 255) {
-                this.validationHandler().append(new Erro("'director' must contain a maximum of 255 characters"));
             }
         }
     }

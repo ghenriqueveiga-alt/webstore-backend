@@ -21,6 +21,7 @@ public class ProgramaEntity extends BasicEntity {
     private Boolean emProducao;
     private String tipoDesc;
     private Long temporadas;
+    private Long partes;
 
     @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EpisodioEntity> episodios;
@@ -41,9 +42,7 @@ public class ProgramaEntity extends BasicEntity {
     private String sinopse;
     private String classificacaoEtariaDesc;
     private String estudio;
-    private String diretor;
     private String capaUrl;
-    private String temporadaOriginal;
     private String redeOriginal;
     private String tipoExibicaoDesc;
     private String tituloAlternativo;
@@ -62,6 +61,7 @@ public class ProgramaEntity extends BasicEntity {
                           final Boolean emProducao,
                           final String tipoDesc,
                           final Long temporadas,
+                          final Long partes,
                           final List<EpisodioEntity> episodios,
                           final String lancamento,
                           final String encerramento,
@@ -69,9 +69,7 @@ public class ProgramaEntity extends BasicEntity {
                           final String sinopse,
                           final String classificacaoEtariaDesc,
                           final String estudio,
-                          final String diretor,
                           final String capaUrl,
-                          final String temporadaOriginal,
                           final String redeOriginal,
                           final String tipoExibicaoDesc,
                           final String tituloAlternativo,
@@ -87,6 +85,7 @@ public class ProgramaEntity extends BasicEntity {
         this.emProducao = emProducao;
         this.tipoDesc = tipoDesc;
         this.temporadas = temporadas;
+        this.partes = partes;
         this.episodios = episodios;
         this.lancamento = lancamento;
         this.encerramento = encerramento;
@@ -94,9 +93,7 @@ public class ProgramaEntity extends BasicEntity {
         this.sinopse = sinopse;
         this.classificacaoEtariaDesc = classificacaoEtariaDesc;
         this.estudio = estudio;
-        this.diretor = diretor;
         this.capaUrl = capaUrl;
-        this.temporadaOriginal = temporadaOriginal;
         this.redeOriginal = redeOriginal;
         this.tipoExibicaoDesc = tipoExibicaoDesc;
         this.tituloAlternativo = tituloAlternativo;
@@ -116,6 +113,7 @@ public class ProgramaEntity extends BasicEntity {
                 aPrograma.getEmProducao(),
                 aPrograma.getTipo().getDesc(),
                 aPrograma.getTemporadas(),
+                aPrograma.getPartes(),
                 aPrograma.getEpisodios() != null && !aPrograma.getEpisodios().isEmpty() ?
                         aPrograma.getEpisodios().stream().map(episodio ->
                                 EpisodioEntity.from(episodio.getId().getValue())).toList() : null,
@@ -127,9 +125,7 @@ public class ProgramaEntity extends BasicEntity {
                 aPrograma.getSinopse(),
                 aPrograma.getClassificacaoEtaria() != null ? aPrograma.getClassificacaoEtaria().getDesc() : null,
                 aPrograma.getEstudio(),
-                aPrograma.getDiretor(),
                 aPrograma.getCapaUrl(),
-                aPrograma.getTemporadaOriginal(),
                 aPrograma.getRedeOriginal(),
                 aPrograma.getTipoExibicao() != null ? aPrograma.getTipoExibicao().getDesc() : null,
                 aPrograma.getTituloAlternativo(),
@@ -157,6 +153,7 @@ public class ProgramaEntity extends BasicEntity {
                              emProducao,
                              tipoDesc,
                              temporadas,
+                             partes,
                              episodios != null && !episodios.isEmpty() ?
                                      episodios.stream().map(EpisodioEntity::toDomainChildren).toList() : null,
                              lancamento,
@@ -166,9 +163,7 @@ public class ProgramaEntity extends BasicEntity {
                              sinopse,
                              classificacaoEtariaDesc,
                              estudio,
-                             diretor,
                              capaUrl,
-                             temporadaOriginal,
                              redeOriginal,
                              tipoExibicaoDesc,
                              tituloAlternativo,
@@ -188,6 +183,7 @@ public class ProgramaEntity extends BasicEntity {
                              emProducao,
                              tipoDesc,
                              temporadas,
+                             partes,
                              episodios != null && !episodios.isEmpty() ?
                                      episodios.stream().map(EpisodioEntity::toDomainSimple).toList() : null,
                              lancamento,
@@ -197,9 +193,7 @@ public class ProgramaEntity extends BasicEntity {
                              sinopse,
                              classificacaoEtariaDesc,
                              estudio,
-                             diretor,
                              capaUrl,
-                             temporadaOriginal,
                              redeOriginal,
                              tipoExibicaoDesc,
                              tituloAlternativo,
@@ -228,7 +222,6 @@ public class ProgramaEntity extends BasicEntity {
                              null,
                              null,
                              capaUrl,
-                             null,
                              null,
                              null,
                              null,

@@ -9,7 +9,5 @@ public record ReadEpisodioCortesDetectadosOutput(Long aId,
                                                  String aTitulo,
                                                  Long aDuracaoRealSegundos,
                                                  List<CorteDetectadoOutput> aCortes,
-                                                 List<CorteDetectadoOutput> aDetectados,
-                                                 @Schema(description = "Indica se a detecção automática de comerciais já foi executada para este episódio", example = "true")
-                                                 Boolean aProcessado) {
+                                                 List<CorteDetectadoOutput> aDetectados) {
 }

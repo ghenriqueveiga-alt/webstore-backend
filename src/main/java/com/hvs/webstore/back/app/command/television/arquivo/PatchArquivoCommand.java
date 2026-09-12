@@ -6,8 +6,7 @@ public record PatchArquivoCommand(Long aId,
                                   String aNome,
                                   String aTipoCode,
                                   Long aTamanho,
-                                  String aCaminho,
-                                  String aDuracao) {
+                                  String aCaminho) {
 
     public static PatchArquivoCommand from(final Long aId,
                                            final PatchArquivoCommand aInput) {
@@ -19,8 +18,7 @@ public record PatchArquivoCommand(Long aId,
                 aInput.aNome,
                 aInput.aTipoCode,
                 aInput.aTamanho,
-                aInput.aCaminho,
-                aInput.aDuracao);
+                aInput.aCaminho);
     }
 
     public static PatchArquivoCommand from(final String aUuid,
@@ -33,7 +31,6 @@ public record PatchArquivoCommand(Long aId,
                 aInput.aNome,
                 aInput.aTipoCode,
                 aInput.aTamanho,
-                aInput.aCaminho,
-                aInput.aDuracao);
+                aInput.aCaminho);
     }
 }
