@@ -105,4 +105,7 @@ public class ArquivoEntity extends BasicEntity {
     public void setStatusDesc(final String statusDesc) {
         this.statusDesc = statusDesc;
     }
+    public String getCaminho() {
+        return this.caminho;
+    }
 }

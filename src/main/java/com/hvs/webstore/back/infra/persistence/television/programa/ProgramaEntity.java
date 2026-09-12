@@ -235,6 +235,9 @@ public class ProgramaEntity extends BasicEntity {
     public Long getId() {
         return this.id;
     }
+    public String getCapaUrl() {
+        return this.capaUrl;
+    }
     public void setId(final Long aId) {
         this.id = aId;
     }

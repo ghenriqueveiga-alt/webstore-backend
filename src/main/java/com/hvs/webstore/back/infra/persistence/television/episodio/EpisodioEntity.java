@@ -158,4 +158,10 @@ public class EpisodioEntity extends BasicEntity {
     public void setStatusDesc(final String statusDesc) {
         this.statusDesc = statusDesc;
     }
+    public String getCapaUrl() {
+        return this.capaUrl;
+    }
+    public ArquivoEntity getArquivo() {
+        return this.arquivo;
+    }
 }

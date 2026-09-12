@@ -185,6 +185,7 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
                     m.put("aTemporada", row[4] != null ? ((Number) row[4]).longValue() : null);
                     m.put("aParte", row[5] != null ? ((Number) row[5]).longValue() : 0L);
                     m.put("aDuracao", row[6] != null ? row[6].toString() : null);
+                    m.put("aCapaUrl", row[7] != null ? row[7].toString() : null);
                     return m;
                 })
                 .toList();
@@ -254,33 +255,62 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
     public ResponseEntity<byte[]> getCapa(
             @PathVariable("id") Long aId) {
 
-        return this.readEpisodioUseCase.execute(ReadEpisodioCommand.from(aId))
-                .fold(error -> ResponseEntity.notFound().<byte[]>build(),
-                        output -> {
-                            if (output.aCapaUrl() == null || output.aCapaUrl().isBlank()) {
-                                return ResponseEntity.notFound().<byte[]>build();
-                            }
+        final var episodioOpt = this.episodioJpaRepository.findById(aId);
+        if (episodioOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-                            final String resolved = this.mediaPathResolver.resolve(output.aCapaUrl());
-                            final File file = new File(resolved);
+        final var episodio = episodioOpt.get();
+        final var capaUrl = episodio.getCapaUrl();
 
-                            if (!file.exists()) {
-                                return ResponseEntity.notFound().<byte[]>build();
-                            }
+        if (capaUrl != null && !capaUrl.isBlank()) {
+            final String resolved = this.mediaPathResolver.resolve(capaUrl);
+            final File file = new File(resolved);
+            if (file.exists()) {
+                return serveImage(file, capaUrl);
+            }
+        }
 
-                            try {
-                                final byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
-                                final String name = output.aCapaUrl().toLowerCase();
-                                final MediaType mediaType = name.endsWith(".png")
-                                        ? MediaType.IMAGE_PNG : MediaType.IMAGE_JPEG;
+        if (episodio.getArquivo() != null && episodio.getArquivo().getCaminho() != null) {
+            final String caminho = episodio.getArquivo().getCaminho();
+            final String derived = caminho.replaceFirst("\\.(mp4|mkv|avi|flv|mov|wmv|webm)$", "_imagem.jpg");
+            final String resolved = this.mediaPathResolver.resolve(derived);
+            final File file = new File(resolved);
+            if (file.exists()) {
+                return serveImage(file, derived);
+            }
 
-                                return ResponseEntity.ok()
-                                        .contentType(mediaType)
-                                        .contentLength(bytes.length)
-                                        .body(bytes);
-                            } catch (IOException e) {
-                                return ResponseEntity.internalServerError().<byte[]>build();
-                            }
-                        });
+            final File dir = file.getParentFile();
+            if (dir != null && dir.isDirectory()) {
+                final String fname = file.getName();
+                final var m = java.util.regex.Pattern.compile("^(\\d+)_").matcher(fname);
+                if (m.find()) {
+                    final String numPrefix = m.group(1);
+                    final File[] matches = dir.listFiles((d, n) ->
+                            n.startsWith(numPrefix + "_") && n.endsWith("_imagem.jpg"));
+                    if (matches != null && matches.length > 0) {
+                        return serveImage(matches[0], matches[0].getName());
+                    }
+                }
+            }
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<byte[]> serveImage(final File file, final String name) {
+        try {
+            final byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
+            final String lower = name.toLowerCase();
+            final MediaType mediaType = lower.endsWith(".png")
+                    ? MediaType.IMAGE_PNG : MediaType.IMAGE_JPEG;
+
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .contentLength(bytes.length)
+                    .body(bytes);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
