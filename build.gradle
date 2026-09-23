@@ -4,9 +4,9 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.hvs.webstore'
+group = 'com.hvs.tv'
 version = '0.0.1-SNAPSHOT'
-description = 'Backend do projeto e de webstore HVS'
+description = 'Backend do project e de tv HVS'
 
 java {
 	toolchain {
@@ -36,6 +36,18 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+tasks.register("pTest") {
+	group = "application"
+	description = "Runs the Spring Boot application with the test profile"
+	doFirst {
+		tasks.bootRun.configure {
+			systemProperty("spring.profiles.active", "test")
+		}
+		apply from: 'build-test.gradle'
+	}
+	finalizedBy("bootRun")
+}
+
 tasks.register("pDev") {
 	group = "application"
 	description = "Runs the Spring Boot application with the dev profile"
@@ -58,30 +70,4 @@ tasks.register("pProd") {
 		apply from: 'build-prod.gradle'
 	}
 	finalizedBy("bootRun")
-}
-
-tasks.register("pTest") {
-	group = "application"
-	description = "Runs the Spring Boot application with the test profile"
-	doFirst {
-		tasks.bootRun.configure {
-			systemProperty("spring.profiles.active", "test")
-		}
-		apply from: 'build-test.gradle'
-	}
-	finalizedBy("bootRun")
-}
-
-tasks.register("scanCortes", JavaExec) {
-	group = "detection"
-	description = "Scans all episodes and saves intros, endings and commercials to corte table"
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = "com.hvs.webstore.back.EscanearESalvarCortes"
-}
-
-tasks.register("buscarCapas", JavaExec) {
-	group = "util"
-	description = "Fetches cover images from TMDB for programs without a capa_url"
-	classpath = sourceSets.test.runtimeClasspath
-	mainClass = "com.hvs.webstore.back.util.BuscarCapasProgramas"
 }

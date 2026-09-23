@@ -1,0 +1,60 @@
+package com.hvs.ws.back.app.output.grade;
+
+import com.hvs.ws.back.app.output.bloco.ReadBlocoOutput;
+import com.hvs.ws.back.domain.entity.grade.Grade;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+public record ReadGradeOutput(Long aId,
+                              String aUuid,
+                              String aStatusCode,
+                              String aNome,
+                              String aDescricao,
+                              List<ReadBlocoOutput> aBlocos,
+                              String aPeriodoInicio,
+                              String aPeriodoFim,
+                              Boolean aGradeAtiva) {
+
+    public static ReadGradeOutput from(final Grade aGrade) {
+
+        return new ReadGradeOutput(
+                aGrade.getId().getValue(),
+                aGrade.getUuid().getValue(),
+                aGrade.getStatus().getCode(),
+                aGrade.getNome(),
+                aGrade.getDescricao(),
+                aGrade.getBlocos() != null ? aGrade.getBlocos().stream().map(ReadBlocoOutput::fromSimple).toList() : null,
+                aGrade.getPeriodoInicio() != null ? aGrade.getPeriodoInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) : null,
+                aGrade.getPeriodoFim() != null ? aGrade.getPeriodoFim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) : null,
+                aGrade.getGradeAtiva());
+    }
+
+    public static ReadGradeOutput fromSimple(final Grade aGrade) {
+
+        return new ReadGradeOutput(
+                aGrade.getId().getValue(),
+                aGrade.getUuid().getValue(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    public static ReadGradeOutput fromMinimal(final Grade aGrade) {
+
+        return new ReadGradeOutput(
+                aGrade.getId().getValue(),
+                aGrade.getUuid().getValue(),
+                null,
+                aGrade.getNome(),
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+}

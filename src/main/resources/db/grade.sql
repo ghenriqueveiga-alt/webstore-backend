@@ -1,4 +1,4 @@
-﻿-- MySQL dump 10.13  Distrib 8.0.46, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.46, for Linux (x86_64)
 --
 -- Host: localhost    Database: db
 -- ------------------------------------------------------
@@ -21,7 +21,7 @@
 
 LOCK TABLES `grade` WRITE;
 /*!40000 ALTER TABLE `grade` DISABLE KEYS */;
-INSERT INTO `grade` (`id`, `descricao`, `grade_ativa`, `nome`, `periodo_fim`, `periodo_inicio`, `status_desc`, `uuid`) VALUES (1,'Grade principal com toda a programação semanal de segunda a domingo',_binary '','Grade Principal','2026-12-31','2026-01-01','Active','c194b59f-7136-48af-bb5f-0013556155af'),(2,'Programação voltada para o público infantil com desenhos animados e animes leves',_binary '\0','Grade Kids','2026-12-31','2026-01-01','Active','ae37b097-5005-43bc-ad1b-f1258e8f5751'),(3,'Programação noturna com animes mais maduros e s�?ries para adultos',_binary '\0','Grade Noite','2026-12-31','2026-01-01','Active','7311de52-ef83-45a8-9ad9-4d0a477dd30c'),(4,'Programação especial para sábados e domingos com maratons e especiais',_binary '\0','Grade Fim de Semana','2026-12-31','2026-01-01','Active','765d5367-48f8-4ff2-8bd5-7123a08061ee'),(5,'Animes e desenhos clássicos dos anos 80, 90 e 2000',_binary '\0','Grade Clássicos','2026-12-31','2026-01-01','Active','cf26713d-7d0a-4dd1-8429-f11c83a872ea');
+INSERT INTO `grade` (`id`, `descricao`, `grade_ativa`, `nome`, `periodo_fim`, `periodo_inicio`, `status_desc`, `uuid`) VALUES (1,'Grade principal com toda a programação semanal de segunda a domingo',_binary '','Grade Principal','2026-12-31','2026-01-01','Active','e9342c84-0ebd-4448-a1e6-3268f289b27c'),(2,'Programação voltada para o público infantil com desenhos animados e animes leves',_binary '\0','Grade Kids','2026-12-31','2026-01-01','Active','5ce64f6b-02af-4752-82e2-5c6d5cc55172'),(3,'Programação noturna com animes mais maduros e séries para adultos',_binary '\0','Grade Noite','2026-12-31','2026-01-01','Active','c679d6b2-3dcb-4352-94b8-bd4b71e8fbc5'),(4,'Programação especial para sábados e domingos com maratons e especiais',_binary '\0','Grade Fim de Semana','2026-12-31','2026-01-01','Active','58470fb5-a349-4d64-bdca-52d041916e23'),(5,'Animes e desenhos clássicos dos anos 80, 90 e 2000',_binary '\0','Grade Clássicos','2026-12-31','2026-01-01','Active','16ae36fe-904f-4d8f-806b-46c12284920e');
 /*!40000 ALTER TABLE `grade` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-12 11:56:22
+-- Dump completed on 2026-09-18 10:59:15

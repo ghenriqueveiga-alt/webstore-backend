@@ -1,0 +1,70 @@
+package com.hvs.ws.back.app.command.programa;
+
+import java.util.List;
+
+public record CreateProgramaCommand(String aNome,
+                                    Boolean aEmProducao,
+                                    String aTipoCode,
+                                    Long aTemporadas,
+                                    Long aPartes,
+                                    List<Long> aEpisodioIds,
+                                    String aLancamento,
+                                    String aEncerramento,
+                                    List<Long> aBlocoIds,
+                                    String aSinopse,
+                                    String aClassificacaoEtariaCode,
+                                    String aEstudio,
+                                    String aCapaUrl,
+                                    String aRedeOriginal,
+                                    String aTipoExibicaoCode,
+                                    String aTituloAlternativo,
+                                    String aAudioIdiomas,
+                                    String aLegendasDisponiveis,
+                                    String aSiteOficial,
+                                    List<Long> aGeneroIds) {
+
+    public static CreateProgramaCommand from(final String aNome,
+                                             final Boolean aEmProducao,
+                                             final String aTipoCode,
+                                             final Long aTemporadas,
+                                             final Long aPartes,
+                                             final List<Long> aEpisodioIds,
+                                             final String aLancamento,
+                                             final String aEncerramento,
+                                             final List<Long> aBlocoIds,
+                                             final String aSinopse,
+                                             final String aClassificacaoEtariaCode,
+                                             final String aEstudio,
+                                             final String aCapaUrl,
+                                             final String aRedeOriginal,
+                                             final String aTipoExibicaoCode,
+                                             final String aTituloAlternativo,
+                                             final String aAudioIdiomas,
+                                             final String aLegendasDisponiveis,
+                                             final String aSiteOficial,
+                                             final List<Long> aGeneroIds) {
+
+        return new CreateProgramaCommand(
+                aNome,
+                aEmProducao,
+                aTipoCode,
+                aTemporadas,
+                aPartes,
+                aEpisodioIds,
+                aLancamento,
+                aEncerramento,
+                aBlocoIds,
+                aSinopse,
+                aClassificacaoEtariaCode,
+                aEstudio,
+                aCapaUrl,
+                aRedeOriginal,
+                aTipoExibicaoCode,
+                aTituloAlternativo,
+                aAudioIdiomas,
+                aLegendasDisponiveis,
+                aSiteOficial,
+                aGeneroIds
+        );
+    }
+}
