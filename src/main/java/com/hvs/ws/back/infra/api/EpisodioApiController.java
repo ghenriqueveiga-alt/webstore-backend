@@ -12,6 +12,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Locale;
+
 @RestController
 @RequestMapping("/api/v1/episodio")
 @Tag(name = "Episódios", description = "Operações de CRUD, cortes de tempo e detecção de comerciais dos episódios")
@@ -127,6 +132,46 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
                 .toList();
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "/{id}/capa")
+    @Operation(summary = "Busca a imagem de capa do episódio")
+    public ResponseEntity<byte[]> readCapaEpisodioById(@PathVariable("id") Long aId) {
+
+        final var opt = this.episodioJpaRepository.findById(aId);
+        if (opt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // capa_url guarda o caminho local da imagem no servidor,
+        // por exemplo "F:/Programa/01_Titulo_imagem.jpg".
+        final String capaUrl = opt.get().getCapaUrl();
+        if (capaUrl == null || capaUrl.isBlank()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        final File arquivo = new File(capaUrl);
+        if (!arquivo.isFile() || arquivo.length() == 0) {
+            return ResponseEntity.notFound().build();
+        }
+
+        try {
+            final byte[] bytes = Files.readAllBytes(arquivo.toPath());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.valueOf(contentTypeDaCapa(capaUrl)))
+                    .contentLength(bytes.length)
+                    .body(bytes);
+        } catch (final IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    private String contentTypeDaCapa(final String aCaminho) {
+        final String caminho = aCaminho.toLowerCase(Locale.ROOT);
+        if (caminho.endsWith(".png")) return "image/png";
+        if (caminho.endsWith(".webp")) return "image/webp";
+        if (caminho.endsWith(".gif")) return "image/gif";
+        return "image/jpeg";
     }
 
     @PutMapping(value = "/id/{id}")
