@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="002-create-programa" author="hvs">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="programa"/></not>
+        </preConditions>
+        <createTable tableName="programa">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="status_desc" type="VARCHAR(255)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="em_producao" type="BIT(1)"/>
+            <column name="tipo_desc" type="VARCHAR(255)"/>
+            <column name="temporadas" type="BIGINT"/>
+            <column name="partes" type="BIGINT"/>
+            <column name="lancamento" type="VARCHAR(255)"/>
+            <column name="encerramento" type="VARCHAR(255)"/>
+            <column name="sinopse" type="TEXT"/>
+            <column name="classificacao_etaria_desc" type="VARCHAR(255)"/>
+            <column name="estudio" type="VARCHAR(255)"/>
+            <column name="capa_url" type="VARCHAR(255)"/>
+            <column name="rede_original" type="VARCHAR(255)"/>
+            <column name="tipo_exibicao_desc" type="VARCHAR(255)"/>
+            <column name="titulo_alternativo" type="VARCHAR(255)"/>
+            <column name="audio_idiomas" type="VARCHAR(255)"/>
+            <column name="legendas_disponiveis" type="VARCHAR(255)"/>
+            <column name="site_oficial" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

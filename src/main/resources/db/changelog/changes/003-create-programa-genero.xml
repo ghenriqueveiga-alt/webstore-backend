@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="003-create-programa-genero" author="hvs">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="programa_genero"/></not>
+        </preConditions>
+        <createTable tableName="programa_genero">
+            <column name="programa_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genero_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="programa_genero" columnNames="programa_id, genero_id" constraintName="pk_programa_genero"/>
+        <addForeignKeyConstraint baseTableName="programa_genero" baseColumnNames="programa_id"
+                                 referencedTableName="programa" referencedColumnNames="id"
+                                 constraintName="fk_programa_genero_programa"/>
+        <addForeignKeyConstraint baseTableName="programa_genero" baseColumnNames="genero_id"
+                                 referencedTableName="genero" referencedColumnNames="id"
+                                 constraintName="fk_programa_genero_genero"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="007-create-bloco" author="hvs">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="bloco"/></not>
+        </preConditions>
+        <createTable tableName="bloco">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="VARCHAR(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="status_desc" type="VARCHAR(255)"/>
+            <column name="programa_id" type="BIGINT">
+                <constraints foreignKeyName="fk_bloco_programa" references="programa(id)"/>
+            </column>
+            <column name="horario" type="VARCHAR(255)"/>
+            <column name="grade_id" type="BIGINT">
+                <constraints foreignKeyName="fk_bloco_grade" references="grade(id)"/>
+            </column>
+            <column name="dia_semana_desc" type="VARCHAR(255)"/>
+            <column name="faixa_horario_desc" type="VARCHAR(255)"/>
+            <column name="tipo_bloco_desc" type="VARCHAR(255)"/>
+        </createTable>
+        <createIndex tableName="bloco" indexName="idx_bloco_programa">
+            <column name="programa_id"/>
+        </createIndex>
+        <createIndex tableName="bloco" indexName="idx_bloco_grade">
+            <column name="grade_id"/>
+        </createIndex>
+        <createIndex tableName="bloco" indexName="idx_bloco_horario">
+            <column name="horario"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
