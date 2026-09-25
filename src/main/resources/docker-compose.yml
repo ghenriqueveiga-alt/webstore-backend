@@ -1,0 +1,75 @@
+services:
+
+  backend-mysql:
+    image: mysql:8.0
+    container_name: backend-mysql
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    networks:
+      - ws-network
+    restart: unless-stopped
+
+  ws-frontend:
+    build: ./ws-frontend
+    container_name: ws-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - ws-backend
+    networks:
+      - ws-network
+    restart: unless-stopped
+
+  ws-backend:
+    build: ./ws-backend
+    container_name: ws-backend
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: backend-mysql
+      WS_MEDIA_ROOT: /media
+    volumes:
+      - type: bind
+        source: F:\
+        target: /media
+        read_only: true
+    depends_on:
+      - backend-mysql
+    networks:
+      - ws-network
+    restart: unless-stopped
+
+  ws-nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    container_name: ws-nginx
+    ports:
+      - "4202:80"
+    depends_on:
+      - ws-backend
+    networks:
+      - ws-network
+    restart: unless-stopped
+
+  ws-nginx-tor:
+    build:
+      context: .
+      dockerfile: nginx-tor/Dockerfile
+    container_name: ws-nginx-tor
+    ports:
+      - "4201:4201"
+    depends_on:
+      - ws-frontend
+      - ws-backend
+    networks:
+      - ws-network
+    restart: unless-stopped
+
+networks:
+  ws-network:
+    driver: bridge
