@@ -56,6 +56,20 @@ private final CreateEpisodioUseCase createEpisodioUseCase;
                         success -> new ResponseEntity<>(success, HttpStatus.OK));
     }
 
+    @GetMapping
+    public ResponseEntity<?> readAllEpisodio(
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "asc") String direction) {
+
+        return this.readAllEpisodioUseCase.execute(new ReadAllEpisodioCommand(
+                        EpisodioSearchQuery.from(search, null, null, page, size, sort, direction)))
+                .fold(error -> new ResponseEntity<>(error, HttpStatus.CONFLICT),
+                        success -> new ResponseEntity<>(success, HttpStatus.OK));
+    }
+
     @GetMapping(value = "/id/{id}")
     @Operation(summary = "Busca episódio por id",
             responses = @ApiResponse(responseCode = "200", description = "Episódio encontrado",
